@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
+	<title></title>
+
+
+<script>
+
+var map;
+var service;
+var locationInfo = [];
+var markers = [];
+var info = [];
+var userLat = [];
+var userLong = [];
+var markerContent = [];
+var currentInfoWindow = null; 
+
+function initMap() {
+	var options = {
+		zoom: 9,
+		center: {lat: 29.7604, lng: -95.3698}
+	};
+
+	map = new google.maps.Map(document.getElementById('map'), options);
+
+	function addMarker(coords, info) {
+		var marker = new google.maps.Marker({
+			position: coords,
+			map: map,
+			animation : google.maps.Animation.DROP
+		});
+
+		markers.push(marker);
+
+		var infowindow = new google.maps.InfoWindow({
+          content: info
+        });
+
+		markerContent.push(infowindow);
+
+    
+		google.maps.event.addListener(marker, 'click', function() { 
+		    if (currentInfoWindow != null) { 
+		        currentInfoWindow.close(); 
+		    } 
+		    infowindow.open(map, marker); 
+		    currentInfoWindow = infowindow; 
+		}); 
+
+        google.maps.event.addListener(map, "click", function(event) {
+        infowindow.close();
+        //autoCenter();
+    	});
+	}
+
+	// //function that goes through the markers array - helps to delete markers
+
+	function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);
+        }
+    }
+
+ //      //function that sets the setMapOnAll function to null - helps to delete markers
+
+	function clearMarkers() {
+        setMapOnAll(null);
+     }
+
+
+
+
+    $("#busy").submit(function(event) {
+
+		event.preventDefault();	
+
+
+		var userAddress = $("#input").val().trim();
+		var userLocation = $("#location").val().trim();
+
+		// $("#error").empty();
+		
+
+
+		if (userAddress === "") {
+			// $("#error").html("<br>You must enter a location before clicking submit");
+			console.log("Enter an address bruh...")
+		} 
+
+		else {
+			clearMarkers();
+			markers = [];
+			markerContent = [];
+			locationInfo = [];
+			
+
+			var geocoder = new google.maps.Geocoder();
+			geocoder.geocode( { 'address': userAddress}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+			 			map.setCenter(results[0].geometry.location);
+			 			userLat.push(results[0].geometry.location.lat());
+			 			userLong.push(results[0].geometry.location.lng());
+			 		
+			 			console.log(userLat);
+			 			console.log(userLong);
+
+			 			
+			 			}
+					else {
+						// $("#error").html("<br>Geocode was not successful for the following reason: " + status + " Please try again");
+						console.log("Not working fam...")
+					}
+			
+
+				var latLong = new google.maps.LatLng(userLat, userLong)
+
+				var request = {
+				    location: latLong,
+				    radius: '8046',
+				    keyword: userLocation
+				};
+
+				    service = new google.maps.places.PlacesService(map);
+					service.nearbySearch(request, callback);
+
+
+
+				function callback(results, status) {
+				  if (status !== google.maps.places.PlacesServiceStatus.OK) {
+				    console.error(status);
+				    return;
+				  }
+				  for (var i = 0, result; result = results[i]; i++) {
+				  	console.log(result)
+				  	var resultsLat = results[i].geometry.location.lat()
+				  	var resultsLng = results[i].geometry.location.lng()
+				  	locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
+				    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
+				    
+				  }
+				}
+			})
+
+			userLat = [];
+			userLong = [];
+
+//https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
+
+
+}
+
+})
+
+}
+
+
+</script>
+
+<style>
+
+#map {
+	height: 500px;
+	width: 700px;
+}
+
+</style>
+
+</head>
+<body>
+
+ <form id="busy">
+	<h4 class="userType">Your Location: *</h4> <input type="text" name="address" id="input" placeholder="Ex: Address/City/State/Zip" class="form-control">
+	<h4 class="userType">Name of Place</h4><input type="text" min="0" name="location" class="form-control" id="location" placeholder="Ex: Name of store/bar/restaurant/etc">
+	<div id="error" class="text-center"></div>            
+	<br>
+	<input type="submit" value="Let's Go!" class="btn btn-primary" id="submit">
+</form>
+
+<div id="map">
+</div>
+
+
+</body>
+
+ <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDomeXKvy8n2GG1lCgJ7KZLenY7atqHdNU&callback=initMap&libraries=places"></script>
+
+</html>
