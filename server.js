@@ -3,7 +3,6 @@ const methodOverride = require('method-override');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const bodyParser = require('body-parser');
-const NodeGeocoder = require('node-geocoder');
 
 // Set port
 const PORT = process.env.PORT || 3000
@@ -31,12 +30,7 @@ app.use(methodOverride('_method'));
 
 // Search Store Page
 app.get('/', (req, res, next) => {
-    res.render('search');
-});
-
-// Add Store Page
-app.get('/addstore', (req, res, next) => {
-    res.render('add');
+    res.render('index');
 });
 
 app.listen(PORT, () => {
