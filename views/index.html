@@ -5,9 +5,9 @@
 <meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
 	<title></title>
 
-
+<script type="text/javascript" src="assets/js/app.js"></script>
 <script>
-
+//I put this in the assets/js/ folder under app.js.. delete this once server is up and running
 var map;
 var service;
 var locationInfo = [];
@@ -80,14 +80,14 @@ function initMap() {
 
 		var userAddress = $("#input").val().trim();
 		var userLocation = $("#location").val().trim();
-
-		// $("#error").empty();
+		$("#error").empty();
+		$("#error1").empty();
 		
 
 
-		if (userAddress === "") {
-			// $("#error").html("<br>You must enter a location before clicking submit");
-			console.log("Enter an address bruh...")
+		if (userAddress === "" || userLocation === "") {
+			$("#error1").html("<br>You must enter a location before clicking submit");
+			
 		} 
 
 		else {
@@ -99,20 +99,26 @@ function initMap() {
 
 			var geocoder = new google.maps.Geocoder();
 			geocoder.geocode( { 'address': userAddress}, function(results, status) {
-					if (status == google.maps.GeocoderStatus.OK) {
-			 			map.setCenter(results[0].geometry.location);
-			 			userLat.push(results[0].geometry.location.lat());
-			 			userLong.push(results[0].geometry.location.lng());
-			 		
-			 			console.log(userLat);
-			 			console.log(userLong);
+				if (status == google.maps.GeocoderStatus.OK) {
+		 			map.setCenter(results[0].geometry.location);
+		 			userLat.push(results[0].geometry.location.lat());
+		 			userLong.push(results[0].geometry.location.lng());
+		 		
+		 			console.log(userLat);
+		 			console.log(userLong);
 
-			 			
-			 			}
-					else {
-						// $("#error").html("<br>Geocode was not successful for the following reason: " + status + " Please try again");
-						console.log("Not working fam...")
+		 			
+		 			}
+				else {
+					if (status === "ZERO_RESULTS") {
+						$("#error1").html("<br>Try to update your address and location information and try again!");
+						return;
 					}
+					else {
+						$("#error1").html("<br>Geocode was not successful for the following reason: " + status + " Please try again");
+						return;
+					}
+				}
 			
 
 				var latLong = new google.maps.LatLng(userLat, userLong)
@@ -129,9 +135,25 @@ function initMap() {
 
 
 				function callback(results, status) {
+				  var placeNum = 1
+
+				  for (var i = 0; i < 5; i++) {
+				  	$("#place-" + placeNum).text("")
+				  	placeNum++
+				  }
+
+				  placeNum = 1
+
 				  if (status !== google.maps.places.PlacesServiceStatus.OK) {
-				    console.error(status);
-				    return;
+
+				  	if (status === "ZERO_RESULTS") {
+				  		$("#error").html("Zero results were found. Try again!")
+				  		return;
+				  	}
+				  	else {
+					    $("#error").html(status + " Try again!");
+					    return;
+					}
 				  }
 				  for (var i = 0, result; result = results[i]; i++) {
 				  	console.log(result)
@@ -139,8 +161,14 @@ function initMap() {
 				  	var resultsLng = results[i].geometry.location.lng()
 				  	locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
 				    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
+
+				    $("#place-" + placeNum).attr("data-id", results[i].id);
+				    $("#link-" + placeNum).attr("href", "/places/" + results[i].id)
+				    $("#place-" + placeNum).text("Place Name: " + results[i].name + " Address: " + results[i].vicinity);
 				    
+				    placeNum++
 				  }
+				  placeNum = 1;
 				}
 			})
 
@@ -150,9 +178,9 @@ function initMap() {
 //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
 
 
-}
+		}
 
-})
+	})
 
 }
 
@@ -171,21 +199,30 @@ function initMap() {
 </head>
 <body>
 
- <form id="busy">
-	<h4 class="userType">Your Location: *</h4> <input type="text" name="address" id="input" placeholder="Ex: Address/City/State/Zip" class="form-control">
-	<h4 class="userType">Name of Place</h4><input type="text" min="0" name="location" class="form-control" id="location" placeholder="Ex: Name of store/bar/restaurant/etc">
-	<div id="error" class="text-center"></div>            
-	<br>
-	<input type="submit" value="Let's Go!" class="btn btn-primary" id="submit">
-</form>
+	<div id="error"></div>
+	<div id="error1"></div>
 
-<div id="map">
-</div>
+	<form id="busy">
+		<h4 class="userType">Your Location: *</h4> <input type="text" name="address" id="input" placeholder="Ex: Address/City/State/Zip" class="form-control">
+		<h4 class="userType">Name of Place</h4><input type="text" min="0" name="location" class="form-control" id="location" placeholder="Ex: Name of store/bar/restaurant/etc">
+		<div id="error" class="text-center"></div>            
+		<br>
+		<input type="submit" value="Let's Go!" class="btn btn-primary" id="submit">
+	</form>
+
+	<div id="map">
+	</div>
+
+	<a id="link-1"><div id="place-1" data-id=""></div></a>
+	<a id="link-2"><div id="place-2" data-id=""></div></a> 
+	<a id="link-3"><div id="place-3" data-id=""></div></a>
+	<a id="link-4"><div id="place-4" data-id=""></div></a>
+	<a id="link-5"><div id="place-5" data-id=""></div></a>
 
 
 </body>
 
- <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDomeXKvy8n2GG1lCgJ7KZLenY7atqHdNU&callback=initMap&libraries=places"></script>
 
