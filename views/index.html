@@ -80,13 +80,13 @@ function initMap() {
 
 		var userAddress = $("#input").val().trim();
 		var userLocation = $("#location").val().trim();
-
 		$("#error").empty();
+		$("#error1").empty();
 		
 
 
 		if (userAddress === "" || userLocation === "") {
-			$("#error").html("<br>You must enter a location before clicking submit");
+			$("#error1").html("<br>You must enter a location before clicking submit");
 			
 		} 
 
@@ -110,7 +110,14 @@ function initMap() {
 		 			
 		 			}
 				else {
-					$("#error").html("<br>Geocode was not successful for the following reason: " + status + " Please try again");
+					if (status === "ZERO_RESULTS") {
+						$("#error1").html("<br>Try to update your address and location information and try again!");
+						return;
+					}
+					else {
+						$("#error1").html("<br>Geocode was not successful for the following reason: " + status + " Please try again");
+						return;
+					}
 				}
 			
 
@@ -129,9 +136,24 @@ function initMap() {
 
 				function callback(results, status) {
 				  var placeNum = 1
+
+				  for (var i = 0; i < 5; i++) {
+				  	$("#place-" + placeNum).text("")
+				  	placeNum++
+				  }
+
+				  placeNum = 1
+
 				  if (status !== google.maps.places.PlacesServiceStatus.OK) {
-				    console.error(status);
-				    return;
+
+				  	if (status === "ZERO_RESULTS") {
+				  		$("#error").html("Zero results were found. Try again!")
+				  		return;
+				  	}
+				  	else {
+					    $("#error").html(status + " Try again!");
+					    return;
+					}
 				  }
 				  for (var i = 0, result; result = results[i]; i++) {
 				  	console.log(result)
@@ -178,6 +200,7 @@ function initMap() {
 <body>
 
 	<div id="error"></div>
+	<div id="error1"></div>
 
 	<form id="busy">
 		<h4 class="userType">Your Location: *</h4> <input type="text" name="address" id="input" placeholder="Ex: Address/City/State/Zip" class="form-control">
