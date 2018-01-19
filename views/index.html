@@ -17,21 +17,35 @@ var userLat = [];
 var userLong = [];
 var markerContent = [];
 var currentInfoWindow = null; 
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 function initMap() {
 	var options = {
 		zoom: 9,
 		center: {lat: 29.7604, lng: -95.3698}
 	};
+<<<<<<< HEAD
+	map = new google.maps.Map(document.getElementById('map'), options);
+=======
 
 	map = new google.maps.Map(document.getElementById('map'), options);
 
+>>>>>>> master
 	function addMarker(coords, info) {
 		var marker = new google.maps.Marker({
 			position: coords,
 			map: map,
 			animation : google.maps.Animation.DROP
 		});
+<<<<<<< HEAD
+		markers.push(marker);
+		var infowindow = new google.maps.InfoWindow({
+          content: info
+        });
+		markerContent.push(infowindow);
+=======
 
 		markers.push(marker);
 
@@ -41,6 +55,7 @@ function initMap() {
 
 		markerContent.push(infowindow);
 
+>>>>>>> master
     
 		google.maps.event.addListener(marker, 'click', function() { 
 		    if (currentInfoWindow != null) { 
@@ -49,20 +64,35 @@ function initMap() {
 		    infowindow.open(map, marker); 
 		    currentInfoWindow = infowindow; 
 		}); 
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
         google.maps.event.addListener(map, "click", function(event) {
         infowindow.close();
         //autoCenter();
     	});
 	}
+<<<<<<< HEAD
+	// //function that goes through the markers array - helps to delete markers
+=======
 
 	// //function that goes through the markers array - helps to delete markers
 
+>>>>>>> master
 	function setMapOnAll(map) {
         for (var i = 0; i < markers.length; i++) {
           markers[i].setMap(map);
         }
     }
+<<<<<<< HEAD
+ //      //function that sets the setMapOnAll function to null - helps to delete markers
+	function clearMarkers() {
+        setMapOnAll(null);
+     }
+    $("#busy").submit(function(event) {
+		event.preventDefault();	
+=======
 
  //      //function that sets the setMapOnAll function to null - helps to delete markers
 
@@ -78,25 +108,35 @@ function initMap() {
 		event.preventDefault();	
 
 
+>>>>>>> master
 		var userAddress = $("#input").val().trim();
 		var userLocation = $("#location").val().trim();
 		$("#error").empty();
 		$("#error1").empty();
 		
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> master
 		if (userAddress === "" || userLocation === "") {
 			$("#error1").html("<br>You must enter a location before clicking submit");
 			
 		} 
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 		else {
 			clearMarkers();
 			markers = [];
 			markerContent = [];
 			locationInfo = [];
 			
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 			var geocoder = new google.maps.Geocoder();
 			geocoder.geocode( { 'address': userAddress}, function(results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
@@ -106,7 +146,10 @@ function initMap() {
 		 		
 		 			console.log(userLat);
 		 			console.log(userLong);
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 		 			
 		 			}
 				else {
@@ -120,14 +163,24 @@ function initMap() {
 					}
 				}
 			
+<<<<<<< HEAD
+				var latLong = new google.maps.LatLng(userLat, userLong)
+=======
 
 				var latLong = new google.maps.LatLng(userLat, userLong)
 
+>>>>>>> master
 				var request = {
 				    location: latLong,
 				    radius: '8046',
 				    keyword: userLocation
 				};
+<<<<<<< HEAD
+				    service = new google.maps.places.PlacesService(map);
+					service.nearbySearch(request, callback);
+				function callback(results, status) {
+				  var placeNum = 1
+=======
 
 				    service = new google.maps.places.PlacesService(map);
 					service.nearbySearch(request, callback);
@@ -137,15 +190,21 @@ function initMap() {
 				function callback(results, status) {
 				  var placeNum = 1
 
+>>>>>>> master
 				  for (var i = 0; i < 5; i++) {
 				  	$("#place-" + placeNum).text("")
 				  	placeNum++
 				  }
+<<<<<<< HEAD
+				  placeNum = 1
+				  if (status !== google.maps.places.PlacesServiceStatus.OK) {
+=======
 
 				  placeNum = 1
 
 				  if (status !== google.maps.places.PlacesServiceStatus.OK) {
 
+>>>>>>> master
 				  	if (status === "ZERO_RESULTS") {
 				  		$("#error").html("Zero results were found. Try again!")
 				  		return;
@@ -161,7 +220,10 @@ function initMap() {
 				  	var resultsLng = results[i].geometry.location.lng()
 				  	locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
 				    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 				    $("#place-" + placeNum).attr("data-id", results[i].id);
 				    $("#link-" + placeNum).attr("href", "/places/" + results[i].id)
 				    $("#place-" + placeNum).text("Place Name: " + results[i].name + " Address: " + results[i].vicinity);
@@ -171,6 +233,17 @@ function initMap() {
 				  placeNum = 1;
 				}
 			})
+<<<<<<< HEAD
+			userLat = [];
+			userLong = [];
+//https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
+		}
+	})
+}
+</script>
+
+<style>
+=======
 
 			userLat = [];
 			userLong = [];
@@ -189,11 +262,15 @@ function initMap() {
 
 <style>
 
+>>>>>>> master
 #map {
 	height: 500px;
 	width: 700px;
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 </style>
 
 </head>

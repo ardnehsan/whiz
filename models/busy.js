@@ -7,7 +7,11 @@ module.exports = function(sequelize, DataTypes) {
         //this should take the amount of "True" given from the vote.js table based on the comments_id
         //I think a join would help do this?
         //CHECK CONSTRAINT should be used I think to help with busy column
+<<<<<<< HEAD
+    },
+=======
     }
+>>>>>>> master
     numOfDownVotes: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
@@ -15,7 +19,11 @@ module.exports = function(sequelize, DataTypes) {
         //this should take the amount of "False" given from the vote.js table based on the comments_id
         //I think a join would help do this?
         //CHECK CONSTRAINT should be used I think to help with busy column
+<<<<<<< HEAD
+    },
+=======
     }
+>>>>>>> master
     busy: {
         type: DataTypes.BOOLEAN,
         defaultValue: 0,
@@ -31,4 +39,8 @@ module.exports = function(sequelize, DataTypes) {
 
 });
   return Busy;
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> master
