@@ -1,4 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
+<<<<<<< HEAD
     var Comments = sequelize.define("comments", {
       user: {
           type: DataTypes.STRING
@@ -17,3 +18,23 @@ module.exports = function(sequelize, DataTypes) {
     });
     return Comments;
   };
+=======
+  var Comments = sequelize.define("comments", {
+    user: {
+    	type: DataTypes.STRING
+    	//Keep value as Null until we have a login with user info
+    	// allowNull: false
+    },
+    place_id: {
+    	type: DataTypes.TEXT,
+    	allowNull: false
+    },
+    comment: {
+    	type: DataTypes.TEXT,
+    	allowNull: false
+    }
+
+  });
+  return Comments;
+};
+>>>>>>> master
