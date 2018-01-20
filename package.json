@@ -1,7 +1,11 @@
 {
   "name": "whiz",
   "version": "1.0.0",
+<<<<<<< HEAD
+  "description": "",
+=======
   "description": "An app that helps the user see if a place is busy or not",
+>>>>>>> master
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,6 +15,9 @@
     "type": "git",
     "url": "git+https://github.com/ardnehsan/whiz.git"
   },
+<<<<<<< HEAD
+  "author": "",
+=======
   "keywords": [
     "busy",
     "store",
@@ -18,6 +25,7 @@
     "business"
   ],
   "author": "Nash, Brad, Jose, Adrian, & Michael",
+>>>>>>> master
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ardnehsan/whiz/issues"
@@ -26,7 +34,13 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+<<<<<<< HEAD
+    "express-handlebars": "^3.0.0",
+    "method-override": "^2.3.10",
+    "path": "^0.12.7"
+=======
     "mysql": "^2.15.0",
     "sequelize": "^4.31.2"
+>>>>>>> master
   }
 }
