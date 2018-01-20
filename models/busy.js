@@ -10,8 +10,12 @@ module.exports = function(sequelize, DataTypes) {
 <<<<<<< HEAD
     },
 =======
+<<<<<<< HEAD
+    },
+=======
     }
 >>>>>>> master
+>>>>>>> 66df61e09f62bcbe3d735e76f0a6b4f9dd3a85c5
     numOfDownVotes: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
@@ -22,8 +26,12 @@ module.exports = function(sequelize, DataTypes) {
 <<<<<<< HEAD
     },
 =======
+<<<<<<< HEAD
+    },
+=======
     }
 >>>>>>> master
+>>>>>>> 66df61e09f62bcbe3d735e76f0a6b4f9dd3a85c5
     busy: {
         type: DataTypes.BOOLEAN,
         defaultValue: 0,

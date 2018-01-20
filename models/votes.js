@@ -41,7 +41,7 @@ module.exports = function(sequelize, DataTypes) {
     upVote: {
     	type: DataTypes.BOOLEAN,
     	defaultValue: 0,
-    	allowNull: false
+    	allowNull: false,
         validate: {
             upVoteValidation() {
                 if (this.downVote === true) {
@@ -49,11 +49,11 @@ module.exports = function(sequelize, DataTypes) {
                 }
             }
         }
-    }
+    },
     downVote: {
     	type: DataTypes.BOOLEAN,
     	defaultValue: 0,
-    	allowNull: false
+    	allowNull: false,
         validate: {
             downVoteValidation() {
                 if (this.upVote === true) {
