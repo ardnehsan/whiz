@@ -81,12 +81,12 @@ app.get('*', function (req, res, next) {
 });
 
 // Search Store Page
-app.get('/', (req, res, next) => {
-    res.render('index');
-});
+// app.get('/', (req, res, next) => {
+//     res.render('index');
+// });
 
 //Michael added this in
-var routes = require("./controllers/controller.js");
+const routes = require('./controllers/controller.js')
 
 app.use("/", routes);
 //this is the end of what I added in...

@@ -1,25 +1,28 @@
+//require dependencies
+const express = require('express');
+const router = express.Router();
 
 var db = require("../models");
 
-module.exports = function(app) {
 
   
-  app.get("/", function(req, res) {
+router.get("/", function(req, res) {
     console.log(req.body.placeId);
-    db.Comments.findAll({
+    db.comments.findAll({
     	where: {
     		place_id: req.body.placeId
     	}
     }).then(function(dbComments) {
 
       // res.render("index", { comments: dbComments });
+      res.render('index', dbComments)
       res.json(dbComments);
       console.log(dbComments)
       
     });
   });
 
-app.post("/places/:place_id/:user", function(req, res) {
+  router.post("/places/:place_id/:user", function(req, res) {
      
     db.Comments.create({
       user: req.params.user,
@@ -44,7 +47,7 @@ app.post("/places/:place_id/:user", function(req, res) {
   });
 
 
-app.delete("/places/:place_id/:user", function(req, res) {
+  router.delete("/places/:place_id/:user", function(req, res) {
     
     db.Comments.destroy({
       where: {
@@ -73,7 +76,7 @@ app.delete("/places/:place_id/:user", function(req, res) {
 
 
 
-app.put("/places/:place_id/:user", function(req, res) {
+  router.put("/places/:place_id/:user", function(req, res) {
     
     db.Comment.update({
       comment: req.body.comment
@@ -166,4 +169,4 @@ app.put("/places/:place_id/:user", function(req, res) {
 
 
 
-}
+module.exports = router
