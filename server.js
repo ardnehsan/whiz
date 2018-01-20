@@ -86,7 +86,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // });
 
 //Michael added this in
-var routes = require("./controllers/controller.js");
+const routes = require('./controllers/controller.js')
 
 app.use("/", routes);
 //this is the end of what I added in...

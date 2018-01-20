@@ -1,25 +1,34 @@
+//require dependencies
+const express = require('express');
+const router = express.Router();
 
 var db = require("../models");
 
-module.exports = function(app) {
-
+router.get('/', (req, res, next) => {
+    res.render('index');
+});
   
-  app.get("/", function(req, res) {
-    console.log(req.body.placeId);
-    db.Comments.findAll({
+router.get("/:id", function(req, res) {
+    
+    db.comments.findAll({
     	where: {
-    		place_id: req.body.placeId
+    		place_id: req.params.id
     	}
     }).then(function(dbComments) {
 
-      // res.render("index", { comments: dbComments });
-      res.json(dbComments);
-      console.log(dbComments)
-      
+      var allComments = {
+        comments: dbComments
+      }
+
+     
+      res.render('index', allComments)
+     
     });
   });
 
+
 // app.post("/places/:place_id/:user", function(req, res) {
+
      
 //     db.Comments.create({
 //       user: req.params.user,
@@ -42,6 +51,7 @@ module.exports = function(app) {
 //       res.json(dbComment);
 //     });
 //   });
+
 
 
 // app.delete("/places/:place_id/:user", function(req, res) {
@@ -74,6 +84,7 @@ module.exports = function(app) {
 
 
 // app.put("/places/:place_id/:user", function(req, res) {
+
     
 //     db.Comment.update({
 //       comment: req.body.comment
@@ -166,4 +177,4 @@ module.exports = function(app) {
 
 
 
-}
+module.exports = router
