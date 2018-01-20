@@ -1,3 +1,4 @@
+
 var db = require("./../models");
 
 module.exports = function(app) {
@@ -163,5 +164,3 @@ app.put("/places/:place_id/:user", function(req, res) {
 
 
 }
-
-//some comment
