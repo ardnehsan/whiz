@@ -1,31 +1,7 @@
 {
-<<<<<<< HEAD
-    "development": {
-      "username": "root",
-      "password": "dobbyTheCoder",
-      "database": "Users",
-      "host": "127.0.0.1",
-      "dialect": "mysql"
-    },
-    "test": {
-      "username": "root",
-      "password": "dobbyTheCoder",
-      "database": "database_test",
-      "host": "127.0.0.1",
-      "dialect": "mysql"
-    },
-    "production": {
-      "username": "root",
-      "password": "dobbyTheCoder",
-      "database": "database_production",
-      "host": "127.0.0.1",
-      "dialect": "mysql"
-    }
-  }
-=======
   "development": {
     "username": "root",
-    "password": "root",
+    "password": "dobbyTheCoder",
     "database": "whiz",
     "host": "127.0.0.1",
     "dialect": "mysql"
@@ -46,4 +22,3 @@
   }
 }
 
->>>>>>> fd7e71df3a0a323a0218313b308ce912169c1f26
