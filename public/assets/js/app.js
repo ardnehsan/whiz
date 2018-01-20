@@ -131,7 +131,8 @@ function initMap() {
 				    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
 
 				    $("#place-" + placeNum).attr("data-id", results[i].id);
-				    $("#link-" + placeNum).attr("href", "/places/" + results[i].id)
+				    $("#link-" + placeNum).attr("data-id",  results[i].id);
+				    $("#link-" + placeNum).text("Go Here")
 				    $("#place-" + placeNum).text("Place Name: " + results[i].name + " Address: " + results[i].vicinity);
 				    
 				    placeNum++
@@ -147,6 +148,33 @@ function initMap() {
 
 
 		}
+
+	})
+
+
+
+	$("#link-1").on("click", function(){
+		event.preventDefault();
+
+		$.get("/", function(data) {
+
+  			if (data.length !== 0) {
+
+    			for (var i = 0; i < data.length; i++) {
+
+			      var row = $("<div>");
+			      row.addClass("comment");
+
+			      row.append("<p>" + data[i].user + " chirped.. </p>");
+			      row.append("<p>" + data[i].comment + "</p>");
+
+      			$(".comment").prepend(row);
+
+    }
+
+  }
+
+});
 
 	})
 

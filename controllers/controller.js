@@ -4,11 +4,11 @@ var db = require("./../models");
 module.exports = function(app) {
 
   
-  app.get("/places/:place_id/:user?", function(req, res) {
+  app.get("/", function(req, res) {
     
     db.Comments.findAll({
     	where: {
-    		place_id: req.params.place_id
+    		place_id: req.body.place_id
     	}
     }).then(function(dbComments) {
       
