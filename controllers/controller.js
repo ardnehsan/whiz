@@ -4,92 +4,100 @@ const router = express.Router();
 
 var db = require("../models");
 
-
+router.get('/', (req, res, next) => {
+    res.render('index');
+});
   
-router.get("/", function(req, res) {
-    console.log(req.body.placeId);
+router.get("/:id", function(req, res) {
+    
     db.comments.findAll({
     	where: {
-    		place_id: req.body.placeId
+    		place_id: req.params.id
     	}
     }).then(function(dbComments) {
 
-      // res.render("index", { comments: dbComments });
-      res.render('index', dbComments)
-      res.json(dbComments);
-      console.log(dbComments)
-      
-    });
-  });
+      var allComments = {
+        comments: dbComments
+      }
 
-  router.post("/places/:place_id/:user", function(req, res) {
      
-    db.Comments.create({
-      user: req.params.user,
-      place_id: req.params.place_id,
-      comment: req.body.comment
-    }).then(function(){	
+      res.render('index', allComments)
+     
+    });
+  });
 
-    	db.Votes.create({
-    		user: req.params.user,
-    		comment_id: db.Comments.id
-    	});
-    	db.Busy.create({
-    		comment_id: db.Comments.id
-    	})
 
-    }).then(function(dbComment) {
+// app.post("/places/:place_id/:user", function(req, res) {
+
+     
+//     db.Comments.create({
+//       user: req.params.user,
+//       place_id: req.params.place_id,
+//       comment: req.body.comment
+//     }).then(function(){	
+
+//     	db.Votes.create({
+//     		user: req.params.user,
+//     		comment_id: db.Comments.id
+//     	});
+//     	db.Busy.create({
+//     		comment_id: db.Comments.id
+//     	})
+
+//     }).then(function(dbComment) {
 
 
       
-      res.json(dbComment);
-    });
-  });
+//       res.json(dbComment);
+//     });
+//   });
 
 
-  router.delete("/places/:place_id/:user", function(req, res) {
+
+// app.delete("/places/:place_id/:user", function(req, res) {
     
-    db.Comments.destroy({
-      where: {
-      	id: req.body.id,
-        place_id: req.params.place_id,
-        user: req.params.user
-      }
-    }).then(function(){
+//     db.Comments.destroy({
+//       where: {
+//       	id: req.body.id,
+//         place_id: req.params.place_id,
+//         user: req.params.user
+//       }
+//     }).then(function(){
 
-    	db.Votes.destroy({
-    		where: {
-    			comment_id: db.Comments.id
-    		}
-    	})
+//     	db.Votes.destroy({
+//     		where: {
+//     			comment_id: db.Comments.id
+//     		}
+//     	})
 
-    	db.Busy.destroy({
-    		where: {
-    			comment_id: db.Comments.id
-    		}
-    	})
+//     	db.Busy.destroy({
+//     		where: {
+//     			comment_id: db.Comments.id
+//     		}
+//     	})
 
-    }).then(function(dbComment) {
-      res.json(dbComment);
-    });
-  });
+//     }).then(function(dbComment) {
+//       res.json(dbComment);
+//     });
+//   });
 
 
 
-  router.put("/places/:place_id/:user", function(req, res) {
+// app.put("/places/:place_id/:user", function(req, res) {
+
     
-    db.Comment.update({
-      comment: req.body.comment
-    }, {
-      where: {
-      	id: req.body.id,
-        place_id: req.params.place_id,
-        user: req.params.user
-      }
-    }).then(function(dbComment) {
-      res.json(dbComment);
-    });
-  });
+//     db.Comment.update({
+//       comment: req.body.comment
+//     }, {
+//       where: {
+//       	id: req.body.id,
+//         place_id: req.params.place_id,
+//         user: req.params.user
+//       }
+//     }).then(function(dbComment) {
+//       res.json(dbComment);
+//     });
+//   });
 
 // app.put("/places/:place_id/:user", function(req, res) {
     

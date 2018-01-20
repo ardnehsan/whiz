@@ -157,7 +157,7 @@ function initMap() {
 					    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
 
 					    $("#button-" + placeNum).attr("data-id", results[i].id);
-					    $("#button-" + placeNum).attr("href", "/places/" + results[i].id)
+					    $("#button-" + placeNum).attr("href", "/" + results[i].id)
 					    $("#button-" + placeNum).text("Go Here!")
 					    $("#place-" + placeNum).text("Place Name: " + results[i].name + " Address: " + results[i].vicinity);
 					    
@@ -176,7 +176,7 @@ function initMap() {
 					    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
 
 					    $("#button-" + placeNum).attr("data-id", results[i].id);
-					    $("#button-" + placeNum).attr("href", "/places/" + results[i].id)
+					    $("#button-" + placeNum).attr("href", "/" + results[i].id)
 					    $("#button-" + placeNum).text("Go Here!")
 					    $("#place-" + placeNum).text("Place Name: " + results[i].name + " Address: " + results[i].vicinity);
 					    
@@ -197,17 +197,17 @@ function initMap() {
 
 	})
 
-	$("#button-1").on("click", function(){
-		event.preventDefault();
+	// $("#button-1").on("click", function(){
+	// 	event.preventDefault();
 
 		var newComments = {
 			placeId: $("#button-1").data("id")
 		}
 
-		console.log(newComments.placeId);
+		// console.log(newComments.placeId);
 
 
-	    $.ajax("/", {
+	    $.ajax("/:id", {
 	      type: "GET",
 	      data: newComments
 	    }).then(
@@ -217,7 +217,7 @@ function initMap() {
 	        // location.reload();
 	        
 	      });	
-	})
+	// })
 
 
 
