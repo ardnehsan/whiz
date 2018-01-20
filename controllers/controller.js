@@ -1,18 +1,21 @@
 
-var db = require("./../models");
+var db = require("../models");
 
 module.exports = function(app) {
 
   
   app.get("/", function(req, res) {
-    
+    console.log(req.body.placeId);
     db.Comments.findAll({
     	where: {
-    		place_id: req.body.place_id
+    		place_id: req.body.placeId
     	}
     }).then(function(dbComments) {
-      
+
+      // res.render("index", { comments: dbComments });
       res.json(dbComments);
+      console.log(dbComments)
+      
     });
   });
 
@@ -163,8 +166,4 @@ app.put("/places/:place_id/:user", function(req, res) {
 
 
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 13b936e450c071b25639bd4bb745b211254f55d3

@@ -16,22 +16,26 @@
     </div>
 
    
-        <div id="place-1" data-id=""></div><button id="link-1"></button>
-    
-    
-        <div id="place-2" data-id=""></div><button id="link-2"></button>
-    
-    
-        <div id="place-3" data-id=""></div><button id="link-3"></button>
-    
-    
-        <div id="place-4" data-id=""></div><button id="link-4"></button>
-   
-    
-        <div id="place-5" data-id=""></div><button id="link-5"></button>
-    
+        <div id="place-1"></div><button id="button-1" data-id=""></button>
+        <div id="place-2"></div><button id="button-2" data-id=""></button>
+        <div id="place-3"></div><button id="button-3" data-id=""></button>
+        <div id="place-4"></div><button id="button-4" data-id=""></button>
+        <div id="place-5"></div><button id="button-5" data-id=""></button>
 
-    <div id="comments"></div>
+
+    <div id="comment">
+        
+    <ul>
+        {{#each comments}}
+            <li>
+                <p>User: {{this.user}}</p>
+                <p>Comment: {{this.comment}}</p>
+            </li>
+        {{/each}}
+    </ul>
+
+
+    </div>
 
 
 </body>

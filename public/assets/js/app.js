@@ -70,13 +70,13 @@ function initMap() {
 
 		var userAddress = $("#input").val().trim();
 		var userLocation = $("#location").val().trim();
-
 		$("#error").empty();
+		$("#error1").empty();
 		
 
 
 		if (userAddress === "" || userLocation === "") {
-			$("#error").html("<br>You must enter a location before clicking submit");
+			$("#error1").html("<br>You must enter a location before clicking submit");
 			
 		} 
 
@@ -100,7 +100,14 @@ function initMap() {
 		 			
 		 			}
 				else {
-					$("#error").html("<br>Geocode was not successful for the following reason: " + status + " Please try again");
+					if (status === "ZERO_RESULTS") {
+						$("#error1").html("<br>Try to update your address and location information and try again!");
+						return;
+					}
+					else {
+						$("#error1").html("<br>Geocode was not successful for the following reason: " + status + " Please try again");
+						return;
+					}
 				}
 			
 
@@ -119,25 +126,64 @@ function initMap() {
 
 				function callback(results, status) {
 				  var placeNum = 1
-				  if (status !== google.maps.places.PlacesServiceStatus.OK) {
-				    console.error(status);
-				    return;
-				  }
-				  for (var i = 0, result; result = results[i]; i++) {
-				  	console.log(result)
-				  	var resultsLat = results[i].geometry.location.lat()
-				  	var resultsLng = results[i].geometry.location.lng()
-				  	locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
-				    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
 
-				    $("#place-" + placeNum).attr("data-id", results[i].id);
-				    $("#link-" + placeNum).attr("data-id",  results[i].id);
-				    $("#link-" + placeNum).text("Go Here")
-				    $("#place-" + placeNum).text("Place Name: " + results[i].name + " Address: " + results[i].vicinity);
-				    
-				    placeNum++
+				  for (var i = 0; i < 5; i++) {
+				  	$("#place-" + placeNum).text("")
+				  	$("#button-" + placeNum).text("")
+				  	placeNum++
 				  }
-				  placeNum = 1;
+
+				  placeNum = 1
+
+				  if (status !== google.maps.places.PlacesServiceStatus.OK) {
+
+				  	if (status === "ZERO_RESULTS") {
+				  		$("#error").html("Zero results were found. Try again!")
+				  		return;
+				  	}
+				  	else {
+					    $("#error").html(status + " Try again!");
+					    return;
+					}
+				  }
+
+				    if (results.length <= 5) {
+					  for (var i = 0, result; result = results[i]; i++) {
+
+					  	console.log(result)
+					  	var resultsLat = results[i].geometry.location.lat()
+					  	var resultsLng = results[i].geometry.location.lng()
+					  	locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
+					    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
+
+					    $("#button-" + placeNum).attr("data-id", results[i].id);
+					    $("#button-" + placeNum).attr("href", "/places/" + results[i].id)
+					    $("#button-" + placeNum).text("Go Here!")
+					    $("#place-" + placeNum).text("Place Name: " + results[i].name + " Address: " + results[i].vicinity);
+					    
+					    placeNum++
+					  }
+					  placeNum = 1;
+					}
+
+					else {
+						for (var i = 0; i < 5; i++) {
+
+					  	console.log(results);
+					  	var resultsLat = results[i].geometry.location.lat()
+					  	var resultsLng = results[i].geometry.location.lng()
+					  	locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
+					    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
+
+					    $("#button-" + placeNum).attr("data-id", results[i].id);
+					    $("#button-" + placeNum).attr("href", "/places/" + results[i].id)
+					    $("#button-" + placeNum).text("Go Here!")
+					    $("#place-" + placeNum).text("Place Name: " + results[i].name + " Address: " + results[i].vicinity);
+					    
+					    placeNum++
+					  }
+					  placeNum = 1;
+					}
 				}
 			})
 
@@ -151,31 +197,29 @@ function initMap() {
 
 	})
 
-
-
-	$("#link-1").on("click", function(){
+	$("#button-1").on("click", function(){
 		event.preventDefault();
 
-		$.get("/", function(data) {
+		var newComments = {
+			placeId: $("#button-1").data("id")
+		}
 
-  			if (data.length !== 0) {
+		console.log(newComments.placeId);
 
-    			for (var i = 0; i < data.length; i++) {
 
-			      var row = $("<div>");
-			      row.addClass("comment");
-
-			      row.append("<p>" + data[i].user + " chirped.. </p>");
-			      row.append("<p>" + data[i].comment + "</p>");
-
-      			$(".comment").prepend(row);
-
-    }
-
-  }
-
-});
-
+	    $.ajax("/", {
+	      type: "GET",
+	      data: newComments
+	    }).then(
+	      function() {
+	        console.log("Got comments with ID = " + newComments.placeId);
+	        // Reload the page to get the updated list
+	        // location.reload();
+	        
+	      });	
 	})
+
+
+
 
 }
