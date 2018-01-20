@@ -3,6 +3,7 @@ const methodOverride = require('method-override');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const bodyParser = require('body-parser');
+const db = require("./models");
 // Set port
 const PORT = process.env.PORT || 3000
 //Init app
@@ -25,6 +26,9 @@ app.use(methodOverride('_method'));
 app.get('/', (req, res, next) => {
     res.render('index');
 });
-app.listen(PORT, function() {
-    console.log("Server started on " + PORT);
+
+db.sequelize.sync().then(function() {
+	app.listen(PORT, function() {
+	    console.log("Server started on " + PORT);
+	});
 });

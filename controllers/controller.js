@@ -1,4 +1,4 @@
-var db = require("../models");
+var db = require("./../models");
 
 module.exports = function(app) {
 
@@ -84,80 +84,80 @@ app.put("/places/:place_id/:user", function(req, res) {
     });
   });
 
-app.put("/places/:place_id/:user", function(req, res) {
+// app.put("/places/:place_id/:user", function(req, res) {
     
-    db.Votes.update({
-    	upVote: 1++
-    }, {
-      where: {
-        comment_id: db.Comments.id,
-      }
-    }).then(function(dbComment) {
-      res.json(dbComment);
+//     db.Votes.update({
+//     	upVote: 1++
+//     }, {
+//       where: {
+//         comment_id: db.Comments.id,
+//       }
+//     }).then(function(dbComment) {
+//       res.json(dbComment);
 
-	      if (db.Votes.upVote >= 10) {
-	      	 db.Busy.update({
-	      	 	busy: 1,
-	      	 }, {
-	      	 	where: db.Busy.comments_id
-	      	 })
-	      }
-	      else if (dbComment.upVote >= 10 && dbComment.downVote >=10) {
-	      	db.Busy.update({
-	      	 	busy: 0,
-	      	 }, {
-	      	 	where: db.Busy.comments_id
-	      	 })
-	      }
-	      else {
-	      	db.Busy.update({
-	      	 	busy: 0,
-	      	 }, {
-	      	 	where: db.Busy.comments_id
-	      	 })
-	      }
+// 	      if (db.Votes.upVote >= 10) {
+// 	      	 db.Busy.update({
+// 	      	 	busy: 1,
+// 	      	 }, {
+// 	      	 	where: db.Busy.comments_id
+// 	      	 })
+// 	      }
+// 	      else if (dbComment.upVote >= 10 && dbComment.downVote >=10) {
+// 	      	db.Busy.update({
+// 	      	 	busy: 0,
+// 	      	 }, {
+// 	      	 	where: db.Busy.comments_id
+// 	      	 })
+// 	      }
+// 	      else {
+// 	      	db.Busy.update({
+// 	      	 	busy: 0,
+// 	      	 }, {
+// 	      	 	where: db.Busy.comments_id
+// 	      	 })
+// 	      }
 
-       }
-    });
-  });
+//        })
+//     });
 
-app.put("/places/:place_id/:user", function(req, res) {
+
+// app.put("/places/:place_id/:user", function(req, res) {
     
-    db.Votes.update({
-    	downVote: 1++
-    }, {
-      where: {
-        comment_id: db.Comments.id,
-      }
-    }).then(function(dbComment) {
-      res.json(dbComment);
+//     db.Votes.update({
+//     	downVote: 1++
+//     }, {
+//       where: {
+//         comment_id: db.Comments.id,
+//       }
+//     }).then(function(dbComment) {
+//       res.json(dbComment);
 
 
-	      if (db.Votes.downVote >= 10) {
-	      	 db.Busy.update({
-	      	 	busy: 0,
-	      	 }, {
-	      	 	where: db.Busy.comments_id
-	      	 })
-	      }
-	      else if (dbComment.upVote >= 10 && dbComment.downVote >=10) {
-	      	db.Busy.update({
-	      	 	busy: 0,
-	      	 }, {
-	      	 	where: db.Busy.comments_id
-	      	 })
-	      }
-	      else {
-	      	db.Busy.update({
-	      	 	busy: 0,
-	      	 }, {
-	      	 	where: db.Busy.comments_id
-	      	 })
-	      }
+// 	      if (db.Votes.downVote >= 10) {
+// 	      	 db.Busy.update({
+// 	      	 	busy: 0,
+// 	      	 }, {
+// 	      	 	where: db.Busy.comments_id
+// 	      	 })
+// 	      }
+// 	      else if (dbComment.upVote >= 10 && dbComment.downVote >=10) {
+// 	      	db.Busy.update({
+// 	      	 	busy: 0,
+// 	      	 }, {
+// 	      	 	where: db.Busy.comments_id
+// 	      	 })
+// 	      }
+// 	      else {
+// 	      	db.Busy.update({
+// 	      	 	busy: 0,
+// 	      	 }, {
+// 	      	 	where: db.Busy.comments_id
+// 	      	 })
+// 	      }
 
 
-    });
-  });
+//     });
+//   });
 
 
 
