@@ -5,7 +5,15 @@ var path      = require('path');
 var Sequelize = require('sequelize');
 var basename  = path.basename(module.filename);
 var env       = process.env.NODE_ENV || 'development';
+<<<<<<< HEAD
 var config    = require(__dirname + '/../config/config.json')[env];
+=======
+<<<<<<< HEAD
+var config    = require(__dirname + '/../config/config.json')[env];
+=======
+var config    = require(__dirname + '/..\config\config.json')[env];
+>>>>>>> master
+>>>>>>> 66df61e09f62bcbe3d735e76f0a6b4f9dd3a85c5
 var db        = {};
 
 if (config.use_env_variable) {
@@ -33,4 +41,8 @@ Object.keys(db).forEach(function(modelName) {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+<<<<<<< HEAD
 module.exports = db;
+=======
+module.exports = db;
+>>>>>>> master
