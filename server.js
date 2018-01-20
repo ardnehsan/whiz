@@ -2,7 +2,15 @@ const express = require('express');
 const methodOverride = require('method-override');
 const exphbs = require('express-handlebars');
 const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const expressValidator = require('express-validator');
+const multer = require('multer');
+const bcrypt = require('bcryptjs');
 const db = require("./models");
 
 // Set port
@@ -29,6 +37,49 @@ app.use(express.static(path.join(__dirname, 'public')));
 // method-override
 app.use(methodOverride('_method'));
 
+// Handle Sessions
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// // Validator
+// app.use(expressValidator({
+//     errorFormatter: function (param, msg, value) {
+//         var namespace = param.split('.'),
+//             root = namespace.shift(),
+//             formParam = root;
+
+//         while (namespace.length) {
+//             formParam += '[' + namespace.shift() + ']';
+//         }
+//         return {
+//             param: formParam,
+//             msg: msg,
+//             value: value
+//         };
+//     }
+// }));
+
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// app.use(flash());
+// app.use(function (req, res, next) {
+//     res.locals.messages = require('express-messages')(req, res);
+//     next();
+// });
+
+app.get('*', function (req, res, next) {
+    res.locals.user = req.user || null;
+    next();
+});
+
 // Search Store Page
 app.get('/', (req, res, next) => {
     res.render('index');
@@ -36,8 +87,8 @@ app.get('/', (req, res, next) => {
 
 
 
-db.sequelize.sync().then(function() {
-	app.listen(PORT, function() {
-	    console.log("Server started on " + PORT);
-	});
+db.sequelize.sync().then(function () {
+    app.listen(PORT, function () {
+        console.log("Server started on " + PORT);
+    });
 });
