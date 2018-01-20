@@ -6,10 +6,8 @@ const bodyParser = require('body-parser');
 
 // Set port
 const PORT = process.env.PORT || 3000
-
 //Init app
 const app = express();
-
 // View engine
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
@@ -24,7 +22,6 @@ app.use(bodyParser.urlencoded({
 
 // Static folder
 app.use(express.static(path.join(__dirname, 'public')));
-
 // method-override
 app.use(methodOverride('_method'));
 
@@ -33,6 +30,6 @@ app.get('/', (req, res, next) => {
     res.render('index');
 });
 
-app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
+app.listen(PORT, function() {
+    console.log("Server started on " + PORT);
 });
