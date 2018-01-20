@@ -8,7 +8,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     comments_id: {
     	type: DataTypes.INTEGER,
-    	allowNull: false,
+    	allowNull: false
+        //create foreignKey
     },
     upVote: {
     	type: DataTypes.BOOLEAN,
@@ -33,6 +34,7 @@ module.exports = function(sequelize, DataTypes) {
                 }
             }
         }
+
     }
 
   });
