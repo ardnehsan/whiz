@@ -15,21 +15,27 @@
     <div id="map">
     </div>
 
-    <a id="link-1">
-        <div id="place-1" data-id=""></div>
-    </a>
-    <a id="link-2">
-        <div id="place-2" data-id=""></div>
-    </a>
-    <a id="link-3">
-        <div id="place-3" data-id=""></div>
-    </a>
-    <a id="link-4">
-        <div id="place-4" data-id=""></div>
-    </a>
-    <a id="link-5">
-        <div id="place-5" data-id=""></div>
-    </a>
+   
+        <div id="place-1"></div><button id="button-1" data-id=""></button>
+        <div id="place-2"></div><button id="button-2" data-id=""></button>
+        <div id="place-3"></div><button id="button-3" data-id=""></button>
+        <div id="place-4"></div><button id="button-4" data-id=""></button>
+        <div id="place-5"></div><button id="button-5" data-id=""></button>
+
+
+    <div id="comment">
+        
+    <ul>
+        {{#each comments}}
+            <li>
+                <p>User: {{this.user}}</p>
+                <p>Comment: {{this.comment}}</p>
+            </li>
+        {{/each}}
+    </ul>
+
+
+    </div>
 
 
 </body>

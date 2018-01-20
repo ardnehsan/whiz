@@ -85,6 +85,11 @@ app.get('/', (req, res, next) => {
     res.render('index');
 });
 
+//Michael added this in
+var routes = require("./controllers/controller.js");
+
+app.use("/", routes);
+//this is the end of what I added in...
 
 
 db.sequelize.sync().then(function () {
