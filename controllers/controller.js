@@ -17,9 +17,14 @@ router.get("/:id", function(req, res) {
     }).then(function(dbComments) {
 
       var allTheComments = {
-        comments: dbComments
+        comments: []
       }
       
+      
+
+      for (var i = dbComments.length - 1; i > dbComments.length - 6; i--) {
+          allTheComments.comments.push(dbComments[i])
+      }
 
      
       res.render('index', allTheComments)

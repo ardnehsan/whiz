@@ -212,7 +212,7 @@ $(button).click(function(){
 		      data: allComments
 		    }).then(
 		      function() {
-		        console.log("Got comments with ID = " + newComments.placeId);	        
+		        console.log("Got comments with ID = " + allComments.placeId);	        
 		        
 		      });	
 

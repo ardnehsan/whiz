@@ -35,7 +35,7 @@
     <div id="comment">
         
     <ul>
-        {{#each comments}}
+        {{#each comments mode=prepend}}
             <li>
                 <p>User: {{this.user}}</p>
                 <p>Comment: {{this.comment}}</p>
