@@ -210,7 +210,6 @@ $(document).on("click", ".deleteComment", function(event){
 		$.ajax("place/:id", {
 		  type: "DELETE",
 		  data: id,
-		  url: 'place/' + id,
 		  datatype: "jsonp"
 		}).then(function(success) {
 			console.log("deleted id ", id);
