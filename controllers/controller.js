@@ -19,6 +19,7 @@ router.get("/:id", function(req, res) {
       var allTheComments = {
         comments: dbComments
       }
+      
 
      
       res.render('index', allTheComments)
@@ -61,32 +62,31 @@ router.post("/:id", function(req, res) {
 
 
 
-// app.delete("/places/:place_id/:user", function(req, res) {
+router.delete("/places/:place_id/:user", function(req, res) {
     
-//     db.Comments.destroy({
-//       where: {
-//       	id: req.body.id,
-//         place_id: req.params.place_id,
-//         user: req.params.user
-//       }
-//     }).then(function(){
+    db.Comments.destroy({
+      where: {
+      	id: req.body.id
+        // place_id: req.params.place_id,
+        // user: req.params.user
+      }
+    }).then(function(){
+    	db.Votes.destroy({
+    		where: {
+    			comment_id: db.Comments.id
+    		}
+    	})
 
-//     	db.Votes.destroy({
-//     		where: {
-//     			comment_id: db.Comments.id
-//     		}
-//     	})
+    	db.Busy.destroy({
+    		where: {
+    			comment_id: db.Comments.id
+    		}
+    	})
 
-//     	db.Busy.destroy({
-//     		where: {
-//     			comment_id: db.Comments.id
-//     		}
-//     	})
-
-//     }).then(function(dbComment) {
-//       res.json(dbComment);
-//     });
-//   });
+    }).then(function(dbComment) {
+      res.json(dbComment);
+    });
+  });
 
 
 

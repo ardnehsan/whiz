@@ -233,17 +233,37 @@ $(button).click(function(){
 
 		var newComment = {
 			user: $("#user").val().trim(),
-			comment: $("#comment").val().trim()
+			comment: $("#comment").val().trim(),
 		}
 
 		 $.ajax("/:id", {
 		      type: "POST",
-		      data: newComment
+		      data: newComment,
 		    }).then(
 		      function() {
 		        console.log("Got comments with ID = " + newComment.placeId);	        
-		        location.reload();
+				location.reload();
+				if(location.reload() === true) {
+					console.log('reloaded')
+				} else {
+					console.log('nope')
+				}
 		      });	
 
 	})
 
+	$(".deleteComment").on("click", function(event) {
+		event.preventDefault();
+		const id = $(this).data("id");
+	
+		// Send the DELETE request.
+		$.ajax("/places/:place_id/:user" + id, {
+		  type: "DELETE"
+		}).then(
+		  function() {
+			console.log("deleted id ", id);
+			// Reload the page to get the updated list
+			location.reload();
+		  }
+		);
+	  });
