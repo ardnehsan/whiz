@@ -16,41 +16,48 @@ router.get("/:id", function(req, res) {
     	}
     }).then(function(dbComments) {
 
-      var allComments = {
+      var allTheComments = {
         comments: dbComments
       }
 
      
-      res.render('index', allComments)
+      res.render('index', allTheComments)
      
     });
   });
 
 
-// app.post("/places/:place_id/:user", function(req, res) {
+router.post("/:id", function(req, res) {
 
      
-//     db.Comments.create({
-//       user: req.params.user,
-//       place_id: req.params.place_id,
-//       comment: req.body.comment
-//     }).then(function(){	
+    db.comments.create({
+      user: req.body.user,
+      place_id: req.params.id,
+      comment: req.body.comment
+    }).then(function(results){
+      console.log("This is the results ID: " + results.id)
+      var commentId = results.id
 
-//     	db.Votes.create({
-//     		user: req.params.user,
-//     		comment_id: db.Comments.id
-//     	});
-//     	db.Busy.create({
-//     		comment_id: db.Comments.id
-//     	})
+    	// db.votes.create({
+    	// 	user: req.body.user,
+    	// 	comment_id: commentId
+    	// });
 
-//     }).then(function(dbComment) {
+    	// db.busy.create({
+    	// 	comment_id: results.id
+    	// });
 
+      res.render("index")
+    })
+  })
+  //   }).then(function(dbComment) {
 
+  //     console.log(dbComment[0].comment_id)
+  //     console.log(dbComment[1].comment_id)
       
-//       res.json(dbComment);
-//     });
-//   });
+  //     // res.render('index')
+  //   });
+  // });
 
 
 

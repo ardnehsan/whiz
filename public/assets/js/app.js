@@ -197,29 +197,53 @@ function initMap() {
 
 	})
 
-	// $("#button-1").on("click", function(){
-	// 	event.preventDefault();
+}
 
-		var newComments = {
-			placeId: $("#button-1").data("id")
+
+function clickPlace(button) {
+
+$(button).click(function(){
+		var allComments = {
+				placeId: $(button).data("id")
 		}
 
-		// console.log(newComments.placeId);
+		    $.ajax("/:id", {
+		      type: "GET",
+		      data: allComments
+		    }).then(
+		      function() {
+		        console.log("Got comments with ID = " + newComments.placeId);	        
+		        
+		      });	
 
-
-	    $.ajax("/:id", {
-	      type: "GET",
-	      data: newComments
-	    }).then(
-	      function() {
-	        console.log("Got comments with ID = " + newComments.placeId);
-	        // Reload the page to get the updated list
-	        // location.reload();
-	        
-	      });	
-	// })
-
-
-
-
+	})
 }
+
+
+
+	clickPlace("#button-1");
+	clickPlace("#button-2");
+	clickPlace("#button-3");
+	clickPlace("#button-4");
+	clickPlace("#button-5");
+
+
+	$("newComment").submit(function(event) {
+		event.preventDefault();	
+
+		var newComment = {
+			user: $("#user").val().trim(),
+			comment: $("#comment").val().trim()
+		}
+
+		 $.ajax("/:id", {
+		      type: "POST",
+		      data: newComment
+		    }).then(
+		      function() {
+		        console.log("Got comments with ID = " + newComment.placeId);	        
+		        location.reload();
+		      });	
+
+	})
+
