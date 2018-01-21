@@ -2,19 +2,18 @@ module.exports = function(sequelize, DataTypes) {
 
   var Votes = sequelize.define("votes", {
     user: {
-    	type: DataTypes.STRING,
+    	type: DataTypes.STRING
         //allow Null until we complete user login
     	// allowNull: false
     },
     comments_id: {
     	type: DataTypes.INTEGER,
-    	allowNull: false
+        defaultValue: 0
         //create foreignKey
     },
     upVote: {
     	type: DataTypes.BOOLEAN,
     	defaultValue: 0,
-    	allowNull: false,
         validate: {
             upVoteValidation() {
                 if (this.downVote === true) {
@@ -26,7 +25,6 @@ module.exports = function(sequelize, DataTypes) {
     downVote: {
     	type: DataTypes.BOOLEAN,
     	defaultValue: 0,
-    	allowNull: false,
         validate: {
             downVoteValidation() {
                 if (this.upVote === true) {
