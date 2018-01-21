@@ -18,16 +18,19 @@ router.get("/:id", function(req, res) {
     }).then(function(dbComments) {
 
       var allTheComments = {
-        comments: []
+        comments: [],
+        form: "<form id='newComment' method='post'>" +
+          "<h4 class='newInfo'>User: *</h4>" +
+          "<input type='text' name='user' id='user' placeholder='Your Username' class='form-control'>" +
+          "<h4 class='newInfo'>Comment *</h4>" +
+          "<input type='text' min='0' name='comment' class='form-control' id='comment' placeholder='Your comment goes here'>" +
+          
+          "<input type='submit' value='Post a comment!' class='btn btn-primary' id='submit'>" +
+        "</form>"
       }
-      
-      
+            
+      prependComments(dbComments, allTheComments.comments);
 
-      for (var i = dbComments.length - 1; i > dbComments.length - 6; i--) {
-          allTheComments.comments.push(dbComments[i])
-      }
-
-     
       res.render('index', allTheComments)
      
     });
@@ -191,3 +194,56 @@ router.delete("/:id", function(req, res) {
 
 
 module.exports = router
+
+
+
+
+function prependComments(comments, objectName) {
+  if (comments.length >= 5) {
+
+        for (var i = comments.length - 1; i > comments.length - 6; i--) {
+          objectName.push(comments[i])
+        }
+
+      }
+
+      else if (comments.length === 4) {
+
+        
+        for (var i = comments.length - 1; i > comments.length - 5; i--) {
+          objectName.push(comments[i])
+        }
+
+      }
+
+      else if (comments.length === 3) {
+
+        
+        for (var i = comments.length - 1; i > comments.length - 4; i--) {
+          objectName.push(comments[i])
+        }
+
+      }
+
+      else if (comments.length === 2) {
+
+        
+        for (var i = comments.length - 1; i > comments.length - 3; i--) {
+          objectName.push(comments[i])
+        }
+
+      }
+
+      else if (comments.length === 1) {
+
+        
+        for (var i = comments.length - 1; i > comments.length - 2; i--) {
+          objectName.push(comments[i])
+        }
+
+      }
+
+      else {
+        console.log("No Comments")
+      }
+}
