@@ -13,6 +13,18 @@ module.exports = function (sequelize, DataTypes) {
     comment: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    upVotes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    downVotes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    busy: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: 0
     }
 
   });
