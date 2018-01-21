@@ -74,7 +74,7 @@ router.post("/:id", function(req, res) {
 
 
 
-router.delete("/:id", function(req, res) {
+router.delete("place/:id", function(req, res) {
     
     db.comments.destroy({
       where: {
