@@ -207,9 +207,10 @@ $(document).on("click", ".deleteComment", function(event){
 		} 
 		console.log(id)
 		// Send the DELETE request.
-		$.ajax("/:id", {
+		$.ajax("place/:id", {
 		  type: "DELETE",
 		  data: id,
+		  url: 'place/' + id,
 		  datatype: "jsonp"
 		}).then(function(success) {
 			console.log("deleted id ", id);
