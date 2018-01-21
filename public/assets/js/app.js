@@ -255,9 +255,9 @@ $(button).click(function(){
 	$(".deleteComment").on("click", function(event) {
 		event.preventDefault();
 		const id = $(this).data("id");
-	
+		console.log(id)
 		// Send the DELETE request.
-		$.ajax("/places/:place_id/:user" + id, {
+		$.ajax("/:id", {
 		  type: "DELETE"
 		}).then(
 		  function() {
