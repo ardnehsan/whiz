@@ -73,13 +73,16 @@ router.post("/:id", function(req, res) {
 
 router.delete("/:id", function(req, res) {
     
-    db.Comments.destroy({
+    db.comments.destroy({
       where: {
       	id: req.body.id_comment,
         place_id: req.params.id
         // user: req.params.user
       }
-    }).then(function(){
+    }).then(function(dbComment) {
+      res.json(dbComment);
+    });
+  });
     	// db.Votes.destroy({
     	// 	where: {
     	// 		comment_id: db.Comments.id
@@ -91,11 +94,6 @@ router.delete("/:id", function(req, res) {
     	// 		comment_id: db.Comments.id
     	// 	}
     	// })
-
-    }).then(function(dbComment) {
-      res.json(dbComment);
-    });
-  });
 
 
 

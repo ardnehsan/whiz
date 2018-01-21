@@ -196,9 +196,28 @@ function initMap() {
 		}
 
 	})
-
 }
 
+
+$(document).on("click", ".deleteComment", function(event){
+		event.stopPropagation();
+  		
+		var id = {
+			id_comment: $(this).data("id")
+		} 
+		console.log(id)
+		// Send the DELETE request.
+		$.ajax("/:id", {
+		  type: "DELETE",
+		  data: id,
+		  datatype: "jsonp"
+		}).then(function(success) {
+			console.log("deleted id ", id);
+			// Reload the page to get the updated list
+			console.log(success)
+		  }
+		);
+});
 
 function clickPlace(button) {
 
@@ -252,18 +271,4 @@ $(button).click(function(){
 
 	})
 
-	$(".deleteComment").on("click", function(event) {
-		event.preventDefault();
-		const id = $(this).data("id");
-		console.log(id)
-		// Send the DELETE request.
-		$.ajax("/:id", {
-		  type: "DELETE"
-		}).then(
-		  function() {
-			console.log("deleted id ", id);
-			// Reload the page to get the updated list
-			location.reload();
-		  }
-		);
-	  });
+	
