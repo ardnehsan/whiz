@@ -31,7 +31,10 @@
             <li>
                 <p>User: {{this.user}}</p>
                 <p>Comment: {{this.comment}}</p>
+                <p>This comment has {{this.like}} likes and {{this.dislikes}} dislikes</p>
                 <button data-id="{{this.id}}" class="deleteComment">Delete</button>
+                <button data-id="{{this.id}}" class="likeComment">Like</button>
+                <button data-id="{{this.id}}" class="dislikeComment">Dislike</button>
             </li>
         {{/each}}
     </ul>
