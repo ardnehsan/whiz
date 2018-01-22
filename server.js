@@ -2,15 +2,9 @@ const express = require('express');
 const methodOverride = require('method-override');
 const exphbs = require('express-handlebars');
 const path = require('path');
-// const logger = require('morgan');
-// const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-// const session = require('express-session');
-// const passport = require('passport');
-// const LocalStrategy = require('passport-local').Strategy;
-// const expressValidator = require('express-validator');
-// const multer = require('multer');
-// const bcrypt = require('bcryptjs');
+const cors = require('cors');
+const session = require('express-session');
 const db = require("./models");
 
 // Set port
@@ -34,56 +28,26 @@ app.use(bodyParser.urlencoded({
 // Static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// method-override
-// app.use(methodOverride('_method'));
+//cors
+app.use(cors());
 
-// Handle Sessions
+//secret
 // app.use(session({
-//     secret: 'secret',
-//     saveUninitialized: true,
-//     resave: true
-// }));
+//     secret: process.env.SESSIONSECRET || config.sessionSecret || "keyboard cat",
+//     resave: false,
+//     saveUninitialized: true
+//   }));
 
-// Passport
-// app.use(passport.initialize());
-// app.use(passport.session());
+//middleware for setting up a user object when anyone first come to the appplication
+function userSetup(req, res, next){
+    if(!req.session.user){
+      req.session.user = {}
+      req.session.user.loggedIn = false;
+    }
+    next()
+  }
+//   app.use(userSetup)
 
-// // Validator
-// app.use(expressValidator({
-//     errorFormatter: function (param, msg, value) {
-//         var namespace = param.split('.'),
-//             root = namespace.shift(),
-//             formParam = root;
-
-//         while (namespace.length) {
-//             formParam += '[' + namespace.shift() + ']';
-//         }
-//         return {
-//             param: formParam,
-//             msg: msg,
-//             value: value
-//         };
-//     }
-// }));
-
-// app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
-
-// app.use(flash());
-// app.use(function (req, res, next) {
-//     res.locals.messages = require('express-messages')(req, res);
-//     next();
-// });
-
-// app.get('*', function (req, res, next) {
-//     res.locals.user = req.user || null;
-//     next();
-// });
-
-// Search Store Page
-// app.get('/', (req, res, next) => {
-//     res.render('index');
-// });
 
 //Michael added this in
 const routes = require('./controllers/controller.js')
@@ -91,6 +55,7 @@ const routes = require('./controllers/controller.js')
 app.use("/", routes);
 //this is the end of what I added in...
 
+require('./routes/userApiRoutes')(app)
 
 db.sequelize.sync().then(function () {
     app.listen(PORT, function () {

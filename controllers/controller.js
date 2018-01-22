@@ -11,6 +11,9 @@ router.get('/', (req, res, next) => {
 router.get('/signup', (req, res, next) => {
   res.render('signup');
 });
+router.get('/signin', (req, res, next) => {
+  res.render('signin');
+});
 
 router.get("/:id", function(req, res) {
     
