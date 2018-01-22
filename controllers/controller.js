@@ -192,7 +192,7 @@ router.put("/:id/:id_comment", function(req, res, next) {
         }
 
         else {
-          console.log("something went wrong...")
+          
           currentUpVote = [];
           currentDownVote = [];
         }
