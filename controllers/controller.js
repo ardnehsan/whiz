@@ -100,21 +100,71 @@ router.delete("/:id/:id_comment", function(req, res) {
 
 
 
-// app.put("/places/:place_id/:user", function(req, res) {
+router.put("/:id/:id_comment", function(req, res) {
 
+  var currentUpVote = [];
+
+    db.comments.findAll({
+      where: {
+        id: req.body.id_comment
+      }
+    }).then(function(dbComments) {
+      console.log(dbComments[0].dataValues.upVotes)
+      // console.log(dbComments.comments[0].upVote)
+      currentUpVote.push(dbComments[0].dataValues.upVotes)
+
+      var addUpVote = parseInt(req.body.upVote) + parseInt(currentUpVote)
+
+      console.log("This is the addUpVote " + addUpVote);
     
-//     db.Comment.update({
-//       comment: req.body.comment
-//     }, {
-//       where: {
-//       	id: req.body.id,
-//         place_id: req.params.place_id,
-//         user: req.params.user
-//       }
-//     }).then(function(dbComment) {
-//       res.json(dbComment);
-//     });
-//   });
+      db.comments.update({
+        upVotes: parseInt(addUpVote)
+      }, {
+        where: {
+        	id: req.body.id_comment
+        }
+      }).then(function(result) {
+        console.log("This is the result: " + result);
+        res.json(result);
+        currentUpVote = [];
+      });
+
+  })
+
+});
+
+
+router.put("/:id/:id_comment", function(req, res) {
+
+  var currentDownVotes = [];
+
+    db.comments.findAll({
+      where: {
+        id: req.body.id_comment
+      }
+    }).then(function(dbComments) {
+      console.log(dbComments[0].dataValues.downVotes)
+      
+      currentDownVotes.push(dbComments[0].dataValues.downVotes)
+
+      var addDownVote = parseInt(req.body.downVote) + parseInt(currentDownVotes)
+
+      console.log("This is the addDownVote " + addDownVote);
+    
+      db.comments.update({
+        downVotes: parseInt(addDownVote)
+      }, {
+        where: {
+          id: req.body.id_comment
+        }
+      }).then(function(dbComment) {
+        res.json(dbComment);
+        currentDownVote = [];
+      });
+
+  })
+
+});
 
 // app.put("/places/:place_id/:user", function(req, res) {
     
