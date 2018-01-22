@@ -1,7 +1,6 @@
 var db = require('../models')
-// console.log(db, "this is db")
 module.exports = function (app){
-  app.post("/api/login", function (req, res) {
+  app.post("/signin", function (req, res) {
     console.log(req.body)
     console.log(req.session)
     console.log(req.session.cookie)
@@ -33,7 +32,7 @@ module.exports = function (app){
   })
 
 
-  app.post("/api/signUp", function (req, res) {
+  app.post("/signUp", function (req, res) {
     console.log(req.body)
     db.users.create(req.body).then(function (dbData) {
 

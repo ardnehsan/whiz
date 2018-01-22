@@ -32,11 +32,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 //secret
-// app.use(session({
-//     secret: process.env.SESSIONSECRET || config.sessionSecret || "keyboard cat",
-//     resave: false,
-//     saveUninitialized: true
-//   }));
+app.use(session({
+    secret: process.env.SESSIONSECRET || "keyboard cat",
+    resave: false,
+    saveUninitialized: true
+  }));
 
 //middleware for setting up a user object when anyone first come to the appplication
 function userSetup(req, res, next){
@@ -46,7 +46,7 @@ function userSetup(req, res, next){
     }
     next()
   }
-//   app.use(userSetup)
+  app.use(userSetup)
 
 
 //Michael added this in
@@ -55,7 +55,7 @@ const routes = require('./controllers/controller.js')
 app.use("/", routes);
 //this is the end of what I added in...
 
-require('./routes/userApiRoutes')(app)
+const authRoutes =require('./routes/userApiRoutes.js')
 
 db.sequelize.sync().then(function () {
     app.listen(PORT, function () {
