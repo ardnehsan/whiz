@@ -15,6 +15,14 @@ input[type='text'] {
   border: 1px solid #ccc;
 }
 
+ul {
+  list-style-type: none;
+}
+
+li {
+  display: inline;
+}
+
 #input-id {
   width: 20%;
 }
