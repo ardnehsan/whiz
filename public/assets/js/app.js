@@ -207,14 +207,14 @@ $(document).on("click", ".deleteComment", function(event){
 		} 
 		console.log(id)
 		// Send the DELETE request.
-		$.ajax("place/:id", {
-		  type: "DELETE",
-		  data: id,
-		  datatype: "jsonp"
+		$.ajax("/:id/:id_comment", {
+		  method: "DELETE",
+		  data: id
 		}).then(function(success) {
 			console.log("deleted id ", id);
 			// Reload the page to get the updated list
 			console.log(success)
+			location.reload()
 		  }
 		);
 });
