@@ -2,15 +2,15 @@ const express = require('express');
 const methodOverride = require('method-override');
 const exphbs = require('express-handlebars');
 const path = require('path');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
+// const logger = require('morgan');
+// const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const session = require('express-session');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const expressValidator = require('express-validator');
-const multer = require('multer');
-const bcrypt = require('bcryptjs');
+// const session = require('express-session');
+// const passport = require('passport');
+// const LocalStrategy = require('passport-local').Strategy;
+// const expressValidator = require('express-validator');
+// const multer = require('multer');
+// const bcrypt = require('bcryptjs');
 const db = require("./models");
 
 // Set port
@@ -35,18 +35,18 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'public')));
 
 // method-override
-app.use(methodOverride('_method'));
+// app.use(methodOverride('_method'));
 
 // Handle Sessions
-app.use(session({
-    secret: 'secret',
-    saveUninitialized: true,
-    resave: true
-}));
+// app.use(session({
+//     secret: 'secret',
+//     saveUninitialized: true,
+//     resave: true
+// }));
 
 // Passport
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // // Validator
 // app.use(expressValidator({
@@ -66,8 +66,8 @@ app.use(passport.session());
 //     }
 // }));
 
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(cookieParser());
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use(flash());
 // app.use(function (req, res, next) {
@@ -75,16 +75,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 //     next();
 // });
 
-app.get('*', function (req, res, next) {
-    res.locals.user = req.user || null;
-    next();
-});
+// app.get('*', function (req, res, next) {
+//     res.locals.user = req.user || null;
+//     next();
+// });
 
 // Search Store Page
-app.get('/', (req, res, next) => {
-    res.render('index');
-});
+// app.get('/', (req, res, next) => {
+//     res.render('index');
+// });
 
+//Michael added this in
+const routes = require('./controllers/controller.js')
+
+app.use("/", routes);
+//this is the end of what I added in...
 
 
 db.sequelize.sync().then(function () {
