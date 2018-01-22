@@ -112,7 +112,7 @@ router.put("/:id/:id_comment", function(req, res, next) {
 
       //this is for upvote
 
-      console.log("This is upvotes in DB" + dbComments[0].dataValues.upVotes)
+      // console.log("This is upvotes in DB" + dbComments[0].dataValues.upVotes)
       // console.log(dbComments.comments[0].upVote)
       currentUpVote.push(dbComments[0].dataValues.upVotes)
 
@@ -123,13 +123,13 @@ router.put("/:id/:id_comment", function(req, res, next) {
 
 
 
-      console.log("This is downvotes in DB" + dbComments[0].dataValues.downVotes)
+      // console.log("This is downvotes in DB" + dbComments[0].dataValues.downVotes)
       
       currentDownVotes.push(dbComments[0].dataValues.downVotes)
 
       var addDownVote = parseInt(req.body.downVote) + parseInt(currentDownVotes)
 
-      console.log("This is the addDownVote " + addDownVote);
+      // console.log("This is the addDownVote " + addDownVote);
     
 
     
@@ -142,9 +142,61 @@ router.put("/:id/:id_comment", function(req, res, next) {
         }
       }).then(function(result) {
         console.log("This is the result: " + result);
-        res.json(result);
-        currentUpVote = [];
-        currentDownVote = [];
+        
+        console.log("Current Up Vote: " + addUpVote);
+        console.log("Current Down Vote: " + addDownVote);
+        
+
+        if (addUpVote >= 10 && addDownVote >= 10) {
+          db.comments.update({
+            busy: false
+          },{
+            where: {
+              id: req.body.id_comment
+            }
+          }).then(function(result){
+            res.json(result);
+            currentUpVote = [];
+            currentDownVote = [];
+          })
+        }
+
+
+
+        else if (addUpVote >= 10) {
+          db.comments.update({
+            busy: true
+          },{
+            where: {
+              id: req.body.id_comment
+            }
+          }).then(function(result){
+            res.json(result);
+            currentUpVote = [];
+            currentDownVote = [];
+          })
+        }
+
+        else if (addDownVote >= 10) {
+          db.comments.update({
+            busy: false
+          },{
+            where: {
+              id: req.body.id_comment
+            }
+          }).then(function(result){
+            res.json(result);
+            currentUpVote = [];
+            currentDownVote = [];
+          })
+        }
+
+        else {
+          console.log("something went wrong...")
+          currentUpVote = [];
+          currentDownVote = [];
+        }
+
       });
 
 
