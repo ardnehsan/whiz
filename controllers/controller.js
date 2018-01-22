@@ -98,10 +98,9 @@ router.delete("/:id/:id_comment", function(req, res) {
     	// 	}
     	// })
 
+router.put("/:id/:id_comment", function(req, res, next) {
 
-
-router.put("/:id/:id_comment", function(req, res) {
-
+  var currentDownVotes = [];
   var currentUpVote = [];
 
     db.comments.findAll({
@@ -109,41 +108,22 @@ router.put("/:id/:id_comment", function(req, res) {
         id: req.body.id_comment
       }
     }).then(function(dbComments) {
-      console.log(dbComments[0].dataValues.upVotes)
+
+
+      //this is for upvote
+
+      console.log("This is upvotes in DB" + dbComments[0].dataValues.upVotes)
       // console.log(dbComments.comments[0].upVote)
       currentUpVote.push(dbComments[0].dataValues.upVotes)
 
       var addUpVote = parseInt(req.body.upVote) + parseInt(currentUpVote)
 
       console.log("This is the addUpVote " + addUpVote);
-    
-      db.comments.update({
-        upVotes: parseInt(addUpVote)
-      }, {
-        where: {
-        	id: req.body.id_comment
-        }
-      }).then(function(result) {
-        console.log("This is the result: " + result);
-        res.json(result);
-        currentUpVote = [];
-      });
-
-  })
-
-});
 
 
-router.put("/:id/:id_comment", function(req, res) {
 
-  var currentDownVotes = [];
 
-    db.comments.findAll({
-      where: {
-        id: req.body.id_comment
-      }
-    }).then(function(dbComments) {
-      console.log(dbComments[0].dataValues.downVotes)
+      console.log("This is downvotes in DB" + dbComments[0].dataValues.downVotes)
       
       currentDownVotes.push(dbComments[0].dataValues.downVotes)
 
@@ -151,20 +131,57 @@ router.put("/:id/:id_comment", function(req, res) {
 
       console.log("This is the addDownVote " + addDownVote);
     
+
+    
       db.comments.update({
+        upVotes: parseInt(addUpVote),
         downVotes: parseInt(addDownVote)
       }, {
         where: {
           id: req.body.id_comment
         }
-      }).then(function(dbComment) {
-        res.json(dbComment);
+      }).then(function(result) {
+        console.log("This is the result: " + result);
+        res.json(result);
+        currentUpVote = [];
         currentDownVote = [];
       });
+
+
+
+
+
+
+    
+      // db.comments.update({
+      //   downVotes: parseInt(addDownVote)
+      // }, {
+      //   where: {
+      //     id: req.body.id_comment
+      //   }
+      // }).then(function(dbComment) {
+      //   res.json(dbComment);
+      //   currentDownVote = [];
+      // });
 
   })
 
 });
+
+// router.put("/:id/:id_comment", function(req, res, next) {
+
+//   var currentUpVote = [];
+
+//     db.comments.findAll({
+//       where: {
+//         id: req.body.id_comment
+//       }
+//     }).then(function(dbComments) {
+      
+
+//   })
+
+// });
 
 // app.put("/places/:place_id/:user", function(req, res) {
     
