@@ -74,12 +74,12 @@ router.post("/:id", function(req, res) {
 
 
 
-router.delete("place/:id", function(req, res) {
+router.delete("/:id/:id_comment", function(req, res) {
     
     db.comments.destroy({
       where: {
-      	id: req.body.id_comment,
-        place_id: req.params.id
+      	id: req.body.id_comment
+        // place_id: req.params.id
         // user: req.params.user
       }
     }).then(function(dbComment) {
