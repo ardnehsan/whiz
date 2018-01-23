@@ -1,20 +1,30 @@
+<<<<<<< HEAD
 console.log('yo')
 $("#signIn").on("click", function (e) {
     e.stopPropagation();
+=======
+$("#signInForm").submit(function (event) {
+
+    event.preventDefault();
+>>>>>>> 1aa9294dcceda5dfca78307cbcf310096355c7fd
     var user = {
         username: $("#username").val().trim(),
         password: $("#pw").val().trim()
     }
     console.log(user)
 
-    $.post('/api/login', user).then(function (response) {
-        console.log(response)
-    })
 
-})
+});
 
+
+$("#signUpForm").submit(function (event) {
+
+<<<<<<< HEAD
 $("#signUp").on("click", function (e) {
     e.stopPropagation();
+=======
+    event.preventDefault()
+>>>>>>> 1aa9294dcceda5dfca78307cbcf310096355c7fd
 
     var user = {
         name: $("#signUpName").val().trim(),
@@ -27,4 +37,4 @@ $("#signUp").on("click", function (e) {
         console.log(response)
     })
 
-})
+});
