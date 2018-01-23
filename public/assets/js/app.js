@@ -315,9 +315,9 @@ $(document).on("click", ".likeComment", function(event){
 //     });
 // };
 
-$(function() {
-    $("button").disableFor(30,0); // First parameter stands for minutes and the second for the seconds.
-});
+// $(function() {
+//     $("button").disableFor(30,0); // First parameter stands for minutes and the second for the seconds.
+// });
 
 
 
