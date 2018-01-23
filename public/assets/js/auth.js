@@ -1,6 +1,6 @@
 console.log('yo')
 $("#signIn").on("click", function (e) {
-    event.preventDefault()
+    e.stopPropagation();
     var user = {
         username: $("#username").val().trim(),
         password: $("#pw").val().trim()
@@ -14,7 +14,7 @@ $("#signIn").on("click", function (e) {
 })
 
 $("#signUp").on("click", function (e) {
-    event.preventDefault()
+    e.stopPropagation();
 
     var user = {
         name: $("#signUpName").val().trim(),
@@ -22,7 +22,6 @@ $("#signUp").on("click", function (e) {
         password: $("#signUpPassword").val().trim(),
         email: $("#signUpEmail").val().trim()
     }
-    console.log(user)
 
     $.post('/api/signUp', user).then(function (response) {
         console.log(response)
