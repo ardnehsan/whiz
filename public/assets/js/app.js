@@ -85,7 +85,9 @@ function initMap() {
 			markers = [];
 			markerContent = [];
 			locationInfo = [];
-			
+			place_id = [];
+			placeName = [];
+			placeVicinity = [];
 
 			var geocoder = new google.maps.Geocoder();
 			geocoder.geocode( { 'address': userAddress}, function(results, status) {
@@ -94,8 +96,8 @@ function initMap() {
 		 			userLat.push(results[0].geometry.location.lat());
 		 			userLong.push(results[0].geometry.location.lng());
 		 		
-		 			console.log(userLat);
-		 			console.log(userLong);
+		 			// console.log(userLat);
+		 			// console.log(userLong);
 
 		 			
 		 			}
@@ -156,14 +158,17 @@ function initMap() {
 					  	locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
 					    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
 
-					    $("#button-" + placeNum).attr("data-id", results[i].id);
-					    $("#button-" + placeNum).attr("href", "/" + results[i].id)
+					    $("#button-" + placeNum).attr("data-id", results[i].place_id);
+					    $("#button-" + placeNum).attr("data-name", results[i].name);
+					    $("#button-" + placeNum).attr("data-vicinity", results[i].vicinity);
+					    // $("#button-" + placeNum).attr("href", "/" + results[i].id)
 					    $("#button-" + placeNum).text("Go Here!")
 					    $("#place-" + placeNum).text("Place Name: " + results[i].name + " Address: " + results[i].vicinity);
-					    
+					    			    
 					    placeNum++
 					  }
 					  placeNum = 1;
+					  
 					}
 
 					else {
@@ -175,14 +180,17 @@ function initMap() {
 					  	locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
 					    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
 
-					    $("#button-" + placeNum).attr("data-id", results[i].id);
-					    $("#button-" + placeNum).attr("href", "/" + results[i].id)
+					    $("#button-" + placeNum).attr("data-id", results[i].place_id);
+					    $("#button-" + placeNum).attr("data-name", results[i].name);
+					    $("#button-" + placeNum).attr("data-vicinity", results[i].vicinity);
+					    // $("#button-" + placeNum).attr("href", "/" + results[i].id)
 					    $("#button-" + placeNum).text("Go Here!")
 					    $("#place-" + placeNum).text("Place Name: " + results[i].name + " Address: " + results[i].vicinity);
 					    
 					    placeNum++
 					  }
 					  placeNum = 1;
+					  
 					}
 				}
 			})
@@ -196,63 +204,203 @@ function initMap() {
 		}
 
 	})
-}
 
 
-$(document).on("click", ".deleteComment", function(event){
-		event.stopPropagation();
-  		
-		var id = {
-			id_comment: $(this).data("id")
-		} 
-		console.log(id)
-		// Send the DELETE request.
-		$.ajax("/:id/:id_comment", {
-		  method: "DELETE",
-		  data: id
-		}).then(function(success) {
-			console.log("deleted id ", id);
-			// Reload the page to get the updated list
-			console.log(success)
-			location.reload()
-		  }
-		);
-});
+var thePlacePath = location.pathname;
+	while(thePlacePath.charAt(0) === '/')
+	{
+	 	thePlacePath = thePlacePath.substr(1);
+	}
+	console.log(thePlacePath);
 
-$(document).on("click", ".dislikeComment", function(event){
-		event.stopPropagation();
-  		
-		var id = {
-			id_comment: $(this).data("id"),
-			downVote: "1",
-			upVote: "0"
-		} 
+var thisPlaceId;
+var thisPlaceName;
+var thisPlaceVicinity;
+
+var currentPlaceId;
+var currentPlaceName;
+var currentPlaceVicinity;
+
+
+
+	function clickPlace(button) {
+
+			localStorage.setItem("thisPlaceId", $(button).data("id"));
+			localStorage.setItem("thisPlaceName", $(button).data("name"));
+			localStorage.setItem("thisPlaceVicinity", $(button).data("vicinity"));
+
+			var allComments = {
+					placeId: $(button).data("id"),
+					name: $(button).data("name"),
+					vicinity: $(button).data("vicinity")
+			}
+
+			
+
+		    $.ajax("/" + allComments.placeId, {
+		      type: "GET",
+		      data: allComments
+		    }).done(function() {
+		        console.log("Got comments with ID = " + allComments.placeId);
+		        
+
+		        window.location.href='/' + allComments.placeId
+
+
+		        
+		      });	
+
 		
-		
-		$.ajax("/:id/:id_comment", {
-		  method: "PUT",
-		  data: id,
-		  success: function(data) {
-				console.log(data)
-		  }
-		}).then(function(success) {
-			console.log("updated id ", id);
-			// Reload the page to get the updated list
-			console.log(success)
-			location.reload()
-		  }
-		);
-});
 
-$(document).on("click", ".likeComment", function(event){
-		event.stopPropagation();
-  		
-		var id = {
-			id_comment: $(this).data("id"),
-			downVote: "0",
-			upVote: "1"
-		} 
+
+
+		currentPlaceId = localStorage.getItem("thisPlaceId");
+		currentPlaceName = localStorage.getItem("thisPlaceName");
+		currentPlaceVicinity = localStorage.getItem("thisPlaceVicinity");
+
+		$(document).ready(function() {
+				
+			if (location.pathname === "/" + currentPlaceId) { 
+				
+
+				$("#placeInfo").html("Comments for: " + currentPlaceName + "<p>Address: " + currentPlaceVicinity + "</p>")
+			}
+
+		})
+
+	}
+
+
+	$("#button-1").click(function(){	
+		clickPlace("#button-1");
+	})
+
+	$("#button-2").click(function(){	
+		clickPlace("#button-2");
+	})
+
+	$("#button-3").click(function(){	
+		clickPlace("#button-3");
+	})
+
+	$("#button-4").click(function(){	
+		clickPlace("#button-4");
+	})
+
+	$("#button-5").click(function(){	
+		clickPlace("#button-5");
+	})
+
+console.log(location.pathname.length)
+
+	if (location.pathname.length > 1) {
+
 		
+		function geocodePlaceId(geocoder, map, infowindow) {
+        
+        geocoder.geocode({'placeId': thePlacePath}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+              console.log(results[0])
+              map.setZoom(11);
+              map.setCenter(results[0].geometry.location);
+              var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+              });
+              infowindow.setContent(results[0].formatted_address);
+              infowindow.open(map, marker);
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+          	
+            //This needs to throw a 404...
+
+          }
+        });
+      }
+
+
+      geocodePlaceId(new google.maps.Geocoder(), new google.maps.Map(document.getElementById('map'), {
+          zoom: 9,
+          center: {lat: 29.7604, lng: -95.3698}
+        }), new google.maps.InfoWindow)
+	}
+
+
+
+
+
+	$("#newComment").submit(function(event) {
+		event.preventDefault()
+		$("#error2").empty();	
+
+		var newComment = {
+			user: $("#user").val().trim(),
+			comment: $("#comment").val().trim(),
+		}
+
+
+		if (newComment.user === "" || newComment.comment === "") {
+			$("#error2").text("Please fill out both fields before submitting")
+		}
+
+		else {
+
+		 $.ajax("/" + thePlacePath, {
+		      type: "POST",
+		      data: newComment,
+		    }).done(
+		      function() {
+		        console.log("Got comments with ID = " + newComment.placeId);	        
+				location.reload();
+		      });
+		}	
+
+	})
+
+
+
+
+	$(document).on("click", ".deleteComment", function(event){
+			event.stopPropagation();
+	  		
+			var id = {
+				id_comment: $(this).data("id")
+			} 
+			
+			$.ajax("/" + thePlacePath + "/" + id.id_comment, {
+			  method: "DELETE",
+			  data: id
+			}).done(function() {
+				location.reload()
+			  }
+			);
+	});
+
+	$(document).on("click", ".dislikeComment", function(event){
+			event.stopPropagation();
+	  		
+			var id = {
+				id_comment: $(this).data("id"),
+				downVote: "1",
+				upVote: "0"
+			} 
+			
+			
+			$.ajax("/" + thePlacePath + "/" + id.id_comment, {
+			  method: "PUT",
+			  data: id
+			}).done(function() {
+				location.reload()
+			  }
+			);
+	});
+
+	$(document).on("click", ".likeComment", function(event){
+		
+<<<<<<< HEAD
 		// Send the DELETE request.
 		$.ajax("/:id/:id_comment", {
 		  method: "PUT",
@@ -267,10 +415,35 @@ $(document).on("click", ".likeComment", function(event){
 			// Reload the page to get the updated list
 			//location.reload()
 			console.log(success)
+=======
+			event.stopPropagation();
+	  		
+			var id = {
+				id_comment: $(this).data("id"),
+				downVote: "0",
+				upVote: "1"
+			} 
+>>>>>>> c69712ac5d4b2c2bfa26e70cf23c76a1176d0c6d
 			
-		  }
-		);
-});
+			// Send the DELETE request.
+			$.ajax("/" + thePlacePath + "/" + id.id_comment, {
+			  method: "PUT",
+			  data: id
+			}).done(function() {
+				location.reload()
+				
+			  }
+			);
+
+
+	});
+
+
+
+
+
+
+
 
 // $.fn.disableFor = function(mins, secs) {
 //     var i = [],
@@ -323,56 +496,10 @@ $(document).on("click", ".likeComment", function(event){
 
 
 
-function clickPlace(button) {
-
-$(button).click(function(){
-		var allComments = {
-				placeId: $(button).data("id")
-		}
-
-		    $.ajax("/:id", {
-		      type: "GET",
-		      data: allComments
-		    }).then(
-		      function() {
-		        console.log("Got comments with ID = " + allComments.placeId);	        
-		        
-		      });	
-
-	})
-}
 
 
 
-	clickPlace("#button-1");
-	clickPlace("#button-2");
-	clickPlace("#button-3");
-	clickPlace("#button-4");
-	clickPlace("#button-5");
 
-
-	$("newComment").submit(function(event) {
-		event.preventDefault();	
-
-		var newComment = {
-			user: $("#user").val().trim(),
-			comment: $("#comment").val().trim(),
-		}
-
-		 $.ajax("/:id", {
-		      type: "POST",
-		      data: newComment,
-		    }).then(
-		      function() {
-		        console.log("Got comments with ID = " + newComment.placeId);	        
-				location.reload();
-				if(location.reload() === true) {
-					console.log('reloaded')
-				} else {
-					console.log('nope')
-				}
-		      });	
-
-	})
 
 	
+}
