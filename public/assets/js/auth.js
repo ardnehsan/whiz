@@ -1,19 +1,18 @@
-console.log('yo')
-$("#signIn").on("click", function (e) {
-    event.preventDefault()
+$("#signInForm").submit(function (event) {
+
+    event.preventDefault();
     var user = {
         username: $("#username").val().trim(),
         password: $("#pw").val().trim()
     }
     console.log(user)
 
-    $.post('/api/login', user).then(function (response) {
-        console.log(response)
-    })
 
-})
+});
 
-$("#signUp").on("click", function (e) {
+
+$("#signUpForm").submit(function (event) {
+
     event.preventDefault()
 
     var user = {
@@ -28,4 +27,4 @@ $("#signUp").on("click", function (e) {
         console.log(response)
     })
 
-})
+});
