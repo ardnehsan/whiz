@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
+    <title>Whiz</title>
+  <link rel="stylesheet" href="assets/css/whiz.css">
+
+{{!-- style for sign up  --}}
+  <link rel="stylesheet" type="text/css" href="assets/css/signup.css">
+
+{{!-- added materialize   --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDomeXKvy8n2GG1lCgJ7KZLenY7atqHdNU&callback=initMap&libraries=places"></script>
+<script type="text/javascript" src="assets/js/app.js"></script>
+
+    <body>
+
+     <nav>                  {{!--Navbar for all pages  --}}
+        <div class="nav-wrapper">
+          <a href="#!" class="brand-logo"><i class="material-icons">cloud</i>WHIZ</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="sass.html"><i class="material-icons">search</i></a></li>
+            <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
+            <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
+            <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
+          </ul>
+        </div>
+     </nav>
+
+        <div>
+          {{{body}}}
+        </div>
+
+        <style>
+        body {
+            background: url("../images/grey.jpeg") no-repeat center center fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            }
+
+         .box {          /* 1 */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            widows: 400px;
+            padding: 40px;
+            background: grey;
+            box-sizing: border-box;
+            box-shadow: 0 15px 25px white;
+            border-radius: 10px;
+        }
+
+         .box h2 {      
+            color: black;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .box .inputBox {
+            position: relative;
+        }
+
+        .box .inputBox input {
+            width: 100%;
+            padding: 10px 0px;
+            font-size: 20px;
+            color: black;
+            margin-bottom: 15px;
+            border: none;
+            border-bottom: 1px solid;
+            outline: none;
+            background: transparent;
+        }
+
+        .box .inputBox label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 10px 0;
+            pointer-events: none;
+            transition: .4s;
+            color: black;
+            font-size: 20px;
+        }
+
+        .box .inputBox input:focus ~ label,
+        .box .inputBox input:valid ~ label {
+            top: -20px;
+        }
+
+        p {
+            text-align: center;
+            font: 200px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+ 
+    </body>
+</html>
