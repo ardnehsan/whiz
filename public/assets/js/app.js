@@ -152,13 +152,13 @@ function initMap() {
 				    if (results.length <= 5) {
 					  for (var i = 0, result; result = results[i]; i++) {
 
-					  	// console.log(result)
+					  	console.log(result)
 					  	var resultsLat = results[i].geometry.location.lat()
 					  	var resultsLng = results[i].geometry.location.lng()
 					  	locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
 					    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
 
-					    $("#button-" + placeNum).attr("data-id", results[i].id);
+					    $("#button-" + placeNum).attr("data-id", results[i].place_id);
 					    $("#button-" + placeNum).attr("data-name", results[i].name);
 					    $("#button-" + placeNum).attr("data-vicinity", results[i].vicinity);
 					    // $("#button-" + placeNum).attr("href", "/" + results[i].id)
@@ -174,13 +174,13 @@ function initMap() {
 					else {
 						for (var i = 0; i < 5; i++) {
 
-					  	// console.log(results);
+					  	console.log(results);
 					  	var resultsLat = results[i].geometry.location.lat()
 					  	var resultsLng = results[i].geometry.location.lng()
 					  	locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
 					    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
 
-					    $("#button-" + placeNum).attr("data-id", results[i].id);
+					    $("#button-" + placeNum).attr("data-id", results[i].place_id);
 					    $("#button-" + placeNum).attr("data-name", results[i].name);
 					    $("#button-" + placeNum).attr("data-vicinity", results[i].vicinity);
 					    // $("#button-" + placeNum).attr("href", "/" + results[i].id)
@@ -206,6 +206,13 @@ function initMap() {
 	})
 
 
+var thePlacePath = location.pathname;
+	while(thePlacePath.charAt(0) === '/')
+	{
+	 	thePlacePath = thePlacePath.substr(1);
+	}
+	console.log(thePlacePath);
+
 var thisPlaceId;
 var thisPlaceName;
 var thisPlaceVicinity;
@@ -217,8 +224,6 @@ var currentPlaceVicinity;
 
 
 	function clickPlace(button) {
-
-		$(button).click(function(){	
 
 			localStorage.setItem("thisPlaceId", $(button).data("id"));
 			localStorage.setItem("thisPlaceName", $(button).data("name"));
@@ -237,9 +242,6 @@ var currentPlaceVicinity;
 		      data: allComments
 		    }).done(function() {
 		        console.log("Got comments with ID = " + allComments.placeId);
-
-
-		        
 		        
 
 		        window.location.href='/' + allComments.placeId
@@ -248,7 +250,8 @@ var currentPlaceVicinity;
 		        
 		      });	
 
-		})
+		
+
 
 
 		currentPlaceId = localStorage.getItem("thisPlaceId");
@@ -256,7 +259,7 @@ var currentPlaceVicinity;
 		currentPlaceVicinity = localStorage.getItem("thisPlaceVicinity");
 
 		$(document).ready(function() {
-			
+				
 			if (location.pathname === "/" + currentPlaceId) { 
 				
 
@@ -267,31 +270,93 @@ var currentPlaceVicinity;
 
 	}
 
-	clickPlace("#button-1");
-	clickPlace("#button-2");
-	clickPlace("#button-3");
-	clickPlace("#button-4");
-	clickPlace("#button-5");
+
+	$("#button-1").click(function(){	
+		clickPlace("#button-1");
+	})
+
+	$("#button-2").click(function(){	
+		clickPlace("#button-2");
+	})
+
+	$("#button-3").click(function(){	
+		clickPlace("#button-3");
+	})
+
+	$("#button-4").click(function(){	
+		clickPlace("#button-4");
+	})
+
+	$("#button-5").click(function(){	
+		clickPlace("#button-5");
+	})
+
+console.log(location.pathname.length)
+
+	if (location.pathname.length > 1) {
+
+		
+		function geocodePlaceId(geocoder, map, infowindow) {
+        
+        geocoder.geocode({'placeId': thePlacePath}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+              console.log(results[0])
+              map.setZoom(11);
+              map.setCenter(results[0].geometry.location);
+              var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+              });
+              infowindow.setContent(results[0].formatted_address);
+              infowindow.open(map, marker);
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+          	
+            //This needs to throw a 404...
+
+          }
+        });
+      }
+
+
+      geocodePlaceId(new google.maps.Geocoder(), new google.maps.Map(document.getElementById('map'), {
+          zoom: 9,
+          center: {lat: 29.7604, lng: -95.3698}
+        }), new google.maps.InfoWindow)
+	}
+
 
 
 
 
 	$("#newComment").submit(function(event) {
-		event.preventDefault();	
+		event.preventDefault()
+		$("#error2").empty();	
 
 		var newComment = {
 			user: $("#user").val().trim(),
 			comment: $("#comment").val().trim(),
 		}
 
-		 $.ajax("/" + currentPlaceId, {
+
+		if (newComment.user === "" || newComment.comment === "") {
+			$("#error2").text("Please fill out both fields before submitting")
+		}
+
+		else {
+
+		 $.ajax("/" + thePlacePath, {
 		      type: "POST",
 		      data: newComment,
 		    }).done(
 		      function() {
 		        console.log("Got comments with ID = " + newComment.placeId);	        
 				location.reload();
-		      });	
+		      });
+		}	
 
 	})
 
@@ -305,7 +370,7 @@ var currentPlaceVicinity;
 				id_comment: $(this).data("id")
 			} 
 			
-			$.ajax("/" + currentPlaceId + "/" + id.id_comment, {
+			$.ajax("/" + thePlacePath + "/" + id.id_comment, {
 			  method: "DELETE",
 			  data: id
 			}).done(function() {
@@ -324,7 +389,7 @@ var currentPlaceVicinity;
 			} 
 			
 			
-			$.ajax("/" + currentPlaceId + "/" + id.id_comment, {
+			$.ajax("/" + thePlacePath + "/" + id.id_comment, {
 			  method: "PUT",
 			  data: id
 			}).done(function() {
@@ -344,7 +409,7 @@ var currentPlaceVicinity;
 			} 
 			
 			// Send the DELETE request.
-			$.ajax("/" + currentPlaceId + "/" + id.id_comment, {
+			$.ajax("/" + thePlacePath + "/" + id.id_comment, {
 			  method: "PUT",
 			  data: id
 			}).done(function() {

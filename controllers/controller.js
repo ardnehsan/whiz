@@ -170,6 +170,19 @@ router.put("/:id/:id_comment", function (req, res, next) {
 
 });
 
+
+
+router.get("*", function (req, res) {
+
+    res.render('404')
+
+});
+
+
+
+
+
+
 module.exports = router
 
 
