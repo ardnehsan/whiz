@@ -3,8 +3,19 @@ var db = require("./../models");
 
 module.exports = function(app) {
 
+<<<<<<< HEAD
   
   app.get("/places/:place_id/:user?", function(req, res) {
+=======
+router.get('/signup', (req, res, next) => {
+  res.render('signup');
+});
+router.get('/signin', (req, res, next) => {
+  res.render('signin');
+});
+
+router.get("/:id", function(req, res) {
+>>>>>>> 66f33cfefe226447bbb6bdf5cfe94e2e2d0fa291
     
     db.Comments.findAll({
     	where: {
@@ -164,7 +175,64 @@ app.put("/places/:place_id/:user", function(req, res) {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
 >>>>>>> 13b936e450c071b25639bd4bb745b211254f55d3
+=======
+module.exports = router
+
+
+
+
+function prependComments(comments, objectName) {
+  if (comments.length >= 5) {
+
+        for (var i = comments.length - 1; i > comments.length - 6; i--) {
+          objectName.push(comments[i])
+        }
+
+      }
+
+      else if (comments.length === 4) {
+
+        
+        for (var i = comments.length - 1; i > comments.length - 5; i--) {
+          objectName.push(comments[i])
+        }
+
+      }
+
+      else if (comments.length === 3) {
+
+        
+        for (var i = comments.length - 1; i > comments.length - 4; i--) {
+          objectName.push(comments[i])
+        }
+
+      }
+
+      else if (comments.length === 2) {
+
+        
+        for (var i = comments.length - 1; i > comments.length - 3; i--) {
+          objectName.push(comments[i])
+        }
+
+      }
+
+      else if (comments.length === 1) {
+
+        
+        for (var i = comments.length - 1; i > comments.length - 2; i--) {
+          objectName.push(comments[i])
+        }
+
+      }
+
+      else {
+        console.log("No Comments")
+      }
+}
+>>>>>>> 66f33cfefe226447bbb6bdf5cfe94e2e2d0fa291
