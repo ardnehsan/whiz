@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Static folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, './public')));
 
 //cors
 app.use(cors());
@@ -50,12 +50,12 @@ function userSetup(req, res, next){
 
 
 //Michael added this in
+require('./routes/userApiRoutes.js')(app)
 const routes = require('./controllers/controller.js')
 
 app.use("/", routes);
 //this is the end of what I added in...
 
-const authRoutes =require('./routes/userApiRoutes.js')
 
 db.sequelize.sync().then(function () {
     app.listen(PORT, function () {

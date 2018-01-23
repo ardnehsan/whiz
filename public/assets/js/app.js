@@ -400,6 +400,11 @@ console.log(location.pathname.length)
 
 	$(document).on("click", ".likeComment", function(event){
 		
+		var id = {
+			id_comment: $(this).data("id"),
+			downVote: "0",
+			upVote: "1"
+		} 
 			
 			// Send the DELETE request.
 			$.ajax("/" + thePlacePath + "/" + id.id_comment, {
