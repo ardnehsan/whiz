@@ -33,5 +33,5 @@ $("#signUpForm").submit(function (event) {
     }).then(function (response) {
             console.log(response)
     });
-
+    console.log('submitted!')
 });
