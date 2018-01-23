@@ -1,4 +1,5 @@
-var db = require('../models')
+const db = require('../models')
+const bcrypt = require('bcrypt')
 module.exports = function (app){
   app.post("/signin", function (req, res) {
     console.log(req.body)
