@@ -270,7 +270,54 @@ $(document).on("click", ".likeComment", function(event){
 		);
 });
 
+// $.fn.disableFor = function(mins, secs) {
+//     var i = [],
+//     play = [];
 
+//     this.click(function() {
+//         var selector = $(this),
+//         inDex = $(selector).index(),
+//         prevText = $(selector).text();
+//         i[inDex] = 0;
+//         var inSeconds = mins * 60 + secs;
+
+//         $(selector).prop("disabled", "disabled");
+        
+//         play[inDex] = setInterval(function() {
+//             if(inSeconds > 60){
+//                 inSeconds = inSeconds - 1;
+//                 var minutes = Math.floor(inSeconds / 60);
+//                 var seconds = inSeconds % 60;
+//                 if(minutes >= 1){
+//                     if(seconds.toString().length > 1){
+//                         $(selector).text(minutes + ":" + seconds + " minutes left");
+//                     }else{
+//                         $(selector).text(minutes + ":" + "0" + seconds + " minutes left");
+//                     }
+//                 }else{
+//                     $(selector).text(seconds + " seconds left");
+//                 }
+//             }else{
+//                 if(inSeconds > 1){
+//                     inSeconds = inSeconds - 1;
+//                     if(inSeconds.toString().length > 1){
+//                         $(selector).text(inSeconds + " seconds left");
+//                     }else{
+//                         $(selector).text("0" + inSeconds + " seconds left");
+//                     }
+//                 }else{
+//                     $(selector).prop("disabled", "");
+//                     clearInterval(play[inDex]);
+//                     $(selector).text(prevText);
+//                 }                              
+//             }
+//         }, 1000);
+//     });
+// };
+
+$(function() {
+    $("button").disableFor(30,0); // First parameter stands for minutes and the second for the seconds.
+});
 
 
 

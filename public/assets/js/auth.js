@@ -21,10 +21,17 @@ $("#signUpForm").submit(function (event) {
         password: $("#signUpPassword").val().trim(),
         email: $("#signUpEmail").val().trim()
     }
-    console.log(user)
 
-    $.post('/api/signUp', user).then(function (response) {
-        console.log(response)
-    })
+    $.post('/signUp', {
+        data: user,
+        success: function(){
+            console.log("Success")
+        }, 
+        error: function(error) {
+            console.log(error)
+        }
+    }).then(function (response) {
+            console.log(response)
+    });
 
 });
