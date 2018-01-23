@@ -258,12 +258,14 @@ $(document).on("click", ".likeComment", function(event){
 		  method: "PUT",
 		  data: id,
 		  success: function(data) {
+				console.log("success")
 				console.log(data)
 		  }
 		}).then(function(success) {
+			console.log("then")
 			console.log("updated id ", id);
 			// Reload the page to get the updated list
-			location.reload()
+			//location.reload()
 			console.log(success)
 			
 		  }
