@@ -6,7 +6,7 @@ $(document).on("click","#signInForm",  function (event) {
         username: $("#username").val().trim(),
         password: $("#pw").val().trim()
     }
-    console.log(user)
+    // This is commented out so password doesnt show in frontend console console.log(user)
 
 
 });
@@ -24,7 +24,7 @@ $(document).on("click","#signUpForm",  function (event) {
     }
 
     $.post('/signUp', user).then(function (response) {
-            console.log(response)
+            // commented out so password will not show in terminal console.log(response)
     });
 
 });
