@@ -21,7 +21,6 @@ $("#signUpForm").submit(function (event) {
         password: $("#signUpPassword").val().trim(),
         email: $("#signUpEmail").val().trim()
     }
-    console.log(user)
 
     $.post('/api/signUp', user).then(function (response) {
         console.log(response)

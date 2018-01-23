@@ -1,89 +1,242 @@
+//require dependencies
+const express = require('express');
+const router = express.Router();
 
-var db = require("./../models");
+var db = require("../models");
 
-module.exports = function(app) {
+router.get('/', (req, res, next) => {
+    res.render('index');
+});
 
-  
-  app.get("/places/:place_id/:user?", function(req, res) {
+router.get('/signup', (req, res, next) => {
+  res.render('signup');
+});
+router.get('/signin', (req, res, next) => {
+  res.render('signin');
+});
+
+router.get("/:id", function(req, res) {
     
-    db.Comments.findAll({
+    db.comments.findAll({
     	where: {
-    		place_id: req.params.place_id
+    		place_id: req.params.id
     	}
     }).then(function(dbComments) {
-      
-      res.json(dbComments);
-    });
-  });
 
-app.post("/places/:place_id/:user", function(req, res) {
+      var allTheComments = {
+        comments: [],
+        form: "<form id='newComment' method='post'>" +
+          "<h4 class='newInfo'>User: *</h4>" +
+          "<input type='text' name='user' id='user' placeholder='Your Username' class='form-control'>" +
+          "<h4 class='newInfo'>Comment *</h4>" +
+          "<input type='text' min='0' name='comment' class='form-control' id='comment' placeholder='Your comment goes here'>" +
+          
+          "<input type='submit' value='Post a comment!' class='btn btn-primary' id='submit'>" +
+        "</form>"
+      }
             
-    db.Comments.create({
-      user: req.params.user,
-      place_id: req.params.place_id,
+      prependComments(dbComments, allTheComments.comments);
+
+      res.render('index', allTheComments)
+     
+    });
+  });
+
+
+router.post("/:id", function(req, res) {
+
+     
+    db.comments.create({
+      user: req.body.user,
+      place_id: req.params.id,
       comment: req.body.comment
-    }).then(function(){	
+    }).then(function(results){
+      console.log("This is the results ID: " + results.id)
+      var commentId = results.id
 
-    	db.Votes.create({
-    		user: req.params.user,
-    		comment_id: db.Comments.id
-    	});
-    	db.Busy.create({
-    		comment_id: db.Comments.id
-    	})
+    	// db.votes.create({
+    	// 	user: req.body.user,
+    	// 	comment_id: commentId
+    	// });
 
-    }).then(function(dbComment) {
+    	// db.busy.create({
+    	// 	comment_id: results.id
+    	// });
 
+     res.redirect(req.get('referer'));
+    })
+  })
+  //   }).then(function(dbComment) {
 
+  //     console.log(dbComment[0].comment_id)
+  //     console.log(dbComment[1].comment_id)
       
-      res.json(dbComment);
-    });
-  });
+  //     // res.render('index')
+  //   });
+  // });
 
 
-app.delete("/places/:place_id/:user", function(req, res) {
+
+router.delete("/:id/:id_comment", function(req, res) {
     
-    db.Comments.destroy({
+    db.comments.destroy({
       where: {
-      	id: req.body.id,
-        place_id: req.params.place_id,
-        user: req.params.user
-      }
-    }).then(function(){
-
-    	db.Votes.destroy({
-    		where: {
-    			comment_id: db.Comments.id
-    		}
-    	})
-
-    	db.Busy.destroy({
-    		where: {
-    			comment_id: db.Comments.id
-    		}
-    	})
-
-    }).then(function(dbComment) {
-      res.json(dbComment);
-    });
-  });
-
-
-
-app.put("/places/:place_id/:user", function(req, res) {
-    
-    db.Comment.update({
-      comment: req.body.comment
-    }, {
-      where: {
-      	id: req.body.id,
-        place_id: req.params.place_id,
-        user: req.params.user
+      	id: req.body.id_comment
+        // place_id: req.params.id
+        // user: req.params.user
       }
     }).then(function(dbComment) {
       res.json(dbComment);
     });
   });
+    	// db.Votes.destroy({
+    	// 	where: {
+    	// 		comment_id: db.Comments.id
+    	// 	}
+    	// })
+
+    	// db.Busy.destroy({
+    	// 	where: {
+    	// 		comment_id: db.Comments.id
+    	// 	}
+    	// })
+
+router.put("/:id/:id_comment", function(req, res, next) {
+
+  var currentDownVotes = [];
+  var currentUpVote = [];
+
+    db.comments.findAll({
+      where: {
+        id: req.body.id_comment
+      }
+    }).then(function(dbComments) {
+
+
+      //this is for upvote
+
+      // console.log("This is upvotes in DB" + dbComments[0].dataValues.upVotes)
+      // console.log(dbComments.comments[0].upVote)
+      currentUpVote.push(dbComments[0].dataValues.upVotes)
+
+      var addUpVote = parseInt(req.body.upVote) + parseInt(currentUpVote)
+
+      console.log("This is the addUpVote " + addUpVote);
+
+
+
+
+      // console.log("This is downvotes in DB" + dbComments[0].dataValues.downVotes)
+      
+      currentDownVotes.push(dbComments[0].dataValues.downVotes)
+
+      var addDownVote = parseInt(req.body.downVote) + parseInt(currentDownVotes)
+
+      // console.log("This is the addDownVote " + addDownVote);
+    
+
+    
+      db.comments.update({
+        upVotes: parseInt(addUpVote),
+        downVotes: parseInt(addDownVote)
+      }, {
+        where: {
+          id: req.body.id_comment
+        }
+      }).then(function(result) {
+        console.log("This is the result: " + result);
+        
+        console.log("Current Up Vote: " + addUpVote);
+        console.log("Current Down Vote: " + addDownVote);
+        
+
+        if (addUpVote >= 10 && addDownVote >= 10) {
+          db.comments.update({
+            busy: false
+          },{
+            where: {
+              id: req.body.id_comment
+            }
+          }).then(function(result){
+            res.json(result);
+            currentUpVote = [];
+            currentDownVote = [];
+          })
+        }
+
+
+
+        else if (addUpVote >= 10) {
+          db.comments.update({
+            busy: true
+          },{
+            where: {
+              id: req.body.id_comment
+            }
+          }).then(function(result){
+            res.json(result);
+            currentUpVote = [];
+            currentDownVote = [];
+          })
+        }
+
+        else if (addDownVote >= 10) {
+          db.comments.update({
+            busy: false
+          },{
+            where: {
+              id: req.body.id_comment
+            }
+          }).then(function(result){
+            res.json(result);
+            currentUpVote = [];
+            currentDownVote = [];
+          })
+        }
+
+        else {
+          
+          currentUpVote = [];
+          currentDownVote = [];
+        }
+
+      });
+
+
+
+
+
+
+    
+      // db.comments.update({
+      //   downVotes: parseInt(addDownVote)
+      // }, {
+      //   where: {
+      //     id: req.body.id_comment
+      //   }
+      // }).then(function(dbComment) {
+      //   res.json(dbComment);
+      //   currentDownVote = [];
+      // });
+
+  })
+
+});
+
+// router.put("/:id/:id_comment", function(req, res, next) {
+
+//   var currentUpVote = [];
+
+//     db.comments.findAll({
+//       where: {
+//         id: req.body.id_comment
+//       }
+//     }).then(function(dbComments) {
+      
+
+//   })
+
+// });
 
 // app.put("/places/:place_id/:user", function(req, res) {
     
@@ -159,6 +312,8 @@ app.put("/places/:place_id/:user", function(req, res) {
 
 //     });
 //   });
+
+
 
 
 module.exports = router
