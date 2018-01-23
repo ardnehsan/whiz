@@ -85,7 +85,9 @@ function initMap() {
 			markers = [];
 			markerContent = [];
 			locationInfo = [];
-			
+			place_id = [];
+			placeName = [];
+			placeVicinity = [];
 
 			var geocoder = new google.maps.Geocoder();
 			geocoder.geocode( { 'address': userAddress}, function(results, status) {
@@ -94,8 +96,8 @@ function initMap() {
 		 			userLat.push(results[0].geometry.location.lat());
 		 			userLong.push(results[0].geometry.location.lng());
 		 		
-		 			console.log(userLat);
-		 			console.log(userLong);
+		 			// console.log(userLat);
+		 			// console.log(userLong);
 
 		 			
 		 			}
@@ -150,39 +152,45 @@ function initMap() {
 				    if (results.length <= 5) {
 					  for (var i = 0, result; result = results[i]; i++) {
 
-					  	console.log(result)
+					  	// console.log(result)
 					  	var resultsLat = results[i].geometry.location.lat()
 					  	var resultsLng = results[i].geometry.location.lng()
 					  	locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
 					    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
 
 					    $("#button-" + placeNum).attr("data-id", results[i].id);
-					    $("#button-" + placeNum).attr("href", "/" + results[i].id)
+					    $("#button-" + placeNum).attr("data-name", results[i].name);
+					    $("#button-" + placeNum).attr("data-vicinity", results[i].vicinity);
+					    // $("#button-" + placeNum).attr("href", "/" + results[i].id)
 					    $("#button-" + placeNum).text("Go Here!")
 					    $("#place-" + placeNum).text("Place Name: " + results[i].name + " Address: " + results[i].vicinity);
-					    
+					    			    
 					    placeNum++
 					  }
 					  placeNum = 1;
+					  
 					}
 
 					else {
 						for (var i = 0; i < 5; i++) {
 
-					  	console.log(results);
+					  	// console.log(results);
 					  	var resultsLat = results[i].geometry.location.lat()
 					  	var resultsLng = results[i].geometry.location.lng()
 					  	locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
 					    addMarker({lat: resultsLat, lng: resultsLng}, locationInfo[i]);
 
 					    $("#button-" + placeNum).attr("data-id", results[i].id);
-					    $("#button-" + placeNum).attr("href", "/" + results[i].id)
+					    $("#button-" + placeNum).attr("data-name", results[i].name);
+					    $("#button-" + placeNum).attr("data-vicinity", results[i].vicinity);
+					    // $("#button-" + placeNum).attr("href", "/" + results[i].id)
 					    $("#button-" + placeNum).text("Go Here!")
 					    $("#place-" + placeNum).text("Place Name: " + results[i].name + " Address: " + results[i].vicinity);
 					    
 					    placeNum++
 					  }
 					  placeNum = 1;
+					  
 					}
 				}
 			})
@@ -196,82 +204,164 @@ function initMap() {
 		}
 
 	})
-}
 
 
-$(document).on("click", ".deleteComment", function(event){
-		event.stopPropagation();
-  		
-		var id = {
-			id_comment: $(this).data("id")
-		} 
-		console.log(id)
-		// Send the DELETE request.
-		$.ajax("/:id/:id_comment", {
-		  method: "DELETE",
-		  data: id
-		}).then(function(success) {
-			console.log("deleted id ", id);
-			// Reload the page to get the updated list
-			console.log(success)
-			location.reload()
-		  }
-		);
-});
+var thisPlaceId;
+var thisPlaceName;
+var thisPlaceVicinity;
 
-$(document).on("click", ".dislikeComment", function(event){
-		event.stopPropagation();
-  		
-		var id = {
-			id_comment: $(this).data("id"),
-			downVote: "1",
-			upVote: "0"
-		} 
-		
-		
-		$.ajax("/:id/:id_comment", {
-		  method: "PUT",
-		  data: id,
-		  success: function(data) {
-				console.log(data)
-		  }
-		}).then(function(success) {
-			console.log("updated id ", id);
-			// Reload the page to get the updated list
-			console.log(success)
-			location.reload()
-		  }
-		);
-});
+var currentPlaceId;
+var currentPlaceName;
+var currentPlaceVicinity;
 
-$(document).on("click", ".likeComment", function(event){
-		event.stopPropagation();
-  		
-		var id = {
-			id_comment: $(this).data("id"),
-			downVote: "0",
-			upVote: "1"
-		} 
-		
-		// Send the DELETE request.
-		$.ajax("/:id/:id_comment", {
-		  method: "PUT",
-		  data: id,
-		  success: function(data) {
-				console.log(data)
-		  }
-		}).then(function(success) {
-			console.log("updated id ", id);
-			// Reload the page to get the updated list
+
+
+	function clickPlace(button) {
+
+		$(button).click(function(){	
+
+			localStorage.setItem("thisPlaceId", $(button).data("id"));
+			localStorage.setItem("thisPlaceName", $(button).data("name"));
+			localStorage.setItem("thisPlaceVicinity", $(button).data("vicinity"));
+
+			var allComments = {
+					placeId: $(button).data("id"),
+					name: $(button).data("name"),
+					vicinity: $(button).data("vicinity")
+			}
+
 			
-			console.log(success)
-			location.reload()
+
+		    $.ajax("/" + allComments.placeId, {
+		      type: "GET",
+		      data: allComments
+		    }).done(function() {
+		        console.log("Got comments with ID = " + allComments.placeId);
+
+
+		        
+		        
+
+		        window.location.href='/' + allComments.placeId
+
+
+		        
+		      });	
+
+		})
+
+
+		currentPlaceId = localStorage.getItem("thisPlaceId");
+		currentPlaceName = localStorage.getItem("thisPlaceName");
+		currentPlaceVicinity = localStorage.getItem("thisPlaceVicinity");
+
+		$(document).ready(function() {
 			
-		  }
-		);
+			if (location.pathname === "/" + currentPlaceId) { 
+				
+
+				$("#placeInfo").html("Comments for: " + currentPlaceName + "<p>Address: " + currentPlaceVicinity + "</p>")
+			}
+
+		})
+
+	}
+
+	clickPlace("#button-1");
+	clickPlace("#button-2");
+	clickPlace("#button-3");
+	clickPlace("#button-4");
+	clickPlace("#button-5");
 
 
-});
+
+
+	$("#newComment").submit(function(event) {
+		event.preventDefault();	
+
+		var newComment = {
+			user: $("#user").val().trim(),
+			comment: $("#comment").val().trim(),
+		}
+
+		 $.ajax("/" + currentPlaceId, {
+		      type: "POST",
+		      data: newComment,
+		    }).done(
+		      function() {
+		        console.log("Got comments with ID = " + newComment.placeId);	        
+				location.reload();
+		      });	
+
+	})
+
+
+
+
+	$(document).on("click", ".deleteComment", function(event){
+			event.stopPropagation();
+	  		
+			var id = {
+				id_comment: $(this).data("id")
+			} 
+			
+			$.ajax("/" + currentPlaceId + "/" + id.id_comment, {
+			  method: "DELETE",
+			  data: id
+			}).done(function() {
+				location.reload()
+			  }
+			);
+	});
+
+	$(document).on("click", ".dislikeComment", function(event){
+			event.stopPropagation();
+	  		
+			var id = {
+				id_comment: $(this).data("id"),
+				downVote: "1",
+				upVote: "0"
+			} 
+			
+			
+			$.ajax("/" + currentPlaceId + "/" + id.id_comment, {
+			  method: "PUT",
+			  data: id
+			}).done(function() {
+				location.reload()
+			  }
+			);
+	});
+
+	$(document).on("click", ".likeComment", function(event){
+		
+			event.stopPropagation();
+	  		
+			var id = {
+				id_comment: $(this).data("id"),
+				downVote: "0",
+				upVote: "1"
+			} 
+			
+			// Send the DELETE request.
+			$.ajax("/" + currentPlaceId + "/" + id.id_comment, {
+			  method: "PUT",
+			  data: id
+			}).done(function() {
+				location.reload()
+				
+			  }
+			);
+
+
+	});
+
+
+
+
+
+
+
 
 // $.fn.disableFor = function(mins, secs) {
 //     var i = [],
@@ -324,56 +414,10 @@ $(document).on("click", ".likeComment", function(event){
 
 
 
-function clickPlace(button) {
-
-$(button).click(function(){
-		var allComments = {
-				placeId: $(button).data("id")
-		}
-
-		    $.ajax("/:id", {
-		      type: "GET",
-		      data: allComments
-		    }).then(
-		      function() {
-		        console.log("Got comments with ID = " + allComments.placeId);	        
-		        
-		      });	
-
-	})
-}
 
 
 
-	clickPlace("#button-1");
-	clickPlace("#button-2");
-	clickPlace("#button-3");
-	clickPlace("#button-4");
-	clickPlace("#button-5");
 
-
-	$("newComment").submit(function(event) {
-		event.preventDefault();	
-
-		var newComment = {
-			user: $("#user").val().trim(),
-			comment: $("#comment").val().trim(),
-		}
-
-		 $.ajax("/:id", {
-		      type: "POST",
-		      data: newComment,
-		    }).then(
-		      function() {
-		        console.log("Got comments with ID = " + newComment.placeId);	        
-				location.reload();
-				if(location.reload() === true) {
-					console.log('reloaded')
-				} else {
-					console.log('nope')
-				}
-		      });	
-
-	})
 
 	
+}
