@@ -263,11 +263,14 @@ $(document).on("click", ".likeComment", function(event){
 		}).then(function(success) {
 			console.log("updated id ", id);
 			// Reload the page to get the updated list
-			location.reload()
+			
 			console.log(success)
+			location.reload()
 			
 		  }
 		);
+
+
 });
 
 // $.fn.disableFor = function(mins, secs) {
