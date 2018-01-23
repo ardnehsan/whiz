@@ -2,6 +2,33 @@
     <div id="error"></div>
     <div id="error1"></div>
 
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+ <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+ <nav>
+    <div class="nav-wrapper">
+       <div class="row">
+    <form class="busy">
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">add_location</i>
+          <input id="input" type="text" name="address" class="validate">
+          <label for="icon_prefix">Your Location</label>
+        </div>
+        <div class="input-field col s6">
+          <i class="material-icons prefix">restaurant</i>
+          <input id="location" type="text" name="location" class="validate">
+          <label for="icon_prefix">Name of Place</label>
+        </div>
+      </div>
+              <input type="submit" value="Let'Go!" class="btn btn-primary" id="submit">
+
+    </form>
+  </div>
+    </div>
+  </nav>
+
     <form id="busy">
         <h4 class="userType">Your Location: *</h4>
         <input type="text" name="address" id="input" placeholder="Ex: Address/City/State/Zip" class="form-control">
@@ -9,19 +36,24 @@
         <input type="text" min="0" name="location" class="form-control" id="location" placeholder="Ex: Name of store/bar/restaurant/etc">
         <div id="error" class="text-center"></div>
         <br>
-        <input type="submit" value="Let's Go!" class="btn btn-primary" id="submit">
+        <input type="submit" value="Let'Go!" class="btn btn-primary" id="submit">
     </form>
-
+  
     <div id="map">
     </div>
 
-   
+   s 
         <div id="place-1"></div><a id="button-1" data-id=""></a>
         <div id="place-2"></div><a id="button-2" data-id=""></a>
         <div id="place-3"></div><a id="button-3" data-id=""></a>
         <div id="place-4"></div><a id="button-4" data-id=""></a>
         <div id="place-5"></div><a id="button-5" data-id=""></a>
 
+<<<<<<< HEAD
+  <!-- Compisled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+         
+=======
     <div id="list">
     {{{form}}}
     </div>
@@ -44,4 +76,5 @@
 
 
     </div>
+>>>>>>> 7ff6b9c5b9b1f3e15f20155b915a4dbf8fea99f5
 </body>
