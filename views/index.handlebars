@@ -8,18 +8,24 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
  <nav>
     <div class="nav-wrapper">
-      <form>
-        <div class="input-field">
-          <input id="input" type="text" name="address" required>
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
+       <div class="row">
+    <form class="busy">
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">add_location</i>
+          <input id="input" type="text" name="address" class="validate">
+          <label for="icon_prefix">Your Location</label>
         </div>
-         <div class="input-field">
-          <input id="search" type="search" required>
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
+        <div class="input-field col s6">
+          <i class="material-icons prefix">restaurant</i>
+          <input id="location" type="text" name="location" class="validate">
+          <label for="icon_prefix">Name of Place</label>
         </div>
-      </form>
+      </div>
+              <input type="submit" value="Let'Go!" class="btn btn-primary" id="submit">
+
+    </form>
+  </div>
     </div>
   </nav>
 
@@ -30,13 +36,13 @@
         <input type="text" min="0" name="location" class="form-control" id="location" placeholder="Ex: Name of store/bar/restaurant/etc">
         <div id="error" class="text-center"></div>
         <br>
-        <input type="submit" value="Let's Go!" class="btn btn-primary" id="submit">
+        <input type="submit" value="Let'Go!" class="btn btn-primary" id="submit">
     </form>
-
+  
     <div id="map">
     </div>
 
-   
+   s 
         <div id="place-1"></div><a id="button-1" data-id=""></a>
         <div id="place-2"></div><a id="button-2" data-id=""></a>
         <div id="place-3"></div><a id="button-3" data-id=""></a>
