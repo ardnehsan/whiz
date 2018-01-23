@@ -400,30 +400,6 @@ console.log(location.pathname.length)
 
 	$(document).on("click", ".likeComment", function(event){
 		
-<<<<<<< HEAD
-		// Send the DELETE request.
-		$.ajax("/:id/:id_comment", {
-		  method: "PUT",
-		  data: id,
-		  success: function(data) {
-				console.log("success")
-				console.log(data)
-		  }
-		}).then(function(success) {
-			console.log("then")
-			console.log("updated id ", id);
-			// Reload the page to get the updated list
-			//location.reload()
-			console.log(success)
-=======
-			event.stopPropagation();
-	  		
-			var id = {
-				id_comment: $(this).data("id"),
-				downVote: "0",
-				upVote: "1"
-			} 
->>>>>>> c69712ac5d4b2c2bfa26e70cf23c76a1176d0c6d
 			
 			// Send the DELETE request.
 			$.ajax("/" + thePlacePath + "/" + id.id_comment, {
