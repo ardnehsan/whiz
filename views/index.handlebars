@@ -22,20 +22,12 @@
           <label for="icon_prefix">Name of Place</label>
         </div>
       </div>
-              <input type="submit" value="Let'Go!" class="btn btn-primary" id="submit">
-
     </form>
   </div>
     </div>
   </nav>
 
     <form id="busy">
-        <h4 class="userType">Your Location: *</h4>
-        <input type="text" name="address" id="input" placeholder="Ex: Address/City/State/Zip" class="form-control">
-        <h4 class="userType">Name of Place</h4>
-        <input type="text" min="0" name="location" class="form-control" id="location" placeholder="Ex: Name of store/bar/restaurant/etc">
-        <div id="error" class="text-center"></div>
-        <br>
         <input type="submit" value="Let'Go!" class="btn btn-primary" id="submit">
     </form>
   
@@ -49,32 +41,7 @@
         <div id="place-4"></div><a id="button-4" data-id=""></a>
         <div id="place-5"></div><a id="button-5" data-id=""></a>
 
-<<<<<<< HEAD
   <!-- Compisled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
          
-=======
-    <div id="list">
-    {{{form}}}
-    </div>
-
-    <div id="comment">
-        
-    <ul>
-        {{#each comments}}
-            <li>
-                <p>User: {{this.user}}</p>
-                <p>Comment: {{this.comment}}</p>
-                <p>This comment has {{this.upVotes}} up votes and {{this.downVotes}} down votes</p>
-                <p>Busy: {{this.busy}}</p>
-                <button data-id="{{this.id}}" class="deleteComment">Delete</button>
-                <button data-id="{{this.id}}" class="likeComment">Up Vote</button>
-                <button data-id="{{this.id}}" class="dislikeComment">Down Vote</button>
-            </li>
-        {{/each}}
-    </ul>
-
-
-    </div>
->>>>>>> 7ff6b9c5b9b1f3e15f20155b915a4dbf8fea99f5
 </body>
