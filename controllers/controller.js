@@ -355,7 +355,7 @@ function prependComments(comments, objectName) {
 
 
 // router post call after on click for sign up
-router.post("/signUp'", function(req, res) {
+router.post('/signUp', function(req, res) {
 
     db.users.create({
     username: req.body.username,
