@@ -22,8 +22,16 @@ $("#signUpForm").submit(function (event) {
         email: $("#signUpEmail").val().trim()
     }
 
-    $.post('/api/signUp', user).then(function (response) {
-        console.log(response)
-    })
+    $.post('/signUp', {
+        data: user,
+        success: function(){
+            console.log("Success")
+        }, 
+        error: function(error) {
+            console.log(error)
+        }
+    }).then(function (response) {
+            console.log(response)
+    });
 
 });
