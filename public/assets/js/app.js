@@ -219,6 +219,61 @@ $(document).on("click", ".deleteComment", function(event){
 		);
 });
 
+$(document).on("click", ".dislikeComment", function(event){
+		event.stopPropagation();
+  		
+		var id = {
+			id_comment: $(this).data("id"),
+			downVote: "1",
+			upVote: "0"
+		} 
+		
+		
+		$.ajax("/:id/:id_comment", {
+		  method: "PUT",
+		  data: id,
+		  success: function(data) {
+				console.log(data)
+		  }
+		}).then(function(success) {
+			console.log("updated id ", id);
+			// Reload the page to get the updated list
+			console.log(success)
+			location.reload()
+		  }
+		);
+});
+
+$(document).on("click", ".likeComment", function(event){
+		event.stopPropagation();
+  		
+		var id = {
+			id_comment: $(this).data("id"),
+			downVote: "0",
+			upVote: "1"
+		} 
+		
+		// Send the DELETE request.
+		$.ajax("/:id/:id_comment", {
+		  method: "PUT",
+		  data: id,
+		  success: function(data) {
+				console.log(data)
+		  }
+		}).then(function(success) {
+			console.log("updated id ", id);
+			// Reload the page to get the updated list
+			location.reload()
+			console.log(success)
+			
+		  }
+		);
+});
+
+
+
+
+
 function clickPlace(button) {
 
 $(button).click(function(){

@@ -11,6 +11,9 @@ router.get('/', (req, res, next) => {
 router.get('/signup', (req, res, next) => {
   res.render('signup');
 });
+router.get('/signin', (req, res, next) => {
+  res.render('signin');
+});
 
 router.get("/:id", function(req, res) {
     
@@ -98,23 +101,142 @@ router.delete("/:id/:id_comment", function(req, res) {
     	// 	}
     	// })
 
+router.put("/:id/:id_comment", function(req, res, next) {
+
+  var currentDownVotes = [];
+  var currentUpVote = [];
+
+    db.comments.findAll({
+      where: {
+        id: req.body.id_comment
+      }
+    }).then(function(dbComments) {
 
 
-// app.put("/places/:place_id/:user", function(req, res) {
+      //this is for upvote
+
+      // console.log("This is upvotes in DB" + dbComments[0].dataValues.upVotes)
+      // console.log(dbComments.comments[0].upVote)
+      currentUpVote.push(dbComments[0].dataValues.upVotes)
+
+      var addUpVote = parseInt(req.body.upVote) + parseInt(currentUpVote)
+
+      console.log("This is the addUpVote " + addUpVote);
+
+
+
+
+      // console.log("This is downvotes in DB" + dbComments[0].dataValues.downVotes)
+      
+      currentDownVotes.push(dbComments[0].dataValues.downVotes)
+
+      var addDownVote = parseInt(req.body.downVote) + parseInt(currentDownVotes)
+
+      // console.log("This is the addDownVote " + addDownVote);
+    
 
     
-//     db.Comment.update({
-//       comment: req.body.comment
-//     }, {
+      db.comments.update({
+        upVotes: parseInt(addUpVote),
+        downVotes: parseInt(addDownVote)
+      }, {
+        where: {
+          id: req.body.id_comment
+        }
+      }).then(function(result) {
+        console.log("This is the result: " + result);
+        
+        console.log("Current Up Vote: " + addUpVote);
+        console.log("Current Down Vote: " + addDownVote);
+        
+
+        if (addUpVote >= 10 && addDownVote >= 10) {
+          db.comments.update({
+            busy: false
+          },{
+            where: {
+              id: req.body.id_comment
+            }
+          }).then(function(result){
+            res.json(result);
+            currentUpVote = [];
+            currentDownVote = [];
+          })
+        }
+
+
+
+        else if (addUpVote >= 10) {
+          db.comments.update({
+            busy: true
+          },{
+            where: {
+              id: req.body.id_comment
+            }
+          }).then(function(result){
+            res.json(result);
+            currentUpVote = [];
+            currentDownVote = [];
+          })
+        }
+
+        else if (addDownVote >= 10) {
+          db.comments.update({
+            busy: false
+          },{
+            where: {
+              id: req.body.id_comment
+            }
+          }).then(function(result){
+            res.json(result);
+            currentUpVote = [];
+            currentDownVote = [];
+          })
+        }
+
+        else {
+          
+          currentUpVote = [];
+          currentDownVote = [];
+        }
+
+      });
+
+
+
+
+
+
+    
+      // db.comments.update({
+      //   downVotes: parseInt(addDownVote)
+      // }, {
+      //   where: {
+      //     id: req.body.id_comment
+      //   }
+      // }).then(function(dbComment) {
+      //   res.json(dbComment);
+      //   currentDownVote = [];
+      // });
+
+  })
+
+});
+
+// router.put("/:id/:id_comment", function(req, res, next) {
+
+//   var currentUpVote = [];
+
+//     db.comments.findAll({
 //       where: {
-//       	id: req.body.id,
-//         place_id: req.params.place_id,
-//         user: req.params.user
+//         id: req.body.id_comment
 //       }
-//     }).then(function(dbComment) {
-//       res.json(dbComment);
-//     });
-//   });
+//     }).then(function(dbComments) {
+      
+
+//   })
+
+// });
 
 // app.put("/places/:place_id/:user", function(req, res) {
     
