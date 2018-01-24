@@ -36,25 +36,24 @@ app.use(session({
     secret: process.env.SESSIONSECRET || "keyboard cat",
     resave: false,
     saveUninitialized: true
-  }));
+}));
 
 //middleware for setting up a user object when anyone first come to the appplication
-function userSetup(req, res, next){
-    if(!req.session.user){
-      req.session.user = {}
-      req.session.user.loggedIn = false;
+function userSetup(req, res, next) {
+    if (!req.session.user) {
+        req.session.user = {}
+        req.session.user.loggedIn = false;
     }
     next()
-  }
-  app.use(userSetup)
+}
+app.use(userSetup)
 
 
-//Michael added this in
+
 require('./routes/userApiRoutes.js')(app)
 const routes = require('./controllers/controller.js')
 
 app.use("/", routes);
-//this is the end of what I added in...
 
 
 db.sequelize.sync().then(function () {

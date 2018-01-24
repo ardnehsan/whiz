@@ -1,5 +1,5 @@
 console.log("yo")
-$(document).on("click","#signInForm",  function (event) {
+$(document).on("click", "#signInForm", function (event) {
     console.log('welcome!')
     event.preventDefault();
     var user = {
@@ -12,7 +12,7 @@ $(document).on("click","#signInForm",  function (event) {
 });
 
 
-$(document).on("click","#signUpForm",  function (event) {
+$(document).on("click", "#signUpForm", function (event) {
     console.log("we were clicked")
     event.preventDefault()
 
@@ -24,7 +24,7 @@ $(document).on("click","#signUpForm",  function (event) {
     }
 
     $.post('/signUp', user).then(function (response) {
-            // commented out so password will not show in terminal console.log(response)
+        // commented out so password will not show in terminal console.log(response)
     });
 
 });
