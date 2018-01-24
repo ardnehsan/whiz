@@ -36,13 +36,13 @@
 
     <div id="comment">
     <p id="placeInfo"></p> 
-    <ul>
+    <ul id="list">
         {{#each comments}}
             <li>
                 <p>User: {{this.user}}</p>
                 <p>Comment: {{this.comment}}</p>
-                <p>This comment has {{this.upVotes}} up votes and {{this.downVotes}} down votes</p>
-                <p>Busy: {{this.busy}}</p>
+                <p>This comment has <inline class="upVote-{{this.id}}" data-upVote="{{this.upVotes}}">{{this.upVotes}}</inline> up votes and <inline class="downVote-{{this.id}}" data-downVote="{{this.downVotes}}">{{this.downVotes}}</inline> down votes</p>
+                <p>Busy: <inline class="busy-{{this.id}}">{{this.busy}}</inline></p>
                 <button data-id="{{this.id}}" class="deleteComment">Delete</button>
                 <button data-id="{{this.id}}" class="likeComment">Up Vote</button>
                 <button data-id="{{this.id}}" class="dislikeComment">Down Vote</button>

@@ -152,7 +152,7 @@ function initMap() {
 				    if (results.length <= 5) {
 					  for (var i = 0, result; result = results[i]; i++) {
 
-					  	console.log(result)
+					  	// console.log(result)
 					  	var resultsLat = results[i].geometry.location.lat()
 					  	var resultsLng = results[i].geometry.location.lng()
 					  	locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
@@ -174,7 +174,7 @@ function initMap() {
 					else {
 						for (var i = 0; i < 5; i++) {
 
-					  	console.log(results);
+					  	// console.log(results);
 					  	var resultsLat = results[i].geometry.location.lat()
 					  	var resultsLng = results[i].geometry.location.lng()
 					  	locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
@@ -211,7 +211,7 @@ var thePlacePath = location.pathname;
 	{
 	 	thePlacePath = thePlacePath.substr(1);
 	}
-	console.log(thePlacePath);
+	// console.log(thePlacePath);
 
 var thisPlaceId;
 var thisPlaceName;
@@ -241,7 +241,7 @@ var currentPlaceVicinity;
 		      type: "GET",
 		      data: allComments
 		    }).done(function() {
-		        console.log("Got comments with ID = " + allComments.placeId);
+		        // console.log("Got comments with ID = " + allComments.placeId);
 		        
 
 		        window.location.href='/' + allComments.placeId
@@ -291,7 +291,7 @@ var currentPlaceVicinity;
 		clickPlace("#button-5");
 	})
 
-console.log(location.pathname.length)
+// console.log(location.pathname.length)
 
 	if (location.pathname.length > 1) {
 
@@ -301,7 +301,7 @@ console.log(location.pathname.length)
         geocoder.geocode({'placeId': thePlacePath}, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             if (results[0]) {
-              console.log(results[0])
+              // console.log(results[0])
               map.setZoom(11);
               map.setCenter(results[0].geometry.location);
               var marker = new google.maps.Marker({
@@ -315,7 +315,7 @@ console.log(location.pathname.length)
             }
           } else {
           	
-            //This needs to throw a 404...
+            window.location.href = "/"
 
           }
         });
@@ -353,7 +353,7 @@ console.log(location.pathname.length)
 		      data: newComment,
 		    }).done(
 		      function() {
-		        console.log("Got comments with ID = " + newComment.placeId);	        
+		        // console.log("Got comments with ID = " + newComment.placeId);	        
 				location.reload();
 		      });
 		}	
@@ -393,7 +393,20 @@ console.log(location.pathname.length)
 			  method: "PUT",
 			  data: id
 			}).done(function() {
-				location.reload()
+				
+				var currentDownVote = $(".downVote-" + id.id_comment).attr("data-downVote")
+				
+				var newDownVote = parseInt(currentDownVote) + 1
+				
+				$(".downVote-" + id.id_comment).text(newDownVote)
+				$(".downVote-" + id.id_comment).attr("data-downVote", newDownVote)
+
+				if (newDownVote >= 10) {
+					$(".busy-" + id.id_comment).text("False")
+				}
+				else {
+					//do nothing
+				}
 			  }
 			);
 	});
@@ -411,7 +424,33 @@ console.log(location.pathname.length)
 			  method: "PUT",
 			  data: id
 			}).done(function() {
-				location.reload()
+
+
+				
+				var currentUpVote = $(".upVote-" + id.id_comment).attr("data-upVote")
+				
+				var newUpVote = parseInt(currentUpVote) + 1
+				
+				$(".upVote-" + id.id_comment).text(newUpVote)
+				$(".upVote-" + id.id_comment).attr("data-upVote", newUpVote)
+				var theDownVotes = $(".downVote-" + id.id_comment).attr("data-downVote")
+				if (newUpVote >= 10 && theDownVotes >= 10) {
+					$(".busy-" + id.id_comment).text("False")
+				}
+
+				else if (newUpVote >= 10) {
+					$(".busy-" + id.id_comment).text("True")
+				}
+
+				else {
+					//do nothing
+				}
+
+
+
+			  
+				
+
 			  }
 			);
 
