@@ -412,7 +412,6 @@ console.log(location.pathname.length)
 			  data: id
 			}).done(function() {
 				location.reload()
-				
 			  }
 			);
 
