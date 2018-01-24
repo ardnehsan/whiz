@@ -421,12 +421,12 @@ var currentPlaceVicinity;
 				  data: id
 				}).done(function() {
 					
-						currentDownVote = $(".downVote-" + id.id_comment).attr("data-downVote")
+						currentDownVote = $(".downVote-" + id.id_comment).attr("data-downvote")
 						
 						newDownVote = parseInt(currentDownVote) + 1
 						
 						$(".downVote-" + id.id_comment).text(newDownVote)
-						$(".downVote-" + id.id_comment).attr("data-downVote", newDownVote)
+						$(".downVote-" + id.id_comment).attr("data-downvote", newDownVote)
 
 						if (newDownVote >= 10) {
 							$(".busy-" + id.id_comment).text("False")
@@ -460,12 +460,12 @@ var currentPlaceVicinity;
 				  data: id
 				}).done(function() {
 					
-						currentDownVote = $(".downVote-" + id.id_comment).attr("data-downVote")
+						currentDownVote = $(".downVote-" + id.id_comment).attr("data-downvote")
 						
 						newDownVote = parseInt(currentDownVote) - 1
 						
 						$(".downVote-" + id.id_comment).text(newDownVote)
-						$(".downVote-" + id.id_comment).attr("data-downVote", newDownVote)
+						$(".downVote-" + id.id_comment).attr("data-downvote", newDownVote)
 
 						if (newDownVote >= 10) {
 							$(".busy-" + id.id_comment).text("False")
@@ -505,18 +505,18 @@ var currentPlaceVicinity;
 				  data: id
 				}).done(function() {
 					
-						currentDownVote = $(".downVote-" + id.id_comment).attr("data-downVote")
+						currentDownVote = $(".downVote-" + id.id_comment).attr("data-downvote")
 						
 						newDownVote = parseInt(currentDownVote) + 1
 
-						currentUpVote = $(".upVote-" + id.id_comment).attr("data-upVote")
+						currentUpVote = $(".upVote-" + id.id_comment).attr("data-upvote")
 				
 						newUpVote = parseInt(currentUpVote) -1
 						
 						$(".downVote-" + id.id_comment).text(newDownVote)
-						$(".downVote-" + id.id_comment).attr("data-downVote", newDownVote)
+						$(".downVote-" + id.id_comment).attr("data-downvote", newDownVote)
 						$(".upVote-" + id.id_comment).text(newUpVote)
-						$(".upVote-" + id.id_comment).attr("data-downVote", newUpVote)
+						$(".upVote-" + id.id_comment).attr("data-upvote", newUpVote)
 
 						if (newDownVote >= 10) {
 							$(".busy-" + id.id_comment).text("False")
@@ -531,7 +531,7 @@ var currentPlaceVicinity;
 			else {
 				console.log("Something went wrong")
 				$(this).attr("data-voted", "false");
-	  			haveYouVotedDown = $(this).data("voted");
+	  			haveYouVotedDown = $(this).attr("data-voted");
 	  			votedDown = 0;
 	  			votedUp = 0;
 	  			
@@ -568,13 +568,13 @@ var currentPlaceVicinity;
 
 
 				
-				currentUpVote = $(".upVote-" + id.id_comment).attr("data-upVote")
+				currentUpVote = $(".upVote-" + id.id_comment).attr("data-upvote")
 				
 				newUpVote = parseInt(currentUpVote) + 1
 				
 				$(".upVote-" + id.id_comment).text(newUpVote)
-				$(".upVote-" + id.id_comment).attr("data-upVote", newUpVote)
-				var theDownVotes = $(".downVote-" + id.id_comment).attr("data-downVote")
+				$(".upVote-" + id.id_comment).attr("data-upvote", newUpVote)
+				var theDownVotes = $(".downVote-" + id.id_comment).attr("data-downvote")
 				if (newUpVote >= 10 && theDownVotes >= 10) {
 					$(".busy-" + id.id_comment).text("False")
 				}
@@ -617,13 +617,13 @@ var currentPlaceVicinity;
 
 
 				
-				currentUpVote = $(".upVote-" + id.id_comment).attr("data-upVote")
+				currentUpVote = $(".upVote-" + id.id_comment).attr("data-upvote")
 				
 				newUpVote = parseInt(currentUpVote) - 1
 				
 				$(".upVote-" + id.id_comment).text(newUpVote)
-				$(".upVote-" + id.id_comment).attr("data-upVote", newUpVote)
-				var theDownVotes = $(".downVote-" + id.id_comment).attr("data-downVote")
+				$(".upVote-" + id.id_comment).attr("data-upvote", newUpVote)
+				var theDownVotes = $(".downVote-" + id.id_comment).attr("data-downvote")
 				if (newUpVote >= 10 && theDownVotes >= 10) {
 					$(".busy-" + id.id_comment).text("False")
 				}
@@ -670,20 +670,20 @@ var currentPlaceVicinity;
 			  data: id
 			}).done(function() {
 
-				currentDownVote = $(".downVote-" + id.id_comment).attr("data-downVote")
+				currentDownVote = $(".downVote-" + id.id_comment).attr("data-downvote")
 						
 				newDownVote = parseInt(currentDownVote) - 1
 
 				
-				currentUpVote = $(".upVote-" + id.id_comment).attr("data-upVote")
+				currentUpVote = $(".upVote-" + id.id_comment).attr("data-upvote")
 				
 				newUpVote = parseInt(currentUpVote) + 1
 				
 				$(".upVote-" + id.id_comment).text(newUpVote)
-				$(".upVote-" + id.id_comment).attr("data-upVote", newUpVote)
+				$(".upVote-" + id.id_comment).attr("data-upvote", newUpVote)
 				$(".downVote-" + id.id_comment).text(newDownVote)
-				$(".downVote-" + id.id_comment).attr("data-downVote", newDownVote)
-				var theDownVotes = $(".downVote-" + id.id_comment).attr("data-downVote")
+				$(".downVote-" + id.id_comment).attr("data-downvote", newDownVote)
+				var theDownVotes = $(".downVote-" + id.id_comment).attr("data-downvote")
 				if (newUpVote >= 10 && theDownVotes >= 10) {
 					$(".busy-" + id.id_comment).text("False")
 				}
