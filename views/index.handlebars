@@ -44,8 +44,8 @@
                 <p>This comment has <inline class="upVote-{{this.id}}" data-upVote="{{this.upVotes}}">{{this.upVotes}}</inline> up votes and <inline class="downVote-{{this.id}}" data-downVote="{{this.downVotes}}">{{this.downVotes}}</inline> down votes</p>
                 <p>Busy: <inline class="busy-{{this.id}}">{{this.busy}}</inline></p>
                 <button data-id="{{this.id}}" class="deleteComment">Delete</button>
-                <button data-id="{{this.id}}" class="likeComment">Up Vote</button>
-                <button data-id="{{this.id}}" class="dislikeComment">Down Vote</button>
+                <button data-id="{{this.id}}" data-voted="false" class="likeComment">Up Vote</button>
+                <button data-id="{{this.id}}" data-voted="false" class="dislikeComment">Down Vote</button>
             </li>
         {{/each}}
     </ul>

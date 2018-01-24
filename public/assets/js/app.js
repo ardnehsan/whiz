@@ -378,40 +378,181 @@ var currentPlaceVicinity;
 			  }
 			);
 	});
+	var haveYouVotedDown;
+	var haveYouVotedUp;
+	var votedUp = 0;
+	var votedDown = 0;
+	var currentDownVote;
+	var currentUpVote;
+	var newDownVote;
+	var newUpVote;
+
+
 
 	$(document).on("click", ".dislikeComment", function(event){
 			event.stopPropagation();
 	  		
-			var id = {
-				id_comment: $(this).data("id"),
-				downVote: "1",
-				upVote: "0"
-			} 
-			
-			
-			$.ajax("/" + thePlacePath + "/" + id.id_comment, {
-			  method: "PUT",
-			  data: id
-			}).done(function() {
-				
-				var currentDownVote = $(".downVote-" + id.id_comment).attr("data-downVote")
-				
-				var newDownVote = parseInt(currentDownVote) + 1
-				
-				$(".downVote-" + id.id_comment).text(newDownVote)
-				$(".downVote-" + id.id_comment).attr("data-downVote", newDownVote)
+	  		
+	  		haveYouVotedDown = $(this).attr("data-voted");
+	  		console.log(haveYouVotedDown)
+	  		
+	  		
 
-				if (newDownVote >= 10) {
-					$(".busy-" + id.id_comment).text("False")
-				}
-				else {
-					//do nothing
-				}
-			  }
-			);
+	  		if (haveYouVotedDown === "false" && votedDown === 0 && votedUp === 0) {
+	  			$(this).attr("data-voted", "true");
+	  			haveYouVotedDown = $(this).attr("data-voted");
+	  			votedDown = 1;
+	  			console.log("Down: " + haveYouVotedDown)
+	  			console.log("Down: " + votedDown)
+	  			console.log("Up: " + haveYouVotedUp)
+	  			console.log("Up: " + votedUp)
+
+
+	  			var id = {
+						id_comment: $(this).data("id"),
+						downVote: "1",
+						upVote: "0"
+				} 
+
+
+				
+				$.ajax("/" + thePlacePath + "/" + id.id_comment, {
+				  method: "PUT",
+				  data: id
+				}).done(function() {
+					
+						currentDownVote = $(".downVote-" + id.id_comment).attr("data-downVote")
+						
+						newDownVote = parseInt(currentDownVote) + 1
+						
+						$(".downVote-" + id.id_comment).text(newDownVote)
+						$(".downVote-" + id.id_comment).attr("data-downVote", newDownVote)
+
+						if (newDownVote >= 10) {
+							$(".busy-" + id.id_comment).text("False")
+						}
+						else {
+							//do nothing
+						}
+			  		});
+			}
+
+			else if (haveYouVotedDown === "true" && votedDown === 1 && votedUp === 0) {
+
+				$(this).attr("data-voted", "false");
+	  			haveYouVotedDown = $(this).attr("data-voted");
+	  			votedDown = 0;
+	  			console.log("Down: " + haveYouVotedDown)
+	  			console.log("Down: " + votedDown)
+	  			console.log("Up: " + haveYouVotedUp)
+	  			console.log("Up: " + votedUp)
+
+
+	  			var id = {
+					id_comment: $(this).data("id"),
+					downVote: "-1",
+					upVote: "0"
+				} 
+
+				
+				$.ajax("/" + thePlacePath + "/" + id.id_comment, {
+				  method: "PUT",
+				  data: id
+				}).done(function() {
+					
+						currentDownVote = $(".downVote-" + id.id_comment).attr("data-downVote")
+						
+						newDownVote = parseInt(currentDownVote) - 1
+						
+						$(".downVote-" + id.id_comment).text(newDownVote)
+						$(".downVote-" + id.id_comment).attr("data-downVote", newDownVote)
+
+						if (newDownVote >= 10) {
+							$(".busy-" + id.id_comment).text("False")
+						}
+						else {
+							//do nothing
+						}
+			  		});
+			}
+
+			else if (haveYouVotedDown === "false" && votedDown === 0 && votedUp === 1) {
+
+				votedDown = 1;
+				votedUp = 0;
+				
+
+	  			var id = {
+						id_comment: $(this).data("id"),
+						downVote: "1",
+						upVote: "-1"
+				} 
+
+				$(this).attr("data-voted", "true");
+	  			haveYouVotedDown = $(this).attr("data-voted");
+
+				$(".likeComment[data-id='" + id.id_comment + "']").attr("data-voted", "false")
+  				haveYouVotedUp = $(".likeComment[data-id='" + id.id_comment + "']").attr("data-voted")
+
+  				console.log("Down: " + haveYouVotedDown)
+	  			console.log("Down: " + votedDown)
+	  			console.log("Up: " + haveYouVotedUp)
+	  			console.log("Up: " + votedUp)
+
+				
+				$.ajax("/" + thePlacePath + "/" + id.id_comment, {
+				  method: "PUT",
+				  data: id
+				}).done(function() {
+					
+						currentDownVote = $(".downVote-" + id.id_comment).attr("data-downVote")
+						
+						newDownVote = parseInt(currentDownVote) + 1
+
+						currentUpVote = $(".upVote-" + id.id_comment).attr("data-upVote")
+				
+						newUpVote = parseInt(currentUpVote) -1
+						
+						$(".downVote-" + id.id_comment).text(newDownVote)
+						$(".downVote-" + id.id_comment).attr("data-downVote", newDownVote)
+						$(".upVote-" + id.id_comment).text(newUpVote)
+						$(".upVote-" + id.id_comment).attr("data-downVote", newUpVote)
+
+						if (newDownVote >= 10) {
+							$(".busy-" + id.id_comment).text("False")
+						}
+						else {
+							//do nothing
+						}
+			  		});
+
+			}
+
+			else {
+				console.log("Something went wrong")
+				$(this).attr("data-voted", "false");
+	  			haveYouVotedDown = $(this).data("voted");
+	  			votedDown = 0;
+	  			votedUp = 0;
+	  			
+			}
+
+			
 	});
-
+	
 	$(document).on("click", ".likeComment", function(event){
+
+		haveYouVotedUp = $(this).attr("data-voted");
+
+		if (haveYouVotedUp === "false" && votedDown === 0 && votedUp === 0) {
+	  			$(this).attr("data-voted", "true");
+	  			haveYouVotedUp = $(this).data("voted");
+	  			votedUp = 1;
+	  			console.log("Down: " + haveYouVotedDown)
+	  			console.log("Down: " + votedDown)
+	  			console.log("Up: " + haveYouVotedUp)
+	  			console.log("Up: " + votedUp)
+
 		
 		var id = {
 			id_comment: $(this).data("id"),
@@ -427,9 +568,9 @@ var currentPlaceVicinity;
 
 
 				
-				var currentUpVote = $(".upVote-" + id.id_comment).attr("data-upVote")
+				currentUpVote = $(".upVote-" + id.id_comment).attr("data-upVote")
 				
-				var newUpVote = parseInt(currentUpVote) + 1
+				newUpVote = parseInt(currentUpVote) + 1
 				
 				$(".upVote-" + id.id_comment).text(newUpVote)
 				$(".upVote-" + id.id_comment).attr("data-upVote", newUpVote)
@@ -445,15 +586,131 @@ var currentPlaceVicinity;
 				else {
 					//do nothing
 				}
+			  		
+
+			  });
+		}
+
+		else if (haveYouVotedUp === "true" && votedDown === 0 && votedUp === 1) {
+
+			$(this).attr("data-voted", "false");
+  			haveYouVotedUp = $(this).attr("data-voted");
+  			votedUp = 0;
+  			console.log("Down: " + haveYouVotedDown)
+	  		console.log("Down: " + votedDown)
+	  		console.log("Up: " + haveYouVotedUp)
+	  		console.log("Up: " + votedUp)
 
 
+		
+		var id = {
+			id_comment: $(this).data("id"),
+			downVote: "0",
+			upVote: "-1"
+		} 
+			
+			
+			$.ajax("/" + thePlacePath + "/" + id.id_comment, {
+			  method: "PUT",
+			  data: id
+			}).done(function() {
 
-			  
+
 				
+				currentUpVote = $(".upVote-" + id.id_comment).attr("data-upVote")
+				
+				newUpVote = parseInt(currentUpVote) - 1
+				
+				$(".upVote-" + id.id_comment).text(newUpVote)
+				$(".upVote-" + id.id_comment).attr("data-upVote", newUpVote)
+				var theDownVotes = $(".downVote-" + id.id_comment).attr("data-downVote")
+				if (newUpVote >= 10 && theDownVotes >= 10) {
+					$(".busy-" + id.id_comment).text("False")
+				}
 
-			  }
-			);
+				else if (newUpVote >= 10) {
+					$(".busy-" + id.id_comment).text("True")
+				}
 
+				else {
+					//do nothing
+				}
+			  		
+
+			  });
+		}
+
+		else if (haveYouVotedUp === "false" && votedDown === 1 && votedUp === 0) {
+
+				votedDown = 0;
+				votedUp = 1;
+	  			
+
+				var id = {
+					id_comment: $(this).data("id"),
+					downVote: "-1",
+					upVote: "1"
+				} 
+
+				$(this).attr("data-voted", "true");
+	  			haveYouVotedUp = $(this).attr("data-voted");
+
+				$(".dislikeComment[data-id='" + id.id_comment + "']").attr("data-voted", "false")
+  				haveYouVotedDown = $(".dislikeComment[data-id='" + id.id_comment + "']").attr("data-voted")
+  				console.log("ID.ID_comment: " + id.id_comment)
+  				console.log("Down: " + haveYouVotedDown)
+	  			console.log("Down: " + votedDown)
+	  			console.log("Up: " + haveYouVotedUp)
+	  			console.log("Up: " + votedUp)
+
+			
+			
+			$.ajax("/" + thePlacePath + "/" + id.id_comment, {
+			  method: "PUT",
+			  data: id
+			}).done(function() {
+
+				currentDownVote = $(".downVote-" + id.id_comment).attr("data-downVote")
+						
+				newDownVote = parseInt(currentDownVote) - 1
+
+				
+				currentUpVote = $(".upVote-" + id.id_comment).attr("data-upVote")
+				
+				newUpVote = parseInt(currentUpVote) + 1
+				
+				$(".upVote-" + id.id_comment).text(newUpVote)
+				$(".upVote-" + id.id_comment).attr("data-upVote", newUpVote)
+				$(".downVote-" + id.id_comment).text(newDownVote)
+				$(".downVote-" + id.id_comment).attr("data-downVote", newDownVote)
+				var theDownVotes = $(".downVote-" + id.id_comment).attr("data-downVote")
+				if (newUpVote >= 10 && theDownVotes >= 10) {
+					$(".busy-" + id.id_comment).text("False")
+				}
+
+				else if (newUpVote >= 10) {
+					$(".busy-" + id.id_comment).text("True")
+				}
+
+				else {
+					//do nothing
+				}
+			  		
+
+			  });
+
+
+		}
+
+
+
+		else {
+			console.log("Something went wrong")
+			$(this).data("voted", false);
+	  		haveYouVoted = $(this).data("voted");
+	  		votedDown = 0;
+	  		votedUp = 0;
+		}
 
 	});
 
