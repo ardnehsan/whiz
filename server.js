@@ -33,7 +33,7 @@ app.use(cors());
 
 //secret
 app.use(session({
-    secret: process.env.SESSIONSECRET || "keyboard cat",
+    secret: process.env.SESSIONSECRET || "keyboard cat", cookie: { maxAge: 60000 },
     resave: false,
     saveUninitialized: true
 }));
