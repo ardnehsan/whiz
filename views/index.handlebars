@@ -2,15 +2,15 @@
     <div id="error"></div>
     <div id="error1"></div>
 
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
- <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+ 
  <nav>
     <div class="nav-wrapper">
        <div class="row">
     <form class="busy">
       <div class="row">
+         <div class="col s2">
+        <img class="materialboxed" width="100" src="assets/img/whizlogo.png">
+        </div>
         <div class="input-field col s3">
           <i class="material-icons prefix">add_location</i>
           <input id="input" type="text" name="address" class="validate">
@@ -21,26 +21,29 @@
           <input id="location" type="text" name="location" class="validate">
           <label for="icon_prefix">Name of Place</label>
         </div>
-        <div class="input-field col s3">
-         
+        <div class="col s2">
+                    <a class="btn-floating btn-large waves-effect waves-light black"><i class="material-icons">search</i></a>
+                            <input type="submit" id="submit">
+
         </div>
-        <div class="input-field col s3">
-      
+        <div class="col s2">
+         <li><a href="/signup">Sign Up</a></li>
         </div>
+         <div class="col s2">
+         <li><a href="/signin">Sign In</a></li>
+        </div>
+       
       </div>
     </form>
   </div>
     </div>
   </nav>
 
-    <form id="busy">
-        <input type="submit" value="Let'Go!" class="btn btn-primary" id="submit">
-    </form>
+   
   
     <div id="map">
     </div>
 
-   s 
         <div id="place-1"></div><a id="button-1" data-id=""></a>
         <div id="place-2"></div><a id="button-2" data-id=""></a>
         <div id="place-3"></div><a id="button-3" data-id=""></a>

@@ -63,7 +63,7 @@ function initMap() {
 
 
 
-    $("#busy").submit(function(event) {
+    $(".busy").submit(function(event) {
 
 		event.preventDefault();	
 
