@@ -413,19 +413,18 @@ var currentPlaceVicinity;
 
 	$(document).on("click", ".likeComment", function(event){
 		
-			event.stopPropagation();
-	  		
-			var id = {
-				id_comment: $(this).data("id"),
-				downVote: "0",
-				upVote: "1"
-			} 
+		var id = {
+			id_comment: $(this).data("id"),
+			downVote: "0",
+			upVote: "1"
+		} 
 			
 			// Send the DELETE request.
 			$.ajax("/" + thePlacePath + "/" + id.id_comment, {
 			  method: "PUT",
 			  data: id
 			}).done(function() {
+
 
 				
 				var currentUpVote = $(".upVote-" + id.id_comment).attr("data-upVote")
@@ -451,6 +450,7 @@ var currentPlaceVicinity;
 
 			  
 				
+
 			  }
 			);
 

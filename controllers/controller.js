@@ -15,6 +15,13 @@ router.get('/signin', (req, res, next) => {
   res.render('signin');
 });
 
+// Handle 404 - Keep this as a last route
+// router.use(function(req, res, next) {
+//   res.status(404);
+//   res.render('404');
+// });
+
+
 router.get("/:id", function (req, res) {
 
   db.comments.findAll({
