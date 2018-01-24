@@ -76,9 +76,9 @@ router.delete("/:id/:id_comment", function (req, res) {
       id: req.body.id_comment
     }
   }).then(function (dbComment) {
-    
+
     res.json(dbComment);
-    
+
   });
 });
 
@@ -110,7 +110,7 @@ router.put("/:id/:id_comment", function (req, res, next) {
 
     var addDownVote = parseInt(req.body.downVote) + parseInt(currentDownVotes)
 
-    
+
 
 
 
@@ -181,7 +181,7 @@ router.put("/:id/:id_comment", function (req, res, next) {
 
 router.get("*", function (req, res) {
 
-    res.render('404')
+  res.render('404')
 
 });
 
@@ -239,16 +239,16 @@ function prependComments(comments, objectName) {
 
 
 // router post call after on click for sign up
-router.post('/signUp', function(req, res) {
+router.post('/signUp', function (req, res) {
 
-    db.users.create({
+  db.users.create({
     username: req.body.username,
     password: req.body.password,
     email: req.body.email,
     name: req.body.name
 
-  }).then(function(results){
+  }).then(function (results) {
     console.log("This is the results ID: " + results.id)
-   res.render('index');
+    res.render('index');
   })
 })
