@@ -1,3 +1,5 @@
+ <link rel="stylesheet" type="text/css" href="./public/assets/css/whiz.css">
+
 <body>
     <nav>
     <div class="nav-wrapper">
@@ -17,7 +19,73 @@
         <input type="password" id="pw" placeholder="password">
         <button id="signInForm">Login</button>
 
-    </form>
+    <nav>
+        <div class="nav-wrapper yellow">
+        <a href="#" class="brand-logo left">WHIZ</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down black">
+            <li><a href="#">Home</a></li>
+            <li><a href="/signup">Sign up</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+        </div>
+    </nav>
 
 
-</body>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      
+     {{!-- added form inside container  --}}
+<div class="container">    
+    <div id="signIn">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+         <h1>Sign In</h1>
+        <form id="signInForm">
+        <input type="text" id="username" placeholder="Username">
+        <input type="text" id="pw" placeholder="Password">
+        <button id="signIn" class="yellow black-text hoverable z-depth-5">Let's Go!</button>
+        </form>
+   </div> 
+</div>
+
+<br>
+<br>
+
+        {{!-- icons with color --}}
+<div id="icons">
+        <i class="large material-icons icon-color">local_convenience_store</i>
+        <i class="large material-icons icon-color">home</i>
+        <i class="large material-icons icon-color">business</i>
+        <i class="large material-icons icon-color">location_city</i>
+        <i class="large material-icons icon-color">nature_people</i>
+        <i class="large material-icons icon-color">local_gas_station</i>
+        <i class="large material-icons icon-color">local_convenience_store</i>
+</div>
+
+{{!-- preloaders..  slides that move--}}
+    <div class="progress yellow">
+        <div class="indeterminate darkgrey"></div>
+    </div>
+    <div class="progress black">
+        <div class="indeterminate yellow"></div>
+    </div>
+    <div class="progress yellow">
+        <div class="indeterminate darkgrey"></div>
+    </div>
+        {{!-- === end ===== --}}
+
+
+
+
+<style>
+    .container {
+        background-color: transparent;
+        text-align: center;}
+        
+    h1 {color: darkgoldenrod;}
+
+    #icons {text-align: center}
+
+    i.icon-color {
+        color: black;
+        text-align: center}
+</style>
+</body>  
