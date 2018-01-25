@@ -1,19 +1,18 @@
 // console.log("yo")
-$(document).on("click", "#signInForm", function (event) {
+$(document).on("click", "#signIn", function (event) {
     console.log('welcome!')
     event.preventDefault();
-    console.log('welcome!')
     var user = {
         username: $("#username").val().trim(),
         password: $("#pw").val().trim()
     }
     // This is commented out so password doesnt show in frontend console 
     console.log(user)
-    $.post('/signin', user)
-        .then(function(response) {
-            console.log(response);
-            window.location.href = "/";
-        });
+
+    $.post('/signin', user).then(function (response) {
+      console.log(response)
+      window.location.href = "/"
+    })
 });
 
 

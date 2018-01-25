@@ -1,21 +1,33 @@
 const db = require('../models')
 const bcrypt = require('bcrypt')
+
+
+function encryptPassword(clearText) {
+  return bcrypt.hashSync(clearText, 10)
+}
+
 module.exports = function (app){
   app.post("/signin", function (req, res) {
     console.log(req.body)
     console.log(req.session)
     console.log(req.session.cookie)
+
     var user = {}; //found 
 
     // Load hash from your password DB.
     db.users.findOne({
       where: {
-        username: req.body.username,
-        password: req.body.password
+        username: req.body.username
       }
     })
     .then(function (dbData) {
+      if(bcrypt.compareSync(req.body.password, dbData.password)) {
+        console.log('found!!')
+      } else {
+        console.log('nope!')
+      }
       console.log(dbData)
+      
       if ((!dbData && typeof dbData === "object")){
         console.log("no user")
         res.status(404).send("Not found")
@@ -37,19 +49,10 @@ module.exports = function (app){
 
 
   app.post("/signUp", function (req, res) {
-    console.log(req.body)
-
-    bcrypt.genSalt(10, function (err, salt) {
-      bcrypt.hash(req.body.password, salt, function (err, hash) {
-        // Store hash in your password DB.
-        console.log(hash)
-        req.body.password = hash
-        db.users.create(req.body).then(function (dbData) {
-    
-          res.json(dbData);
-        });
-        res.end()
-      });
+    req.body.password = encryptPassword(req.body.password)
+    db.users.create(req.body).then(function (dbData) {
+      res.json(dbData);
     });
+    res.end();
   });
 }
