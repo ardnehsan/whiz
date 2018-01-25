@@ -29,7 +29,7 @@ $(document).on("click", "#signUpForm", function (event) {
 
     $.post('/signUp', user).then(function (response) {
         // commented out so password will not show in terminal console.log(response)
-        window.location.href = "/"
+        window.location.href = "/signin"
     })
 
 });

@@ -30,6 +30,7 @@
     "mysql2": "^1.5.1",
     "path": "^0.12.7",
     "sequelize": "^4.31.2",
-    "sequelize-isunique-validator": "^1.1.1"
+    "sequelize-isunique-validator": "^1.1.1",
+    "sweetalert": "^2.1.0"
   }
 }
