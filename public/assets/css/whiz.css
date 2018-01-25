@@ -9,6 +9,17 @@ a {
   color: white;
 }
 
+body {
+  background: rgb(54, 53, 53);
+  font-family: arial;
+  color: #fff600;
+  line-height: 1.6em;
+}
+
+a {
+  color: white;
+}
+
 input[type='text'] {
   padding: 4px;
   height: 25px;
@@ -46,7 +57,24 @@ li {
 }
 
 #map {
+  margin-top: 5%;
   height: 500px;
-  width: 700px;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+nav{
+  color: black;
+}
+
+nav .nav-wrapper {
+  position: relative;
+  height: 100%;
+  background-color: #fff600;
+}
+
+#whizzers{
+  text-align: center;
+  
 }
 

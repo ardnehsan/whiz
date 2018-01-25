@@ -137,7 +137,8 @@ function initMap() {
 					}
 
 					placeNum = 1
-
+					console.log("Results: ", results)
+					console.log("Status: ", status)
 					if (status !== google.maps.places.PlacesServiceStatus.OK) {
 
 						if (status === "ZERO_RESULTS") {
