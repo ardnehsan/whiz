@@ -1,4 +1,6 @@
-$(document).on("click", "#signIn", function (event) {
+// console.log("yo")
+$(document).on("click", "#signInForm", function (event) {
+    console.log('welcome!')
     event.preventDefault();
     console.log('welcome!')
     var user = {
