@@ -6,6 +6,7 @@ var db = require("../models");
 
 router.get('/', (req, res, next) => {
   res.render('index');
+  console.log(req.session.user)
 });
 
 router.get('/signup', (req, res, next) => {

@@ -307,7 +307,7 @@ function initMap() {
 			}, function (results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
 					if (results[0]) {
-						// console.log(results[0])
+						console.log(results[0])
 						map.setZoom(11);
 						map.setCenter(results[0].geometry.location);
 						var marker = new google.maps.Marker({
