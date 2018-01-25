@@ -11,7 +11,9 @@ $(document).on("click", "#signIn", function (event) {
     if (user.username == "" || user.password === "") {
         $('#signinError').html('Must enter both username and password')
     } else {
-        $.post('/signin', user).then(function (response) {
+        $.post('/signin', user)
+        .fail($('#signinError').html('No User Found.'))
+        .then(function (response) {
             console.log(response)
             window.location.href = "/"
         })
@@ -31,11 +33,14 @@ $(document).on("click", "#signUpForm", function (event) {
     }
     if (user.name === "" || user.username === "" || user.password === "" || user.email === "") {
         $('#signupError').html('Must fill out all fields')
-    } else {
+    } 
+    else{
 
-        $.post('/signUp', user).then(function (response) {
+        $.post('/signUp', user)
+        .fail($('#signupError').html('Validation Error. Please try again.'))
+        .then(function (response) {
             // commented out so password will not show in terminal console.log(response)
-            window.location.href = "/signin"
+            // window.location.href = "/signin"
         })
     }
 });
