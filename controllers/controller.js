@@ -37,8 +37,7 @@ router.get("/:id", function (req, res) {
         "<input type='text' name='user' id='user' placeholder='Your Username' class='form-control'>" +
         "<h4 class='newInfo'>Comment *</h4>" +
         "<input type='text' min='0' name='comment' class='form-control' id='comment' placeholder='Your comment goes here'>" +
-
-        "<input type='submit' value='Post a comment!' class='btn btn-primary' id='submit'>" +
+        "<button class='btn-floating btn-large waves-effect waves-light yellow' type='submit' name='submit'><i class='material-icons'>add</i></button>" +
         "</form>"
     }
 

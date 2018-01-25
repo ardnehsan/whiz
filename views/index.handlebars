@@ -7,7 +7,7 @@
    <form id="busy">
      <div class="row">
         <div class="col s2">
-       <img class="responsive-img" width="100" src="assets/img/whizlogo.png">
+       <a href="/"><img class="responsive-img" width="100" src="assets/img/whizarrow.png"></a>
        </div>
        <div class="input-field col s3">
          <i class="material-icons prefix">add_location</i>
@@ -20,7 +20,7 @@
          <label for="icon_prefix">Name of Place</label>
        </div>
        <div class="col s1">
-                   <button class="btn-floating btn-large waves-effect waves-light black" type="submit" name="submit"><i class="material-icons">search</i></button>
+                   <button class="btn-floating btn-large waves-effect waves-light black" type="submit" name="submit"><i class="material-icons prefix">search</i></button>
        </div>
        <div class="col s3">
         <li><a href="/signup">Sign Up</a></li>
@@ -61,33 +61,14 @@
                <p>Busy:
                    <inline class="busy-{{this.id}}">{{this.busy}}</inline>
                </p>
-               <button data-id="{{this.id}}" class="deleteComment">Delete</button>
-               <button data-id="{{this.id}}" data-voted="false" class="likeComment">Up Vote</button>
-               <button data-id="{{this.id}}" data-voted="false" class="dislikeComment">Down Vote</button>
+               <button data-id="{{this.id}}" data-voted="false" class="likeComment btn-flat"><i class="material-icons">thumb_up</i></button>
+               <button data-id="{{this.id}}" data-voted="false" class="dislikeComment btn-flat"><i class="material-icons">thumb_down</i></button>
+                <button data-id="{{this.id}}" class="deleteComment btn-floating btn-large waves-effect waves-light red" ><i class="material-icons">delete</i></button>
+
            </li>
            {{/each}}
        </ul>
    </div>
- <!--
- <div class="row" id="whizzers">
-   <div class="col s12">
-   <h2>Developers</h2>
-   </div>
-     <div class="col s3">
-      <p>Adrian</p>
-     </div>
-     <div class="col s3">
-      <p>Brad</p>
-     </div>
-     <div class="col s3">
-     <p>Jose</p>
-     </div>
-     <div class="col s3">
-     <p>Michael</p>
-     </div>
-     <div class="col s3">
-     <p>Nash</p>
-     </div>
-   </div>
-        --> 
+ 
+       
 </body>
