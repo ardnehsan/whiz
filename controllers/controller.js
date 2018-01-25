@@ -15,6 +15,13 @@ router.get('/signin', (req, res, next) => {
   res.render('signin');
 });
 
+// Handle 404 - Keep this as a last route
+// router.use(function(req, res, next) {
+//   res.status(404);
+//   res.render('404');
+// });
+
+
 router.get("/:id", function (req, res) {
 
   db.comments.findAll({
@@ -25,7 +32,7 @@ router.get("/:id", function (req, res) {
 
     var allTheComments = {
       comments: [],
-      form: "<form id='newComment' method='post'>" +
+      form: "<form id='newComment'>" +
         "<h4 class='newInfo'>User: *</h4>" +
         "<input type='text' name='user' id='user' placeholder='Your Username' class='form-control'>" +
         "<h4 class='newInfo'>Comment *</h4>" +
@@ -52,28 +59,12 @@ router.post("/:id", function (req, res) {
     comment: req.body.comment
   }).then(function (results) {
     console.log("This is the results ID: " + results.id)
-    var commentId = results.id
 
-    // db.votes.create({
-    // 	user: req.body.user,
-    // 	comment_id: commentId
-    // });
+    res.json(results);
 
-    // db.busy.create({
-    // 	comment_id: results.id
-    // });
-
-    res.redirect(req.get('referer'));
   })
 })
-//   }).then(function(dbComment) {
 
-//     console.log(dbComment[0].comment_id)
-//     console.log(dbComment[1].comment_id)
-
-//     // res.render('index')
-//   });
-// });
 
 
 
@@ -81,25 +72,16 @@ router.delete("/:id/:id_comment", function (req, res) {
 
   db.comments.destroy({
     where: {
+      place_id: req.params.id,
       id: req.body.id_comment
-      // place_id: req.params.id
-      // user: req.params.user
     }
   }).then(function (dbComment) {
+
     res.json(dbComment);
+
   });
 });
-// db.Votes.destroy({
-// 	where: {
-// 		comment_id: db.Comments.id
-// 	}
-// })
 
-// db.Busy.destroy({
-// 	where: {
-// 		comment_id: db.Comments.id
-// 	}
-// })
 
 router.put("/:id/:id_comment", function (req, res, next) {
 
@@ -108,31 +90,27 @@ router.put("/:id/:id_comment", function (req, res, next) {
 
   db.comments.findAll({
     where: {
-      id: req.body.id_comment
+      place_id: req.params.id,
+      id: req.params.id_comment
     }
   }).then(function (dbComments) {
 
 
     //this is for upvote
 
-    // console.log("This is upvotes in DB" + dbComments[0].dataValues.upVotes)
-    // console.log(dbComments.comments[0].upVote)
     currentUpVote.push(dbComments[0].dataValues.upVotes)
 
     var addUpVote = parseInt(req.body.upVote) + parseInt(currentUpVote)
 
     console.log("This is the addUpVote " + addUpVote);
 
-
-
-
-    // console.log("This is downvotes in DB" + dbComments[0].dataValues.downVotes)
+    //this is for downvote
 
     currentDownVotes.push(dbComments[0].dataValues.downVotes)
 
     var addDownVote = parseInt(req.body.downVote) + parseInt(currentDownVotes)
 
-    // console.log("This is the addDownVote " + addDownVote);
+
 
 
 
@@ -143,8 +121,8 @@ router.put("/:id/:id_comment", function (req, res, next) {
       where: {
         id: req.body.id_comment
       }
-    }).then(function (result) {
-      console.log("This is the result: " + result);
+    }).then(function (dbLike) {
+      console.log("This is the result: " + dbLike);
 
       console.log("Current Up Vote: " + addUpVote);
       console.log("Current Down Vote: " + addDownVote);
@@ -190,120 +168,24 @@ router.put("/:id/:id_comment", function (req, res, next) {
 
         currentUpVote = [];
         currentDownVote = [];
+        res.json(dbLike);
       }
 
     });
-
-
-
-
-
-
-
-    // db.comments.update({
-    //   downVotes: parseInt(addDownVote)
-    // }, {
-    //   where: {
-    //     id: req.body.id_comment
-    //   }
-    // }).then(function(dbComment) {
-    //   res.json(dbComment);
-    //   currentDownVote = [];
-    // });
 
   })
 
 });
 
-// router.put("/:id/:id_comment", function(req, res, next) {
-
-//   var currentUpVote = [];
-
-//     db.comments.findAll({
-//       where: {
-//         id: req.body.id_comment
-//       }
-//     }).then(function(dbComments) {
 
 
-//   })
+router.get("*", function (req, res) {
 
-// });
+  res.render('404')
 
-// app.put("/places/:place_id/:user", function(req, res) {
-
-//     db.Votes.update({
-//     	upVote: 1++
-//     }, {
-//       where: {
-//         comment_id: db.Comments.id,
-//       }
-//     }).then(function(dbComment) {
-//       res.json(dbComment);
-
-// 	      if (db.Votes.upVote >= 10) {
-// 	      	 db.Busy.update({
-// 	      	 	busy: 1,
-// 	      	 }, {
-// 	      	 	where: db.Busy.comments_id
-// 	      	 })
-// 	      }
-// 	      else if (dbComment.upVote >= 10 && dbComment.downVote >=10) {
-// 	      	db.Busy.update({
-// 	      	 	busy: 0,
-// 	      	 }, {
-// 	      	 	where: db.Busy.comments_id
-// 	      	 })
-// 	      }
-// 	      else {
-// 	      	db.Busy.update({
-// 	      	 	busy: 0,
-// 	      	 }, {
-// 	      	 	where: db.Busy.comments_id
-// 	      	 })
-// 	      }
-
-//        })
-//     });
+});
 
 
-// app.put("/places/:place_id/:user", function(req, res) {
-
-//     db.Votes.update({
-//     	downVote: 1++
-//     }, {
-//       where: {
-//         comment_id: db.Comments.id,
-//       }
-//     }).then(function(dbComment) {
-//       res.json(dbComment);
-
-
-// 	      if (db.Votes.downVote >= 10) {
-// 	      	 db.Busy.update({
-// 	      	 	busy: 0,
-// 	      	 }, {
-// 	      	 	where: db.Busy.comments_id
-// 	      	 })
-// 	      }
-// 	      else if (dbComment.upVote >= 10 && dbComment.downVote >=10) {
-// 	      	db.Busy.update({
-// 	      	 	busy: 0,
-// 	      	 }, {
-// 	      	 	where: db.Busy.comments_id
-// 	      	 })
-// 	      }
-// 	      else {
-// 	      	db.Busy.update({
-// 	      	 	busy: 0,
-// 	      	 }, {
-// 	      	 	where: db.Busy.comments_id
-// 	      	 })
-// 	      }
-
-
-//     });
-//   });
 
 
 
@@ -314,6 +196,7 @@ module.exports = router
 
 
 function prependComments(comments, objectName) {
+
   if (comments.length >= 5) {
 
     for (var i = comments.length - 1; i > comments.length - 6; i--) {
@@ -349,22 +232,23 @@ function prependComments(comments, objectName) {
     }
 
   } else {
-    console.log("No Comments")
+    //do nothing
   }
+
 }
 
 
 // router post call after on click for sign up
-router.post("/signUp'", function(req, res) {
+router.post('/signUp', function (req, res) {
 
-    db.users.create({
+  db.users.create({
     username: req.body.username,
     password: req.body.password,
     email: req.body.email,
     name: req.body.name
 
-  }).then(function(results){
+  }).then(function (results) {
     console.log("This is the results ID: " + results.id)
-   res.render('index');
+    res.render('index');
   })
 })

@@ -1,18 +1,19 @@
-$("#signInForm").submit(function (event) {
-
+console.log("yo")
+$(document).on("click", "#signInForm", function (event) {
+    console.log('welcome!')
     event.preventDefault();
     var user = {
         username: $("#username").val().trim(),
         password: $("#pw").val().trim()
     }
-    console.log(user)
+    // This is commented out so password doesnt show in frontend console console.log(user)
 
 
 });
 
 
-$("#signUpForm").submit(function (event) {
-
+$(document).on("click", "#signUpForm", function (event) {
+    console.log("we were clicked")
     event.preventDefault()
 
     var user = {
@@ -22,16 +23,8 @@ $("#signUpForm").submit(function (event) {
         email: $("#signUpEmail").val().trim()
     }
 
-    $.post('/signUp', {
-        data: user,
-        success: function(){
-            console.log("Success")
-        }, 
-        error: function(error) {
-            console.log(error)
-        }
-    }).then(function (response) {
-            console.log(response)
+    $.post('/signUp', user).then(function (response) {
+        // commented out so password will not show in terminal console.log(response)
     });
 
 });

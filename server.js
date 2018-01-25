@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Static folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, './public')));
 
 //cors
 app.use(cors());
@@ -36,26 +36,25 @@ app.use(session({
     secret: process.env.SESSIONSECRET || "keyboard cat",
     resave: false,
     saveUninitialized: true
-  }));
+}));
 
 //middleware for setting up a user object when anyone first come to the appplication
-function userSetup(req, res, next){
-    if(!req.session.user){
-      req.session.user = {}
-      req.session.user.loggedIn = false;
+function userSetup(req, res, next) {
+    if (!req.session.user) {
+        req.session.user = {}
+        req.session.user.loggedIn = false;
     }
     next()
-  }
-  app.use(userSetup)
+}
+app.use(userSetup)
 
 
-//Michael added this in
+
+require('./routes/userApiRoutes.js')(app)
 const routes = require('./controllers/controller.js')
 
 app.use("/", routes);
-//this is the end of what I added in...
 
-const authRoutes =require('./routes/userApiRoutes.js')
 
 db.sequelize.sync().then(function () {
     app.listen(PORT, function () {
