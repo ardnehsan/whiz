@@ -44,6 +44,16 @@ router.get("/:id", function (req, res) {
 
     prependComments(dbComments, allTheComments.comments);
 
+
+    // db.storenames.findAll({
+    //   where: {
+    //     place_id: req.params.id
+    //   }
+    // }).then(function(results){
+
+    //   console.log(results)
+    // })
+
     res.render('index', allTheComments)
 
   });
@@ -176,6 +186,20 @@ router.put("/:id/:id_comment", function (req, res, next) {
   })
 
 });
+
+router.post("/store/storename/", function (req, res) {
+
+
+  db.storenames.create({
+    name: req.body.name,
+    place_id: req.body.placeId,
+  }).then(function (results) {
+    console.log("This is the results ID: " + results.id)
+
+    res.json(results);
+
+  })
+})
 
 
 

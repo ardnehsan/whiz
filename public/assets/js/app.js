@@ -156,7 +156,7 @@ function initMap() {
 							// console.log(result)
 							var resultsLat = results[i].geometry.location.lat()
 							var resultsLng = results[i].geometry.location.lng()
-							locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
+							locationInfo.push("<div>Name: " + results[i].name + "</div> <div>Address: " + results[i].vicinity + "</div>")
 							addMarker({
 								lat: resultsLat,
 								lng: resultsLng
@@ -246,13 +246,17 @@ function initMap() {
 			data: allComments
 		}).done(function () {
 			// console.log("Got comments with ID = " + allComments.placeId);
-
-
 			window.location.href = '/' + allComments.placeId
-
-
-
 		});
+
+		// $.ajax("/store/storename", {
+		// 	type: "POST",
+		// 	data: allComments
+		// }).done(function(){
+
+			
+
+		// })
 
 
 
@@ -307,7 +311,7 @@ function initMap() {
 			}, function (results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
 					if (results[0]) {
-						// console.log(results[0])
+						console.log(results[0])
 						map.setZoom(11);
 						map.setCenter(results[0].geometry.location);
 						var marker = new google.maps.Marker({
