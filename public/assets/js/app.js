@@ -66,7 +66,7 @@ function initMap() {
 
 
 
-    $(".busy").submit(function(event) {
+	$("#busy").submit(function (event) {
 
 		event.preventDefault();
 
@@ -133,7 +133,6 @@ function initMap() {
 					for (var i = 0; i < 5; i++) {
 						$("#place-" + placeNum).text("")
 						$("#button-" + placeNum).text("")
-						console.log(placeNum);
 						placeNum++
 					}
 
