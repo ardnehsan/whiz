@@ -6,7 +6,8 @@ $(document).on("click", "#signInForm", function (event) {
         username: $("#username").val().trim(),
         password: $("#pw").val().trim()
     }
-    // This is commented out so password doesnt show in frontend console console.log(user)
+    // This is commented out so password doesnt show in frontend console 
+    console.log(user)
 
 
 });
