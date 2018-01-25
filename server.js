@@ -51,7 +51,7 @@ app.use(userSetup)
 
 
 require('./routes/userApiRoutes.js')(app)
-const routes = require('./controllers/controller.js')
+const routes = require('./routes/route.js')
 
 app.use("/", routes);
 
