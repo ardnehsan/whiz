@@ -1,4 +1,4 @@
-console.log("yo")
+// console.log("yo")
 $(document).on("click", "#signInForm", function (event) {
     console.log('welcome!')
     event.preventDefault();
