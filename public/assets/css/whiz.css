@@ -1,19 +1,12 @@
 body {
   background: darkslategray;
   font-family: arial;
-  color: #666;
+  color: #fff600;
   line-height: 1.6em;
 }
 
 a {
   color: white;
-}
-
-body {
-  background: rgb(54, 53, 53);
-  font-family: arial;
-  color: #fff600;
-  line-height: 1.6em;
 }
 
 a {
