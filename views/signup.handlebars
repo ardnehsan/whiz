@@ -1,22 +1,82 @@
-      <nav>
-    <div class="nav-wrapper">
-       <div class="row">
-                    <div class="col s12">
-                </div>
-            </div>
-    </div>
-    </nav>
-    <h1>Sign Up</h1>
-    <form>
-        <label for="name">Name:</label>
-        <input type="text" id="signUpName" placeholder="Name">
-        <label for="username">Username:</label>
-        <input type="text" id="signUpUsername" placeholder="Username">
-        <label for="password">Password:</label>
-        <input type="password" id="signUpPassword" placeholder="Password">
-        <label for="email">Email Address:</label>
-        <input class="text" placeholder="email" type="text" id="signUpEmail" />
-        <button type="button" id="signUpForm">Sign Up</button>
-    </form>
+<body>
 
-</body>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <nav>
+        <div class="nav-wrapper yellow">
+        <a href="/" class="brand-logo left">WHIZ</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
+        <ul id="nav-mobile" class="right hide-on-med-and-down black">
+            <li><a href="/">Home</a></li>
+            <li><a href="/signin">Sign In</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+         <ul class="side-nav" id="mobile-demo">
+             <li><div class="user-view">
+                 <img src="assets/img/whizarrow.png" width="200px">
+             </div></li>
+            <li><div class="divider"></div></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/signin">Sign In</a></li>
+            <li><a href="/">About</a></li>
+        </ul>
+        </div>
+    </nav>
+
+
+    {{!-- preloaders...  slides that move--}}
+    <div class="progress yellow">
+        <div class="indeterminate darkgrey"></div>
+    </div>
+    <div class="progress black">
+        <div class="indeterminate yellow"></div>
+    </div>
+    <div class="progress yellow">
+        <div class="indeterminate darkgrey"></div>
+    </div>
+        {{!-- end===== --}}
+
+
+    <div class="container">    
+        <div id="signUp">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+            <h1>Sign Up</h1>   
+        <form class="signUP">
+        <div class="row">
+            <div class="input-field col s6">
+            <input id="signUpName" type="text" class="validate">
+            <label class="active" for="name">Name</label>
+            </div> 
+            <div class="input-field col s6">
+            <input id="signUpUsername" type="text" class="validate">
+            <label class="active" for="Userame">Username</label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="input-field col s12">
+            <input id="signUpPassword" type="password" class="validate">
+            <label class="active" for="password">Password</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+            <input id="signUpEmail" type="email" class="validate">
+            <label class="active" for="email">Email Address</label>
+            </div> 
+            <button type="button" id="signUpForm" value="Sign Up" class="waves-effect waves-light btn yellow black-text pulse z-depth-4">Sign Up</button>
+        </div>
+        
+        </form>
+        </div>
+    </div>
+
+    
+
+<style>
+    .container {background: transparent;}
+    h1 {color: darkgoldenrod;}
+</style>
+   
+</body>  

@@ -1,5 +1,5 @@
-console.log("yo")
-$(document).on("click", "#signInForm", function (event) {
+// console.log("yo")
+$(document).on("click", "#signIn", function (event) {
     console.log('welcome!')
     event.preventDefault();
     var user = {
@@ -9,7 +9,10 @@ $(document).on("click", "#signInForm", function (event) {
     // This is commented out so password doesnt show in frontend console 
     console.log(user)
 
-
+    $.post('/signin', user).then(function (response) {
+      console.log(response)
+      window.location.href = "/"
+    })
 });
 
 
@@ -26,6 +29,7 @@ $(document).on("click", "#signUpForm", function (event) {
 
     $.post('/signUp', user).then(function (response) {
         // commented out so password will not show in terminal console.log(response)
-    });
+        window.location.href = "/signin"
+    })
 
 });
