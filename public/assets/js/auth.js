@@ -1,28 +1,24 @@
-// console.log("yo")
 $(document).on("click", "#signIn", function (event) {
-    console.log('welcome!')
     event.preventDefault();
     var user = {
         username: $("#username").val().trim(),
         password: $("#pw").val().trim()
     }
-    // This is commented out so password doesnt show in frontend console 
-    console.log(user)
     if (user.username == "" || user.password === "") {
         $('#signinError').html('Must enter both username and password')
     } else {
         $.post('/signin', user)
-        .fail($('#signinError').html('No User Found.'))
-        .then(function (response) {
-            console.log(response)
-            window.location.href = "/"
-        })
+            .fail(function (response) {
+                $('#signinError').html(response.responseText)
+            })
+            .done(function (response) {
+                window.location.href = "/"
+            })
     }
 });
 
 
 $(document).on("click", "#signUpForm", function (event) {
-    console.log("we were clicked")
     event.preventDefault()
 
     var user = {
@@ -33,14 +29,19 @@ $(document).on("click", "#signUpForm", function (event) {
     }
     if (user.name === "" || user.username === "" || user.password === "" || user.email === "") {
         $('#signupError').html('Must fill out all fields')
-    } 
-    else{
-
-        $.post('/signUp', user)
-        .fail($('#signupError').html('Validation Error. Please try again.'))
-        .then(function (response) {
-            // commented out so password will not show in terminal console.log(response)
-            // window.location.href = "/signin"
-        })
+    } else {
+        if (user.username.length < 6 || user.username.length > 128) {
+            $('#signupError').html('Username must be more than 6 character')
+        } else if(user.email.length < 6 || user.email.length > 128){
+            $('#signupError').html('Email must be more than 6 character')
+        } else {
+            $.post('/signUp', user)
+                .fail(function (response) {
+                    $('#signupError').html('Validation Error. Please try again.')
+                })
+                .done(function (response) {
+                    window.location.href = "/signin"
+                })
+        }
     }
 });

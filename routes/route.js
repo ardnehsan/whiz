@@ -4,8 +4,15 @@ const router = express.Router();
 
 var db = require("../models");
 
+router.use(function (req, res, next) {
+  res.locals = {
+    is_logged_in: ((req.session || {}).user || {}).loggedIn
+  };
+  next();
+});
+
 router.get('/', (req, res, next) => {
-  res.render('index');
+  res.render('index'); // at this point we have the res.locals.is_logged_in set already,from line 9
 });
 
 router.get('/signup', (req, res, next) => {
@@ -15,12 +22,11 @@ router.get('/signin', (req, res, next) => {
   res.render('signin');
 });
 
-// Handle 404 - Keep this as a last route
-// router.use(function(req, res, next) {
-//   res.status(404);
-//   res.render('404');
-// });
 
+router.get("/logout", function (req, res) {
+  req.session.destroy();
+  res.redirect("/")
+})
 
 router.get("/:id", function (req, res) {
 
@@ -239,16 +245,17 @@ function prependComments(comments, objectName) {
 
 
 // router post call after on click for sign up
-router.post('/signUp', function (req, res) {
+// router.post('/signUp', function (req, res) {
 
-  db.users.create({
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    name: req.body.name
+//   db.users.create({
+//     username: req.body.username,
+//     password: req.body.password,
+//     email: req.body.email,
+//     name: req.body.name
 
-  }).then(function (results) {
-    console.log("This is the results ID: " + results.id)
-    res.render('index');
-  })
-})
+//   }).then(function (results) {
+//     console.log("This is the results ID: " + results.id)
+//     // res.render('index');
+//     console.log()
+//   })
+// })
