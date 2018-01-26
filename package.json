@@ -31,12 +31,16 @@
     "path": "^0.12.7",
     "sequelize": "^4.31.2",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "sequelize-isunique-validator": "^1.1.1"
   },
   "devDependencies": {}
 =======
     "sequelize-isunique-validator": "^1.1.1",
     "sweetalert": "^2.1.0"
+=======
+    "sequelize-isunique-validator": "^1.1.1"
+>>>>>>> c4f33b8d70946ca7ccf804ee08d65e48f8bb530c
   }
 >>>>>>> 954b52d46eb7e53e5c011dadfa33600d6b072be4
 }

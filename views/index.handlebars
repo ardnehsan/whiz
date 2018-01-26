@@ -26,6 +26,7 @@
        <div class="col s1">
                    <button class="waves-effect waves-teal btn-flat" type="submit" name="submit"><i class="large material-icons left prefix">search</i></button>    
        </div>
+<<<<<<< HEAD
        <div class="col s4">
          <ul class="right hide-on-med-and-down black">
             <li><a href="/signin">Sign In</a></li>
@@ -40,6 +41,16 @@
             <li><a href="/signup">Sign Up</a></li>
         </ul>
         
+=======
+       <div class="col s3">
+        {{#if is_logged_in}}
+        <li class="auth"><a href="/logout">Sign Out</a></li>
+        {{else}}
+         <li class="auth"><a href="/signup">Sign Up</a></li>
+         <li><a href="/signin">Sign In</a></li>
+        {{/if}}
+        <li><a href="/developers">Developers</a></li>
+>>>>>>> c4f33b8d70946ca7ccf804ee08d65e48f8bb530c
        </div>
     </form>    
      </div>

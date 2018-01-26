@@ -19,13 +19,13 @@
             <li><div class="divider"></div></li>
             <li><a href="/">Home</a></li>
             <li><a href="/signin">Sign In</a></li>
-            <li><a href="/">About</a></li>
+            <li><a href="/developers">Developers</a></li>
         </ul>
         </div>
     </nav>
 
 
-    {{!-- preloaders...  slides that move--}}
+    {{!-- preloaders... slides that move--}}
     <div class="progress yellow">
         <div class="indeterminate darkgrey"></div>
     </div>
@@ -35,11 +35,12 @@
     <div class="progress yellow">
         <div class="indeterminate darkgrey"></div>
     </div>
-        {{!-- end===== --}}
+    {{!-- end===== --}}
 
 
-    <div class="container">    
+    <div class="container">
         <div id="signUp">
+<<<<<<< HEAD
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
             <h1>Sign Up</h1>   
         <form class="signUP">
@@ -69,14 +70,51 @@
         </div>
         
         </form>
+=======
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+            <h1>Sign Up</h1>
+            <form class="signUP">
+                <h4 id="signupError"></h4>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="signUpName" type="text" class="validate">
+                        <label class="active" for="name">Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="signUpUsername" type="text" class="validate">
+                        <label class="active" for="Userame">Username</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="signUpPassword" type="password" class="validate">
+                        <label class="active" for="password">Password</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="signUpEmail" type="email" class="validate">
+                        <label class="active" for="email">Email Address</label>
+                    </div>
+                    <button type="button" id="signUpForm" value="Sign Up" class="yellow black-text pulse z-depth-4">Sign Up</button>
+                </div>
+
+            </form>
+>>>>>>> c4f33b8d70946ca7ccf804ee08d65e48f8bb530c
         </div>
     </div>
 
-    
 
-<style>
-    .container {background: transparent;}
-    h1 {color: darkgoldenrod;}
-</style>
-   
-</body>  
+
+    <style>
+        .container {
+            background: transparent;
+        }
+
+        h1 {
+            color: darkgoldenrod;
+        }
+    </style>
+
+</body>

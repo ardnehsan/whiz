@@ -10,7 +10,7 @@ module.exports = function (sequelize, DataTypes) {
 					args: [6, 128],
 					msg: "Username must be between 6 and 128 characters in length"
 				},
-			},
+			}
 		},
 		password: {
 			type: DataTypes.STRING,
