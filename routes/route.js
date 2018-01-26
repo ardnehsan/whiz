@@ -15,6 +15,10 @@ router.get('/', (req, res, next) => {
   res.render('index'); // at this point we have the res.locals.is_logged_in set already,from line 9
 });
 
+router.get('/developers', (req, res, next) => {
+  res.render('developers');
+});
+
 router.get('/signup', (req, res, next) => {
   res.render('signup');
 });

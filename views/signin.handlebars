@@ -1,40 +1,44 @@
- <link rel="stylesheet" type="text/css" href="./public/assets/css/whiz.css">
+<link rel="stylesheet" type="text/css" href="./public/assets/css/whiz.css">
 
 <body>
 
     <nav>
         <div class="nav-wrapper yellow">
-        <a href="#" class="brand-logo left">WHIZ</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down black">
-            <li><a href="#">Home</a></li>
-            <li><a href="/signup">Sign up</a></li>
-            <li><a href="#">About</a></li>
-        </ul>
+            <a href="/" class="brand-logo left">
+                <img class="responsive-img" width="100" src="assets/img/whizlogo.png">
+            </a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down black">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/signup">Sign up</a>
+                </li>
+                <li>
+                    <a href="/developers">Developers</a>
+                </li>
+            </ul>
         </div>
     </nav>
 
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      
-     {{!-- added form inside container  --}}
-<div class="container">    
-    <div id="signInDiv">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-         <h1>Sign In</h1>
-        <form id="signInForm">
-        <h5 id="signinError"></h5>
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="pw" placeholder="Password">
-        <button id="signIn" type="submit" class="yellow black-text hoverable z-depth-5">Let's go</button>
-        </form>
-   </div> 
-</div>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> {{!-- added form inside container --}}
+    <div class="container">
+        <div id="signInDiv">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+            <h1>Sign In</h1>
+            <form id="signInForm">
+                <h5 id="signinError"></h5>
+                <input type="text" id="username" placeholder="Username">
+                <input type="password" id="pw" placeholder="Password">
+                <button id="signIn" type="submit" class="yellow black-text hoverable z-depth-5">Let's go</button>
+            </form>
+        </div>
+    </div>
 
-<br>
-<br>
-
-        {{!-- icons with color --}}
-<div id="icons">
+    <br>
+    <br> {{!-- icons with color --}}
+    <div id="icons">
         <i class="large material-icons icon-color">local_convenience_store</i>
         <i class="large material-icons icon-color">home</i>
         <i class="large material-icons icon-color">business</i>
@@ -42,9 +46,9 @@
         <i class="large material-icons icon-color">nature_people</i>
         <i class="large material-icons icon-color">local_gas_station</i>
         <i class="large material-icons icon-color">local_convenience_store</i>
-</div>
+    </div>
 
-{{!-- preloaders..  slides that move--}}
+    {{!-- preloaders.. slides that move--}}
     <div class="progress yellow">
         <div class="indeterminate darkgrey"></div>
     </div>
@@ -54,22 +58,28 @@
     <div class="progress yellow">
         <div class="indeterminate darkgrey"></div>
     </div>
-        {{!-- === end ===== --}}
+    {{!-- === end ===== --}}
 
 
 
 
-<style>
-    .container {
-        background-color: transparent;
-        text-align: center;}
-        
-    h1 {color: darkgoldenrod;}
+    <style>
+        .container {
+            background-color: transparent;
+            text-align: center;
+        }
 
-    #icons {text-align: center}
+        h1 {
+            color: darkgoldenrod;
+        }
 
-    i.icon-color {
-        color: black;
-        text-align: center}
-</style>
-</body>  
+        #icons {
+            text-align: center
+        }
+
+        i.icon-color {
+            color: black;
+            text-align: center
+        }
+    </style>
+</body>
