@@ -79,3 +79,13 @@ h1{
 .results{
   text-align: center;
 }
+
+.mapText {
+  color: black;
+}
+
+#button-1:hover, #button-2:hover, #button-3:hover, #button-4:hover, #button-5:hover {
+
+  color: black;
+  
+}

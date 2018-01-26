@@ -639,7 +639,7 @@ function callback(results, status) {
 			// console.log(result)
 			var resultsLat = results[i].geometry.location.lat()
 			var resultsLng = results[i].geometry.location.lng()
-			locationInfo.push("<div>Name: " + results[i].name + "</div> <div>Address: " + results[i].vicinity + "</div>")
+			locationInfo.push("<div class='mapText'>Name: " + results[i].name + "</div> <div class='mapText'>Address: " + results[i].vicinity + "</div>")
 			addMarker({
 				lat: resultsLat,
 				lng: resultsLng
@@ -649,8 +649,8 @@ function callback(results, status) {
 			$("#button-" + placeNum).attr("data-name", results[i].name);
 			$("#button-" + placeNum).attr("data-vicinity", results[i].vicinity);
 			// $("#button-" + placeNum).attr("href", "/" + results[i].id)
-			$("#button-" + placeNum).text("Go Here!")
-			$("#place-" + placeNum).text("Place Name: " + results[i].name + " Address: " + results[i].vicinity);
+			$("#button-" + placeNum).html("Go Here!<hr>")
+			$("#place-" + placeNum).html("<br>Place Name: " + results[i].name + " Address: " + results[i].vicinity);
 
 			placeNum++
 		}
@@ -662,7 +662,7 @@ function callback(results, status) {
 			// console.log(results);
 			var resultsLat = results[i].geometry.location.lat()
 			var resultsLng = results[i].geometry.location.lng()
-			locationInfo.push("<h4>Name: " + results[i].name + "</h4> <h4>Address: " + results[i].vicinity + "</h4><h4>ID: " + results[i].id + "</h4>")
+			locationInfo.push("<div class='mapText'>Name: " + results[i].name + "</div> <div class='mapText'>Address: " + results[i].vicinity + "</div>")
 			addMarker({
 				lat: resultsLat,
 				lng: resultsLng
@@ -672,7 +672,7 @@ function callback(results, status) {
 			$("#button-" + placeNum).attr("data-name", results[i].name);
 			$("#button-" + placeNum).attr("data-vicinity", results[i].vicinity);
 			// $("#button-" + placeNum).attr("href", "/" + results[i].id)
-			$("#button-" + placeNum).text("Go Here!")
+			$("#button-" + placeNum).html("Go Here!<hr>")
 			$("#place-" + placeNum).text("Place Name: " + results[i].name + " Address: " + results[i].vicinity);
 
 			placeNum++
@@ -696,7 +696,7 @@ function geocodePlaceId(geocoder, map, infowindow, myPlaceId) {
 					map: map,
 					position: results[0].geometry.location
 				});
-				infowindow.setContent(results[0].formatted_address);
+				infowindow.setContent("<div class='mapText'>" + results[0].formatted_address + "</div>");
 				infowindow.open(map, marker);
 			} else {
 				window.alert('No results found');
