@@ -1,20 +1,28 @@
- <body>
+<body>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <nav>
         <div class="nav-wrapper yellow">
-        <a href="#" class="brand-logo left">WHIZ</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down black">
-            <li><a href="#">Home</a></li>
-            <li><a href="/signin">Sign In</a></li>
-            <li><a href="#">About</a></li>
-        </ul>
+            <a href="/" class="brand-logo left">
+                <img class="responsive-img" width="100" src="assets/img/whizlogo.png">
+            </a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down black">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/signin">Sign In</a>
+                </li>
+                <li>
+                    <a href="/developers">Developers</a>
+                </li>
+            </ul>
         </div>
     </nav>
 
 
-    {{!-- preloaders...  slides that move--}}
+    {{!-- preloaders... slides that move--}}
     <div class="progress yellow">
         <div class="indeterminate darkgrey"></div>
     </div>
@@ -24,49 +32,54 @@
     <div class="progress yellow">
         <div class="indeterminate darkgrey"></div>
     </div>
-        {{!-- end===== --}}
+    {{!-- end===== --}}
 
 
-    <div class="container">    
+    <div class="container">
         <div id="signUp">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-            <h1>Sign Up</h1>   
-        <form class="signUP">
-            <h4 id="signupError"></h4>
-        <div class="row">
-            <div class="input-field col s6">
-            <input id="signUpName" type="text" class="validate">
-            <label class="active" for="name">Name</label>
-            </div> 
-            <div class="input-field col s6">
-            <input id="signUpUsername" type="text" class="validate">
-            <label class="active" for="Userame">Username</label>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="input-field col s12">
-            <input id="signUpPassword" type="password" class="validate">
-            <label class="active" for="password">Password</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-            <input id="signUpEmail" type="email" class="validate">
-            <label class="active" for="email">Email Address</label>
-            </div>
-            <button type="button" id="signUpForm" value="Sign Up" class="yellow black-text pulse z-depth-4">Sign Up</button>
-        </div>
-        
-        </form>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+            <h1>Sign Up</h1>
+            <form class="signUP">
+                <h4 id="signupError"></h4>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="signUpName" type="text" class="validate">
+                        <label class="active" for="name">Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="signUpUsername" type="text" class="validate">
+                        <label class="active" for="Userame">Username</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="signUpPassword" type="password" class="validate">
+                        <label class="active" for="password">Password</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="signUpEmail" type="email" class="validate">
+                        <label class="active" for="email">Email Address</label>
+                    </div>
+                    <button type="button" id="signUpForm" value="Sign Up" class="yellow black-text pulse z-depth-4">Sign Up</button>
+                </div>
+
+            </form>
         </div>
     </div>
 
-    
 
-<style>
-    .container {background: transparent;}
-    h1 {color: darkgoldenrod;}
-</style>
-   
-</body>  
+
+    <style>
+        .container {
+            background: transparent;
+        }
+
+        h1 {
+            color: darkgoldenrod;
+        }
+    </style>
+
+</body>

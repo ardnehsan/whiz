@@ -1,0 +1,221 @@
+<link rel="stylesheet" type="text/css" href="./public/assets/css/whiz.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+<nav>
+    <div class="nav-wrapper yellow">
+        <a href="/">
+            <img class="responsive-img" width="100" src="assets/img/whizlogo.png">
+        </a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down black">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            {{#if is_logged_in}}
+            <li class="auth">
+                <a href="/logout">Sign Out</a>
+            </li>
+            {{else}}
+            <li class="auth">
+                <a href="/signup">Sign Up</a>
+            </li>
+            {{/if}}
+            <li>
+                <a href="/developers">Developers</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{{!-- ==== michael ========= --}}
+<div class="container" id="michael">
+    <div class="row">
+        <div class="col l6">
+            <div class="card">
+                <div class="card-content">
+                    <p>Michael Morfessis</p>
+                </div>
+                <div class="card-action">
+                    <a href="https://github.com/mkmorfess">Github</a>
+                    <a href="https://www.linkedin.com/in/michael-morfessis/">Linkedin</a>
+                </div>
+            </div>
+        </div>
+        <div class="col l5">
+            <i class="large material-icons icon-color">local_convenience_store</i>
+            <i class="large material-icons icon-color">local_gas_station</i>
+            <br>
+            <div class="progress yellow">
+                <div class="indeterminate darkgrey"></div>
+            </div>
+            <div class="progress black">
+                <div class="indeterminate yellow"></div>
+            </div>
+        </div>
+        <div class="col l1">
+            <i class="large material-icons icon-color">motorcycle</i>
+            <i class="large material-icons icon-color">local_convenience_store</i>
+        </div>
+    </div>
+</div>
+{{!-- ===== brad ======= --}}
+<div class="container" id="brad">
+    <div class="row">
+        <div class="col l1">
+
+        </div>
+        <div class="col l5">
+            <i class="large material-icons icon-color">local_convenience_store</i>
+            <i class="large material-icons icon-color">account_balance</i>
+            <br>
+            <div class="progress yellow">
+                <div class="indeterminate darkgrey"></div>
+            </div>
+            <div class="progress black">
+                <div class="indeterminate yellow"></div>
+            </div>
+        </div>
+        <div class="col l6">
+            <div class="card">
+                <div class="card-content">
+                    <p>Brad Hemmerick</p>
+                </div>
+                <div class="card-action">
+                    <a href="https://github.com/BradHemmerick">Github</a>
+                    <a href="#">Linkedin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- ====== nash ======== --}}
+<div class="container" id="nash">
+    <div class="row">
+        <div class="col l6">
+            <div class="card">
+                <div class="card-content">
+                    <p>Nash Fowsar</p>
+                </div>
+                <div class="card-action">
+                    <a href="https://github.com/ardnehsan">Github</a>
+                    <a href="#">Linkedin</a>
+                </div>
+            </div>
+        </div>
+        <div class="col l5">
+            <i class="large material-icons icon-color">store</i>
+            <i class="large material-icons icon-color">account_balance</i>
+            <br>
+            <i class="large material-icons icon-color">business</i>
+            <i class="large material-icons icon-color">location_city</i>
+        </div>
+        <div class="col l1">
+            <i class="large material-icons icon-color">nature</i>
+            <i class="large material-icons icon-color">nature_people</i>
+        </div>
+    </div>
+</div>
+{{!-- ===== adrian ========= --}}
+<div class="container" id="adrian">
+    <div class="row">
+        <div class="col l1">
+
+        </div>
+        <div class="col l5">
+            <i class="large material-icons icon-color">store_mall_directory</i>
+            <i class="large material-icons icon-color">local_convenience_store</i>
+            <br>
+            <div class="progress yellow">
+                <div class="indeterminate darkgrey"></div>
+            </div>
+            <div class="progress black">
+                <div class="indeterminate yellow"></div>
+            </div>
+        </div>
+        <div class="col l6">
+            <div class="card">
+                <div class="card-content">
+                    <p>Adrian Trevino</p>
+                </div>
+                <div class="card-action">
+                    <a href="https://github.com/AdrianTrevino">Github</a>
+                    <a href="#">Linkedin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- == ==== jose ======== --}}
+<div class="container" id="jose">
+    <div class="row">
+        <div class="col l6">
+            <div class="card">
+                <div class="card-content">
+                    <p>Jose Ramos</p>
+                </div>
+                <div class="card-action">
+                    <a href="https://github.com/ComputerCode00">Github</a>
+                    <a href="https://www.linkedin.com/in/jose-ramos-marquez-83a080149/">Linkedin</a>
+                </div>
+            </div>
+        </div>
+        <div class="col l5">
+            <i class="large material-icons icon-color">local_convenience_store</i>
+            <i class="large material-icons icon-color">nature</i>
+            <br>
+            <div class="progress yellow">
+                <div class="indeterminate darkgrey"></div>
+            </div>
+            <div class="progress black">
+                <div class="indeterminate yellow"></div>
+            </div>
+        </div>
+        <div class="col l1">
+            <i class="large material-icons icon-color">home</i>
+            <i class="large material-icons icon-color">local_taxi</i>
+        </div>
+    </div>
+</div>
+<style>
+    .card {
+        background-color: darkslategrey;
+        border: 1px solid black;
+        padding: 10px;
+        box-shadow: 5px 10px black;
+    }
+
+    .card-content {
+        color: black;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    #michael {
+        float: 50%;
+        padding-left: 10px;
+        padding-top: 20px;
+    }
+
+    #brad {
+        float: 50%;
+        padding-left: 10px;
+    }
+
+    #nash {
+        float: 50%;
+        padding-left: 10px;
+    }
+
+    #adrian {
+        float: 50%;
+        padding-left: 10px;
+    }
+
+    #jose {
+        float: 50%;
+        padding-left: 10px;
+    }
+
+    .icon-color {
+        color: black
+    }
+</style>
