@@ -239,16 +239,17 @@ function prependComments(comments, objectName) {
 
 
 // router post call after on click for sign up
-router.post('/signUp', function (req, res) {
+// router.post('/signUp', function (req, res) {
 
-  db.users.create({
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    name: req.body.name
+//   db.users.create({
+//     username: req.body.username,
+//     password: req.body.password,
+//     email: req.body.email,
+//     name: req.body.name
 
-  }).then(function (results) {
-    console.log("This is the results ID: " + results.id)
-    res.render('index');
-  })
-})
+//   }).then(function (results) {
+//     console.log("This is the results ID: " + results.id)
+//     // res.render('index');
+//     console.log()
+//   })
+// })
