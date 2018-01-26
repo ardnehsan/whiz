@@ -1,20 +1,17 @@
-// console.log("yo")
 $(document).on("click", "#signIn", function (event) {
-    console.log('welcome!')
     event.preventDefault();
     var user = {
         username: $("#username").val().trim(),
         password: $("#pw").val().trim()
     }
-    // This is commented out so password doesnt show in frontend console 
-    console.log(user)
     if (user.username == "" || user.password === "") {
         $('#signinError').html('Must enter both username and password')
     } else {
         $.post('/signin', user)
-            .fail($('#signinError').html('No User Found.'))
+            .fail(function (response) {
+                $('#signinError').html(response.responseText)
+            })
             .done(function (response) {
-                // console.log(response)
                 window.location.href = "/"
             })
     }
@@ -22,7 +19,6 @@ $(document).on("click", "#signIn", function (event) {
 
 
 $(document).on("click", "#signUpForm", function (event) {
-    console.log("we were clicked")
     event.preventDefault()
 
     var user = {
@@ -40,9 +36,10 @@ $(document).on("click", "#signUpForm", function (event) {
             $('#signupError').html('Email must be more than 6 character')
         } else {
             $.post('/signUp', user)
-                .fail($('#signupError').html('Validation Error. Please try again.'))
+                .fail(function (response) {
+                    $('#signupError').html('Validation Error. Please try again.')
+                })
                 .done(function (response) {
-                    // console.log(response)
                     window.location.href = "/signin"
                 })
         }

@@ -25,8 +25,12 @@
                    <button class="btn-floating btn-large waves-effect waves-light black" type="submit" name="submit"><i class="material-icons">search</i></button>
        </div>
        <div class="col s3">
-        <li><a href="/signup">Sign Up</a></li>
-        <li><a href="/signin">Sign In</a></li>
+        {{#if is_logged_in}}
+        <li class="auth"><a href="/logout">Sign Out</a></li>
+        {{else}}
+         <li class="auth"><a href="/signup">Sign Up</a></li>
+         <li><a href="/signin">Sign In</a></li>
+        {{/if}}
        </div>
     </form>    
      </div>
