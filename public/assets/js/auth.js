@@ -13,6 +13,7 @@ $(document).on("click", "#signIn", function (event) {
             })
             .done(function (response) {
                 window.location.href = "/"
+                console.log(response)
             })
     }
 });
@@ -32,7 +33,7 @@ $(document).on("click", "#signUpForm", function (event) {
     } else {
         if (user.username.length < 6 || user.username.length > 128) {
             $('#signupError').html('Username must be more than 6 character')
-        } else if(user.email.length < 6 || user.email.length > 128){
+        } else if (user.email.length < 6 || user.email.length > 128) {
             $('#signupError').html('Email must be more than 6 character')
         } else {
             $.post('/signUp', user)

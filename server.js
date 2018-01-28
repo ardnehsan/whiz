@@ -49,7 +49,6 @@ function userSetup(req, res, next) {
 app.use(userSetup)
 
 
-
 require('./routes/userApiRoutes.js')(app)
 const routes = require('./routes/route.js')
 

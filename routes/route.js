@@ -8,6 +8,7 @@ router.use(function (req, res, next) {
   res.locals = {
     is_logged_in: ((req.session || {}).user || {}).loggedIn
   };
+  // console.log(res.locals)
   next();
 });
 
@@ -44,12 +45,12 @@ router.get("/:id", function (req, res) {
       comments: [],
       form: "<form id='newComment'>" +
         "<h4 class='newInfo'>User: *</h4>" +
-        "<input type='text' name='user' id='user' placeholder='Your Username' class='form-control'>" +
         "<h4 class='newInfo'>Comment *</h4>" +
         "<input type='text' min='0' name='comment' class='form-control' id='comment' placeholder='Your comment goes here'>" +
 
         "<input type='submit' value='Post a comment!' class='btn btn-primary' id='submit'>" +
-        "</form>"
+        "</form>",
+      logInCom: "<p> please log in to post a comment </p>"
     }
 
     prependComments(dbComments, allTheComments.comments);

@@ -715,10 +715,10 @@ function geocodePlaceId(geocoder, map, infowindow, myPlaceId) {
 
 function clickPlace(button) {
 
-	localStorage.clear();
-	localStorage.setItem("thisPlaceId", $(button).data("id"));
-	localStorage.setItem("thisPlaceName", $(button).data("name"));
-	localStorage.setItem("thisPlaceVicinity", $(button).data("vicinity"));
+	// localStorage.clear();
+	// localStorage.setItem("thisPlaceId", $(button).data("id"));
+	// localStorage.setItem("thisPlaceName", $(button).data("name"));
+	// localStorage.setItem("thisPlaceVicinity", $(button).data("vicinity"));
 
 	var allComments = {
 		placeId: $(button).data("id"),
@@ -735,14 +735,14 @@ function clickPlace(button) {
 		// console.log("Got comments with ID = " + allComments.placeId);
 		window.location.href = '/' + allComments.placeId
 
-		if (location.pathname === "/" + currentPlaceId) {
-			currentPlaceId = localStorage.getItem("thisPlaceId");
-			currentPlaceName = localStorage.getItem("thisPlaceName");
-			currentPlaceVicinity = localStorage.getItem("thisPlaceVicinity");
-			console.log(currentPlaceName)
+		// if (location.pathname === "/" + currentPlaceId) {
+		// 	currentPlaceId = localStorage.getItem("thisPlaceId");
+		// 	currentPlaceName = localStorage.getItem("thisPlaceName");
+		// 	currentPlaceVicinity = localStorage.getItem("thisPlaceVicinity");
+		// 	console.log(currentPlaceName)
 
-			$("#placeInfo").html("Comments for: " + currentPlaceName + "<p>Address: " + currentPlaceVicinity + "</p>")
-		}
+		// 	$("#placeInfo").html("Comments for: " + currentPlaceName + "<p>Address: " + currentPlaceVicinity + "</p>")
+		// }
 	})
 	
 }
