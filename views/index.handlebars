@@ -1,110 +1,153 @@
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDomeXKvy8n2GG1lCgJ7KZLenY7atqHdNU&callback=initMap&libraries=places"></script>
 
 <body>
-   
 
 
-<nav>
-   <div class="nav-wrapper">
-      <div class="row">
-   <form id="busy">
-     <div class="row">
-        <div class="col s2">
-       <a href="/"><img class="brand-logo hide-on-small-and-down" width="7%"src="assets/img/whizarrow.png"></a>
-            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-       </div>
-       <div class="input-field col s2">
-         <i class="material-icons prefix">add_location</i>
-         <input id="input" type="text" name="address" class="validate">
-         <label for="icon_prefix">Your Location</label>
-       </div>
-       <div class="input-field col s2">
-         <i class="material-icons prefix">store</i>
-         <input id="location" type="text" name="location" class="validate">
-         <label for="icon_prefix">Name of Place</label>
-       </div>
-       <div class="col s3">
-                   <button class="waves-effect waves-teal btn-flat" type="submit" name="submit"><i class="large material-icons left prefix">search</i></button>    
-       </div>
-       <div class="col s3">
-        <ul id="nav-mobile" class="right hide-on-med-and-down black">
+
+    <nav>
+        <div class="nav-wrapper">
+            <div class="row">
+                <form id="busy">
+                    <div class="row">
+                        <div class="col s2">
+                            <a href="/">
+                                <img class="brand-logo hide-on-small-and-down" width="7%" src="assets/img/whizarrow.png">
+                            </a>
+                            <a href="#" data-activates="mobile-demo" class="button-collapse">
+                                <i class="material-icons">menu</i>
+                            </a>
+                        </div>
+                        <div class="input-field col s2">
+                            <i class="material-icons prefix">add_location</i>
+                            <input id="input" type="text" name="address" class="validate">
+                            <label for="icon_prefix">Your Location</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <i class="material-icons prefix">store</i>
+                            <input id="location" type="text" name="location" class="validate">
+                            <label for="icon_prefix">Name of Place</label>
+                        </div>
+                        <div class="col s3">
+                            <button class="waves-effect waves-teal btn-flat" type="submit" name="submit">
+                                <i class="large material-icons left prefix">search</i>
+                            </button>
+                        </div>
+                        <div class="col s3">
+                            <ul id="nav-mobile" class="right hide-on-med-and-down black">
+                                {{#if is_logged_in}}
+                                <li class="auth">
+                                    <a href="/logout">Sign Out</a>
+                                </li>
+                                {{else}}
+                                <li class="auth">
+                                    <a href="/signup">Sign Up</a>
+                                </li>
+                                <li>
+                                    <a href="/signin">Sign In</a>
+                                </li>
+                                {{/if}}
+                                <li>
+                                    <a href="/developers">Developers</a>
+                                </li>
+                            </ul>
+                            <ul class="side-nav" id="mobile-demo">
+                                <li>
+                                    <div class="user-view">
+                                        <img src="assets/img/whizarrow.png" width="200px">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="divider"></div>
+                                </li>
+                                {{#if is_logged_in}}
+                                <li class="auth">
+                                    <a href="/logout">Sign Out</a>
+                                </li>
+                                {{else}}
+                                <li>
+                                    <a href="/signin">Sign In</a>
+                                </li>
+                                <li>
+                                    <a href="/signup">Sign Up</a>
+                                </li>
+                                {{/if}}
+                                <li>
+                                    <a href="/developers">Developers</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                </form>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <div id="error"></div>
+    <div id="error1"></div>
+
+
+    <div id="map">
+    </div>
+    <div class="results">
+        <div id="place-1"></div>
+        <a id="button-1" data-id=""></a>
+        <div id="place-2"></div>
+        <a id="button-2" data-id=""></a>
+        <div id="place-3"></div>
+        <a id="button-3" data-id=""></a>
+        <div id="place-4"></div>
+        <a id="button-4" data-id=""></a>
+        <div id="place-5"></div>
+        <a id="button-5" data-id=""></a>
+        <div id="error2">
+        </div>
+    </div>
+    </div>
+    <div id="list">
         {{#if is_logged_in}}
-        <li class="auth"><a href="/logout">Sign Out</a></li>
-        {{else}}
-         <li class="auth"><a href="/signup">Sign Up</a></li>
-         <li><a href="/signin">Sign In</a></li>
-        {{/if}}
-        <li><a href="/developers">Developers</a></li>
-        </ul>
-          <ul class="side-nav" id="mobile-demo">
-             <li><div class="user-view">
-                 <img src="assets/img/whizarrow.png" width="200px">
-             </div></li>
-            <li><div class="divider"></div></li>
-            <li><a href="/signin">Sign In</a></li>
-            <li><a href="/signup">Sign Up</a></li>
-            <li><a href="/developers">Developers</a></li>
-
-        </ul>
-       </div>
-    </form>    
-     </div>
- 
- </div>
-   </div>
- </nav>
-  
-
-   <div id="error"></div>
-   <div id="error1"></div>
- 
- 
-   <div id="map">
-   </div>
-<div class="results">
-   <div id="place-1"></div><a id="button-1" data-id=""></a>
-   <div id="place-2"></div><a id="button-2" data-id=""></a>
-   <div id="place-3"></div><a id="button-3" data-id=""></a>
-   <div id="place-4"></div><a id="button-4" data-id=""></a>
-   <div id="place-5"></div><a id="button-5" data-id=""></a>
-   <div id="error2">
-   </div>
-</div>
-  </div>
-   <div id="list">
-       {{{form}}}
-   </div>
-   <div id="comment">
-       <p id="placeInfo"></p>
-       <ul id="list">
-           {{#each comments}}
-           <li>
-                        <div class="row">
-                            <div class="col s12 m6">
-                            <div class="card blue-grey darken-1">
-                                <div class="card-content white-text">
+        <div id='user' value='{{whizUser}}'>{{personOfInterest}} </div>
+        {{{form}}} {{else}} {{{logInCom}}} {{/if}}
+    </div>
+    <div id="comment">
+        <p id="placeInfo"></p>
+        <ul id="list">
+            {{#each comments}}
+            <li>
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
                                 <span class="card-title">User: {{this.user}}</span>
                                 <p>{{this.comment}}</p>
-                                </div>
-                                <div class="card-action">
-                               <p>This comment has
-                   <inline class="upVote-{{this.id}}" data-upVote="{{this.upVotes}}">{{this.upVotes}}</inline> up votes and
-                   <inline class="downVote-{{this.id}}" data-downVote="{{this.downVotes}}">{{this.downVotes}}</inline> down votes</p>
-               <p>Busy:
-                   <inline class="busy-{{this.id}}">{{this.busy}}</inline>
-               </p>
-                                    <button data-id="{{this.id}}" data-voted="false" class="likeComment btn-flat"><i class="material-icons">thumb_up</i></button>
-                                   <button data-id="{{this.id}}" data-voted="false" class="dislikeComment btn-flat"><i class="material-icons">thumb_down</i></button>
-                                  <button data-id="{{this.id}}" class="deleteComment btn-floating btn-large waves-effect waves-light red" ><i class="material-icons">delete</i></button>
-                                </div>
                             </div>
+                            <div class="card-action">
+                                <p>This comment has
+                                    <inline class="upVote-{{this.id}}" data-upVote="{{this.upVotes}}">{{this.upVotes}}</inline> up votes and
+                                    <inline class="downVote-{{this.id}}" data-downVote="{{this.downVotes}}">{{this.downVotes}}</inline> down votes</p>
+                                <p>Busy:
+                                    <inline class="busy-{{this.id}}">{{this.busy}}</inline>
+                                </p>
+                                <button data-id="{{this.id}}" data-voted="false" class="likeComment btn-flat">
+                                    <i class="material-icons">thumb_up</i>
+                                </button>
+                                <button data-id="{{this.id}}" data-voted="false" class="dislikeComment btn-flat">
+                                    <i class="material-icons">thumb_down</i>
+                                </button>
+                                <button data-id="{{this.id}}" class="deleteComment btn-floating btn-large waves-effect waves-light red">
+                                    <i class="material-icons">delete</i>
+                                </button>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-           </li>
-           {{/each}}
-       </ul>
-   </div>
- 
-       
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+
+
 </body>
